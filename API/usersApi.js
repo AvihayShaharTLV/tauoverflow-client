@@ -39,3 +39,31 @@ export const updateUser = (userData) => {
         console.log(error);
       });
 }
+
+// From here - the updated queries!!! all of the abve - examples !!!!!!!
+
+export const getAllUserCourses = () => {
+  axios.post('http://localhost:5000/graphql', {
+      query: getAllUserCoursesQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export const getallCourseDiscussions = () => {
+  axios.post('http://localhost:5000/graphql', {
+      query: getAllCourseDiscussionsQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}

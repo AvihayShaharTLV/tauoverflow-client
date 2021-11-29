@@ -31,3 +31,46 @@ export const updateUserQuery = `mutation updateUser($id:Int!, $name: String!,  $
     }
 }`
 
+// From here - the updated functions!!! all of the abve - examples !!!!!!!
+
+
+export const getAllUserCoursesQuery = `{
+  allUsers {
+    nodes {
+      email
+      id
+      password
+      userCoursesByUid {
+        nodes {
+          cid
+          uid
+          courseByCid {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}`
+
+export const getAllCourseDiscussionsQuery = `{
+  allCourses {
+    nodes {
+      id
+      courseDiscussionsByCid {
+        nodes {
+          attachment
+          body
+          cid
+          createdAt
+          id
+          title
+          uid
+          updatedAt
+        }
+      }
+    }
+  }
+}`
+
