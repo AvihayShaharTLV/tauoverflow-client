@@ -74,3 +74,22 @@ export const getAllCourseDiscussionsQuery = `{
   }
 }`
 
+export const getAllTestByCourseQuery = `{
+  allCourses {
+    nodes {
+      id
+      testsByCid {
+        nodes {
+          cid
+          id
+          numQuestions
+          period
+          pid
+          semester
+          year
+        }
+      }
+    }
+  }
+}`
+

@@ -55,9 +55,22 @@ export const getAllUserCourses = () => {
     });
 }
 
-export const getallCourseDiscussions = () => {
+export const getAllCourseDiscussions = () => {
   axios.post('http://localhost:5000/graphql', {
       query: getAllCourseDiscussionsQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export const getAllTestByCourse = () => {
+  axios.post('http://localhost:5000/graphql', {
+      query: getAllTestByCourseQuery,
       variables: {}
     })
     .then(function (response) {
