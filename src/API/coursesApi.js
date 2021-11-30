@@ -1,4 +1,6 @@
 import { getAllCoursesQuery } from '../Queries/courseQueries'
+import { getAllCourseDiscussionsQuery } from '../Queries/courseQueries'
+import { getAllTestByCourseQuery } from '../Queries/courseQueries'
 import axios from 'axios'
 
 export const getAllCourses = () => {

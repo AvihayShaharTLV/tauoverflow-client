@@ -1,4 +1,4 @@
-import { getAllUsersQuery, createUserQuery, updateUserQuery } from '../Queries/userQueries'
+import { getAllUsersQuery, createUserQuery, updateUserQuery } from '../../Queries/userQueries'
 import axios from 'axios'
 
 export const getAllUsers = () => {
