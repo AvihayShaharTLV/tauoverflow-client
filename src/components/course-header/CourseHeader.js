@@ -1,7 +1,7 @@
 import H3 from "../../general-components/H3"
 import Button from "../../general-components/Button"
 
-const CourseHeader = ({ courseName, courseID, questionNum, button1Text, button2Text }) => {
+const CourseHeader = ({ isPopupOpen, setIsPopupOpen, courseName, courseID, questionNum, button1Text, button2Text }) => {
     return (
         <div className="flex w-full items-center justify-between mb-5 border-b py-2 dark:border-gray-600">
             <div>
@@ -11,7 +11,7 @@ const CourseHeader = ({ courseName, courseID, questionNum, button1Text, button2T
             </div>
             <div>
                 {button1Text && <Button text={button1Text} />}
-                {button2Text && <Button text={button2Text} />}
+                {button2Text && <Button text={button2Text} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen}/>}
             </div>
         </div>
     )
