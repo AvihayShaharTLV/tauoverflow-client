@@ -1,4 +1,4 @@
-import { getAllUsersQuery, createUserQuery, updateUserQuery } from '../../Queries/userQueries'
+import { getAllUsersQuery, createUserQuery, updateUserQuery, createUserCourseQurey, deleteUserCourseQurey } from '../../Queries/userQueries'
 import axios from 'axios'
 
 export const getAllUsers = () => {
@@ -54,3 +54,30 @@ export const getAllUserCourses = () => {
       console.log(error);
     });
 }
+
+export const createUserCourse = (userData) => {
+  axios.post('http://localhost:5000/graphql', {
+      query: createUserCourseQurey,
+      variables: {...userData}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export const deleteUserCourse = (userData) => {
+  axios.post('http://localhost:5000/graphql', {
+      query: deleteUserCourseQurey,
+      variables: {...userData}
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+

@@ -54,3 +54,22 @@ export const getAllUserCoursesQuery = `{
   }
 }`
 
+export const createUserCourseQurey = `mutation createUserCourse( {$uid: Int!, $cid: Int!) {
+  createUserCourse(input: {userCourse: {uid: $uid, cid: $cid}}
+    ) {
+      userCourse {
+        uid
+        cid
+      }
+    } 
+}`
+
+export const deleteUserCourseQurey = `mutation deleteUserCourse( {$uid: Int!, $cid: Int!) {
+  deleteUserCourse(input: {userCourse: {uid: $uid, cid: $cid}}
+    ) {
+      userCourse {
+        uid
+        cid
+      }
+    } 
+}`
