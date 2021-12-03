@@ -2,7 +2,7 @@ import Discussion from "./Discussion";
 import DiscussionsList from './DiscussionsList'
 import { useState } from "react";
 
-const Discussions = () => {
+const Discussions = ({isPopupOpen, setIsPopupOpen}) => {
 
     const [isDiscussionOpen, setIsDiscussionOpen] = useState(false);
 

@@ -1,7 +1,7 @@
 const Input = ({text, id, type}) => {
     return (
         <>
-            <div className="mx-1 col-span-6 sm:col-span-3">
+            <div dir="rtl" className="mx-2 mb-5 col-span-6 sm:col-span-3">
                 <label htmlFor={id} className="block dark:text-white text-sm font-medium text-gray-700">{text}</label>
                 <input
                     type={type}
