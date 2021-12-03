@@ -13,6 +13,7 @@ export const getAllCoursesQuery = `{
     allCourses {
       nodes {
         id
+        cid
         courseDiscussionsByCid {
           nodes {
             attachment
@@ -28,7 +29,7 @@ export const getAllCoursesQuery = `{
       }
     }
   }`
-  
+
   export const getAllTestByCourseQuery = `{
     allCourses {
       nodes {
@@ -47,5 +48,40 @@ export const getAllCoursesQuery = `{
       }
     }
   }`
-  
-  
+
+  export const getAllCourseDiscussionCommentsQuery = `{
+    allCourseDiscussions {
+      nodes {
+        id
+        courseCommentsByDid {
+          nodes {
+            attachment
+            body
+            did
+            createdAt
+            id
+            uid
+            updatedAt
+          }
+        }
+      }
+    }
+  }`
+
+  export const getAllCourseProfessorsQuery = `{
+    allCourses {
+      nodes {
+        id
+        courseProfessorsByCid {
+          nodes {
+            professorByPid {
+              id
+              name
+            }
+          }
+        }
+      }
+    }
+  }`
+
+ 
