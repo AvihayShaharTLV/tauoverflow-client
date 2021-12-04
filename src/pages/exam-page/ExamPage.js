@@ -7,15 +7,15 @@ import Discussion from "../../components/discussions/Discussion"
 // import { DocumentTextIcon } from '@heroicons/react/outline'
 import { useParams } from "react-router"
 
-const ExamPage = () => {
-    
+const ExamPage = ({setIsPopupOpen,isPopupOpen,setPopupType}) => {
     const IDs = useParams();
+    console.log(IDs);
 
     return (
         <>
             <div dir='rtl' className="flex shadow rounded-lg p-5 flex-col dark:bg-gray-900 mx-auto my-10 items-center max-w-5xl">
                 <div className="w-full">
-                    <CourseHeader courseName={'אלגוריתמים'} courseID={IDs.courseID} button1Text={'דיון חדש'} button2Text={'העלה פיתרון'} />
+                <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={'אלגוריתמים'} examID={IDs.examID} discussionBTN={'דיון חדש'} filesUploadBTN={'העלה טופס'} />
                     <div className="flex mr-5 dark:text-white">
                         <div className="my-2 mx-5">
                             <div>

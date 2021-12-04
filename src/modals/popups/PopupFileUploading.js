@@ -1,7 +1,5 @@
-import H3 from '../../general-components/H3'
 import { useState } from 'react';
 import Button from '../../general-components/Button';
-// import DropDownList from '../../general-components/DropDownList';
 import UploadFile from '../../general-components/UploadFile';
 import GroupedDDLs from '../../components/grouped-ddls/GroupedDDLs';
 
@@ -13,16 +11,14 @@ const PopupFileUploading = ({ setTitle }) => {
     
     const handleFileInput = (file) => {
         if (file.size > 10000000) {
-            alert("file uploading is limited up to 10MB")
-            return
+            alert("file uploading is limited up to 10MB");
+            return;
         }
         setSelectedFile(file);
     }
     const uploadFile = async () => {
         const { url } = await fetch("http://localhost:5000/s3Url?folderName=exams").then(ressponse => ressponse.json());
-        console.log("fetched URL from backend", url);
-
-        // post the image direclty to the s3 bucket
+        // console.log("fetched URL from backend", url);
         await fetch(url, {
             method: "PUT",
             headers: {
@@ -38,9 +34,6 @@ const PopupFileUploading = ({ setTitle }) => {
     return (
         <div className="flex flex-col items-center">
             <GroupedDDLs upload={true}/>
-            {/* <DropDownList text="שנה" id="year" list={generateArrayOfYears()} />
-            <DropDownList selected={findSemester()} text="סמסטר" id="semester" list={["א", "ב", "ג"]} />
-            <DropDownList text="מועד" id="semester" list={generateArrayOfYears()} /> */}
             <UploadFile handleFileInput={handleFileInput} />
             <Button text="Upload exam" clickHandler={uploadFile} />
             {s3ImageUrl != null && <a href={s3ImageUrl}>TRY TO DOWNLOAD THE FILE</a>}
