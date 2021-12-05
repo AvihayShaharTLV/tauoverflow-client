@@ -35,7 +35,7 @@ const PopupFileUploading = ({ setTitle }) => {
         <div className="flex flex-col items-center">
             <GroupedDDLs upload={true}/>
             <UploadFile handleFileInput={handleFileInput} />
-            <Button text="אישור" clickHandler={uploadFile} />
+            <Button text="Upload exam" clickHandler={uploadFile} />
             {s3ImageUrl != null && <a href={s3ImageUrl}>TRY TO DOWNLOAD THE FILE</a>}
         </div>
     )

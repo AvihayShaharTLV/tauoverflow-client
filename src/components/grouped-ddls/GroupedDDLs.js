@@ -1,25 +1,21 @@
-import { useState } from "react";
 import DropDownList from "../../general-components/DropDownList"
 import Input from '../../general-components/Input'
 
-
-const semestersList = ['א', 'ב', 'קיץ'];
-const duesList = ['א', 'ב', 'ג', 'מיוחד'];
+const year = ['2001', '2002', '2003', '2018'];
+const semester = ['א', 'ב', 'קיץ'];
+const due = ['א', 'ב', 'ג', 'מיוחד'];
 
 const GroupedDDLs = ({ upload }) => {
 
-    const [year, setYear] = useState(null);
-    const [semester, setSemester] = useState(null);
-    const [due, setDue] = useState(null);
-    const [maestro, setMaestro] = useState(null);
-    const [questionNum, setQuestionNum] = useState(null);
+    const generateArrayOfYears = (n) => {
+        let max = new Date().getFullYear()
+        let min = max - n
+        let years = []
 
-    const generateArrayOfLastYears = (n) => {
-        let years = [];
-        let maxYear = new Date().getFullYear();
-        let minYear = maxYear - n;
-        for (let i = maxYear; i >= minYear; i--) years.push(i);
-        return years;
+        for (var i = max; i >= min; i--) {
+            years.push(i)
+        }
+        return years
     }
 
     const findSemester = () => {
@@ -38,10 +34,10 @@ const GroupedDDLs = ({ upload }) => {
 
     return (
         <div dir="rtl" className="flex flex-col items-center my-2 w-full justify-center">
-            <div className="flex flex-col md:flex-row ">
-                <DropDownList selected={upload ? new Date().getFullYear() - new Date().getFullYear() - 1 : null} text={'שנה'} id={'year'} list={upload ? generateArrayOfLastYears(10) : generateArrayOfLastYears(20)} />
-                <DropDownList selected={upload ? findSemester() : null} text={'סמסטר'} id={'semester'} list={semestersList} />
-                <DropDownList text={'מועד'} id={'due'} list={duesList} />
+            <div className="flex md:flex-row ">
+                <DropDownList selected={upload ? new Date().getFullYear() - new Date().getFullYear()-1 : null} text={'שנה'} id={'year'} list={upload ? generateArrayOfYears(10) : generateArrayOfYears(20)} />
+                <DropDownList selected={upload ? findSemester() : null} text={'סמסטר'} id={'semester'} list={semester} />
+                <DropDownList text={'מועד'} id={'due'} list={due} />
             </div>
             {upload &&
                 <div className="flex md:flex-row">
