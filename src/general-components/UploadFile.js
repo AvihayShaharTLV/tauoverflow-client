@@ -11,7 +11,7 @@ const UploadFile = ({handleFileInput}) => {
                             strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <div className="flex text-sm text-gray-600">
-                        <label htmlFor="file-upload" className="relative cursor-pointer dark:bg-gray-800 px-2 py-1 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                        <label htmlFor="file-upload" className="relative cursor-pointer dark:bg-gray-900 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                             <span>העלה קובץ</span>
                             <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={(e) => handleFileInput(e.target.files[0])} />
                         </label>
