@@ -7,25 +7,27 @@ export const getAllCoursesQuery = `{
     }
   }`
 
+
 // From here - the updated functions!!! all of the abve - examples !!!!!!!
   
   export const getAllCourseDiscussionsQuery = `{
-    allCourses {
+    faculty(nodeId: "") {
+      englishName
+      hebrewName
+      id
+      nodeId
+    }
+    allCourseDiscussions {
       nodes {
-        id
+        attachment
+        body
         cid
-        courseDiscussionsByCid {
-          nodes {
-            attachment
-            body
-            cid
-            createdAt
-            id
-            title
-            uid
-            updatedAt
-          }
-        }
+        createdAt
+        id
+        nodeId
+        title
+        uid
+        updatedAt
       }
     }
   }`

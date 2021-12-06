@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import DropDownList from "../../general-components/DropDownList"
 import Input from '../../general-components/Input'
 
@@ -6,13 +6,13 @@ import Input from '../../general-components/Input'
 const semestersList = ['א', 'ב', 'קיץ'];
 const duesList = ['א', 'ב', 'ג', 'מיוחד'];
 
-const GroupedDDLs = ({ upload }) => {
+const GroupedDDLs = ({ upload, setYear, setSemester, setDue }) => {
 
-    const [year, setYear] = useState(null);
-    const [semester, setSemester] = useState(null);
-    const [due, setDue] = useState(null);
-    const [maestro, setMaestro] = useState(null);
-    const [questionNum, setQuestionNum] = useState(null);
+    // const [year, setYear] = useState(null);
+    // const [semester, setSemester] = useState(null);
+    // const [due, setDue] = useState(null);
+    // const [maestro, setMaestro] = useState(null);
+    // const [questionNum, setQuestionNum] = useState(null);
 
     const generateArrayOfLastYears = (n) => {
         let years = [];
@@ -46,7 +46,7 @@ const GroupedDDLs = ({ upload }) => {
             {upload &&
                 <div className="flex md:flex-row">
                     <Input text={'מרצה'} id={'maestro'} type={'text'} />
-                    <Input text={'מספר שאלות'} id={'questionsNumber'} type={'text'} />
+                    <Input text={'מספר שאלות'} id={'questionsNumber'} type={'number'} />
                 </div>}
         </div>
 

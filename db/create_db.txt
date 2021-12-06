@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS public.course_discussions
 (
     id integer NOT NULL DEFAULT nextval('course_discussions_id_seq'::regclass),
     uid integer NOT NULL,
-    cid character NOT NULL,
+    cid character(15) NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     title character varying(100) COLLATE pg_catalog."default" NOT NULL,
