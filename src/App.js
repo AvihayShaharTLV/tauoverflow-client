@@ -15,8 +15,8 @@ import { useEffect, useState } from 'react';
 const App = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState("");
-  
 
+  
   useEffect(() => {
     if (isPopupOpen){
       document.getElementById("mainDiv").classList.add("filter");
@@ -29,19 +29,20 @@ const App = () => {
       document.getElementById("mainDiv").classList.remove("pointer-events-none");
     }
   }, [isPopupOpen]);
+
   return (
     <div className="min-h-screen">
       <Nav />
-      {isPopupOpen && <Popup popupType={popupType} setIsPopupOpen={setIsPopupOpen}/>}
+      {isPopupOpen && <Popup popupType={popupType} setIsPopupOpen={setIsPopupOpen} />}
       <div id="mainDiv">
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/course/:courseID" element={<CoursePage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-            <Route path="/course/:courseID/exam/:examID" element={<ExamPage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-            <Route path="/course/:courseID/exam/:examID/question/:questionID" element={<QuestionPage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+            <Route path="/course=:courseID" element={<CoursePage  setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+            <Route path="/course=:courseID/exam=:examID" element={<ExamPage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+            <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
             <Route path="/profile" element={<PersonalInfo />} />
 
           </Routes>

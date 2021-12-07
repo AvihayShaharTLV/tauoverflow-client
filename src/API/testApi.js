@@ -59,13 +59,13 @@ export const updateTestNumQuestions = (userData) => {
     });
 }
 
-export const createTest = (userData) => {
-  axios.post('http://localhost:5000/graphql', {
+export const createTest = (object) => {
+  return axios.post('http://localhost:5000/graphql', {
       query: createTestQuery,
-      variables: {...userData}
+      variables: object
     })
     .then(function (response) {
-      console.log(response);
+      return response;
     })
     .catch(function (error) {
       console.log(error);

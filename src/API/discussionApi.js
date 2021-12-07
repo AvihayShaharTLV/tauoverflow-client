@@ -1,20 +1,20 @@
-import { createCourseDiscussionQuery } from '../Queries/CommentQueries'
-import { updateCourseDiscussionQuery } from '../Queries/CommentQueries'
-import { createTestDiscussionQuery } from '../Queries/CommentQueries'
-import { updateTestDiscussionQuery } from '../Queries/CommentQueries'
-import { createQuestionDiscussionQuery } from '../Queries/CommentQueries'
-import { updateQuestionDiscussionQuery } from '../Queries/CommentQueries'
+import { createCourseDiscussionQuery } from '../Queries/discussionQueries'
+import { updateCourseDiscussionQuery } from '../Queries/discussionQueries'
+import { createTestDiscussionQuery } from '../Queries/discussionQueries'
+import { updateTestDiscussionQuery } from '../Queries/discussionQueries'
+import { createQuestionDiscussionQuery } from '../Queries/discussionQueries'
+import { updateQuestionDiscussionQuery } from '../Queries/discussionQueries'
 
 import axios from 'axios'
 
 // Comment functions
-export const createCourseDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+export const createCourseDiscussion = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createCourseDiscussionQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response
       })
       .catch(function (error) {
         console.log(error);
@@ -34,13 +34,13 @@ export const createCourseDiscussion = (userData) => {
       });
   }
 
-  export const createTestDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+  export const createTestDiscussion = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createTestDiscussionQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);

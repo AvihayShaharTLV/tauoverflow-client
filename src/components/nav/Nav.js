@@ -3,7 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon, SunIcon, MoonIcon } from '@heroicons/react/solid'
 import { BookmarkAltIcon, CalendarIcon, ChartBarIcon, CursorClickIcon, MenuIcon, PhoneIcon, PlayIcon, RefreshIcon, ShieldCheckIcon, SupportIcon, ViewGridIcon, XIcon, } from '@heroicons/react/outline'
 import useDarkMode from '../../hooks/useDarkMode'
-import useUserLogged from '../../hooks/useUserLogged'
+// import useUserLogged from '../../hooks/useUserLogged'
 // import { Link } from 'react-router-dom'
 
 const solutions = [
@@ -69,7 +69,7 @@ const classNames = (...classes) => {
 
 const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useDarkMode();
-  const [isLogged, setIsLogged] = useUserLogged();
+  // const [isLogged, setIsLogged] = useUserLogged();
 
   return (
     <Popover className="bg-white sticky top-0 z-10 dark:bg-black dark:text-white">
@@ -225,7 +225,8 @@ const Nav = () => {
             </Popover>
           </Popover.Group>
 
-          {!isLogged && <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          {/* {!isLogged && <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0"> */}
+          {true && <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
             <a href="/login" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-400 dark:text-white">
               התחבר
             </a>
@@ -237,7 +238,8 @@ const Nav = () => {
           </div>}
 
           {/* Large Nav Profile Picture */}
-          {isLogged &&
+          {/* {isLogged && */}
+          {false &&
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 ">
               <a href="/profile">
                 <div className="mx-2">
