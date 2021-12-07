@@ -9,9 +9,9 @@ const Popup = ({ popupType, setIsPopupOpen }) => {
     const renderPopup = () => {
         switch (popupType) {
             case "discussion":
-                return <PopupDiscussion setTitle={setTitle} />
+                return <PopupDiscussion setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} />
             case "file":
-                return <PopupFileUploading setTitle={setTitle} />
+                return <PopupFileUploading setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} />
             default:
                 return "";
         }

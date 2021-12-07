@@ -14,7 +14,7 @@ const ExamsList = () => {
                 <H3 text={'מבחנים'} />
             </div>
             <div className="flex flex-wrap justify-center">
-               {exams.map((exam,index) => <Link key={index} to={`/course/${IDs.courseID}/exam/${index+1}`}><ExamExample /></Link>)}
+               {exams.map((exam,index) => <Link key={index} to={`/course=${IDs.courseID}/exam=${index+1}`}><ExamExample /></Link>)}
             </div>
             {/* <div className="shadow p-5 rounded-xl cursor-pointer">
                 <p>שנה: 2005</p>

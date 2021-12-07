@@ -31,9 +31,9 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion }) => {
     return (
         <div className="relative dark:text-white w-full dark:bg-gray-900 dark:bg-opacity-20 py-3 px-5 rounded-xl">
             <div className="text-center  dark:bg-transparent mb-1 p-3 rounded-xl">
-                <H3 text={selectedDiscussion.id+1 + ". " +selectedDiscussion.title} />
+                <H3 text={selectedDiscussion[1] + ". " +selectedDiscussion[0].title} />
                 <p onClick={() => setSelectedDiscussion(null)} className="absolute -top-3 text-white -left-3 w-8 h-8 bg-indigo-600 hover:bg-indigo-700 rounded-full text-xl cursor-pointer">&times;</p>
-                <p className="text-right mt-3 break-words">{selectedDiscussion.text}</p>
+                <p className="text-right mt-3 break-words">{selectedDiscussion[0].body}</p>
                 <div className="flex justify-around items-center mt-2">
                     <p dir="ltr" className="font-semibold">@dsadsa</p>
                     <div className="flex items-center">
@@ -41,7 +41,7 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion }) => {
                             <ThumbUpIcon className="h-5 w-5" />
                             <p className=" text-md">2</p>
                         </div>
-                        <p className="mx-2 text-sm">{selectedDiscussion.date}</p>
+                        <p className="mx-2 text-sm">{(new Date(selectedDiscussion[0].createdAt)).toUTCString().replace("GMT", "")}</p>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ import { getAllDepartments } from '../../API/departmentApi'
 import { getAllCourses } from '../../API/courseApi'
 import { getAllCoursesInDepartments } from '../../API/departmentApi'
 import { useEffect, useState } from "react"
+import ExamsList from "../../components/exams-list/ExamsList"
 
 const HomePage = () => {
 
@@ -19,21 +20,6 @@ const HomePage = () => {
     const [deparments, setDepartments] = useState([]);
     const [courses, setCourses] = useState([]);
     const [coursesInDepartments, setCoursesInDepartments] = useState([]);
-
-
-    // useEffect(async () => {
-    //     // get all data from postgres
-    //     const facList = getAllFaculties();
-    //     const dptList = getAllDepartments();
-    //     const crsList = getAllCourses();
-    //     const cidList = getAllCoursesInDepartments();
-    //     Promise.all([facList, dptList, crsList, cidList]).then(values => {
-    //         setFaculties(values[0].data.data.allFaculties.nodes);
-    //         setDepartments(values[1].data.data.allDepartments.nodes);
-    //         setCourses(values[2].data.data.allCourses.nodes);
-    //         setCoursesInDepartments(values[3].data.data.allCoursesInDepartments.nodes)
-    //     })
-    // }, []);
 
     useEffect(() => {
         (async () => {
@@ -55,7 +41,6 @@ const HomePage = () => {
         })()
     }, [])
 
-
     useEffect(() => {
         setIsDDL2changed(null);
         setIsDDL3changed(null);
@@ -64,11 +49,6 @@ const HomePage = () => {
     useEffect(() => {
         setIsDDL3changed(null);
     }, [isDDL2changed])
-    // useEffect(()=>{
-    //     console.log(isDDL3changed)
-    //     console.log(coursesInDepartments)
-    // },[isDDL3changed])
-
 
     const createList = (value, type) => {
         let list = [];
@@ -78,14 +58,14 @@ const HomePage = () => {
                 break;
             case 'department':
                 value.forEach(item => {
-                    if (item.facultyId === isDDL1changed) list.push({ id: item.id, name: item.hebrewName })
-                });
+                    if (item.facultyId.toString() === isDDL1changed) list.push({ id: item.id, name: item.hebrewName })
+                })
                 break;
             case 'course':
                 // check which courses are in this specific department
                 let coursesList = []
                 coursesInDepartments.forEach(item => {
-                    if (item.departmentId === isDDL2changed) coursesList.push(item.courseId);
+                    if (item.departmentId.toString() === isDDL2changed) coursesList.push(item.courseId);
                 });
                 // filter all the courses and keep only the ones that match
                 value.forEach(item => {
@@ -99,16 +79,14 @@ const HomePage = () => {
     }
 
     return (
-        <div dir='rtl' className="my-10 flex items-center justify-center ">
+        <div dir='rtl' className="my-10 flex flex-col items-center justify-center ">
             <div className="flex flex-col items-center p-5 shadow rounded-lg dark:bg-gray-900">
                 <div className="mx-6 flex">
                     <DropDownList text={'פקולטה'} list={createList(faculties, 'faculty')} object={isDDL1changed} setObject={setIsDDL1changed} />
                     <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />
                     <DropDownList text={'קורס'} list={createList(courses, 'course')} object={isDDL3changed} setObject={setIsDDL3changed} />
-                    {/* {isDDL1changed && <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />}
-                    {isDDL1changed && isDDL2changed && <DropDownList text={'קורס'} list={createList(courses, 'course')} object={isDDL3changed} setObject={setIsDDL3changed} />} */}
                 </div>
-                <Link to={isDDL3changed ? '/course/' + isDDL3changed : '#'}>
+                <Link to={isDDL3changed ? '/course=' + isDDL3changed : '#'}>
                     <div className="mx-6">
                         <Button text={'חפש'} />
                     </div>

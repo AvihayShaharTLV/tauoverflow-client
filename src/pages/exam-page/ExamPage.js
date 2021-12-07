@@ -3,12 +3,36 @@ import QuestionSelector from "../../components/question-selector/QuestionSelecto
 import H4 from "../../general-components/H4"
 import { DocumentTextIcon } from '@heroicons/react/solid'
 // import { DocumentTextIcon } from '@heroicons/react/outline'
+import { getAllCourseDiscussions } from "../../API/courseApi";
+import { getAllCourses } from '../../API/courseApi'
 import { useParams } from "react-router"
+import { useState, useEffect } from "react"
 import Discussions from "../../components/discussions/Discussions"
 
 const ExamPage = ({setIsPopupOpen,isPopupOpen,setPopupType}) => {
+    const [courseName, setCourseName] = useState('');
+    const [discussions, setDiscussions] = useState([]);
     const IDs = useParams();
-    // console.log(IDs);
+
+    useEffect(() => {
+        (async () => {
+            try {
+                let response = await getAllCourseDiscussions();
+                const allDiscussions = response?.data?.data?.allCourseDiscussions?.nodes;
+                response = await getAllCourses();
+                let allCourses = response?.data?.data?.allCourses?.nodes;
+                allCourses.forEach(course =>{
+                    if(course.id === IDs.courseID){
+                        setCourseName(course.name);
+                    }
+                });
+                setDiscussions(allDiscussions.filter(discussion => IDs.courseID === discussion.cid.trim()));
+            }
+            catch (error) {
+                console.log(error);
+            }
+        })()
+    }, [])
 
     return (
         <>
@@ -47,7 +71,7 @@ const ExamPage = ({setIsPopupOpen,isPopupOpen,setPopupType}) => {
                             </div>
                         </div>
                     </div>
-                    <Discussions/>
+                    <Discussions discussions={discussions}/>
                     <QuestionSelector />
                 </div>
             </div>
