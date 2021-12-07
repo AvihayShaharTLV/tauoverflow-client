@@ -125,17 +125,12 @@ INSERT INTO public.questions_user_rate(
 -- Course Discussions
 INSERT INTO public.course_discussions(
 	id, uid, cid, created_at, updated_at, title, body, attachment)
-	VALUES (1, 1, 1, current_timestamp, current_timestamp, 'course_dis1', 'a', '');
+	VALUES (1, 1, '0368-1118', current_timestamp, current_timestamp, 'course_dis1', 'a', '');
 
 
 INSERT INTO public.course_discussions(
 	id, uid, cid, created_at, updated_at, title, body, attachment)
-	VALUES (2, 2, 1, current_timestamp, current_timestamp, 'course_dis2', 'a', '');
-
-
-INSERT INTO public.course_discussions(
-	id, uid, cid, created_at, updated_at, title, body, attachment)
-	VALUES (3, 3, 3, current_timestamp, current_timestamp, 'course_dis3', 'a', '');
+	VALUES (2, 2, '0881-1103', current_timestamp, current_timestamp, 'course_dis2', 'a', '');
 
 -- Test discussions
 INSERT INTO public.test_discussions(
