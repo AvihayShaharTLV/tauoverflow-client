@@ -39,12 +39,12 @@ export const getAllQuestionsUserRate = () => {
 }
 
 export const  getAllQuestionDiscussions = () => {
-  axios.post('http://localhost:5000/graphql', {
+  return axios.post('http://localhost:5000/graphql', {
       query: getAllQuestionDiscussionsQuery,
       variables: {}
     })
     .then(function (response) {
-      console.log(response);
+      return response;
     })
     .catch(function (error) {
       console.log(error);

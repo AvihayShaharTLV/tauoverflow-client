@@ -1,8 +1,8 @@
 import { getAllCoursesQuery } from '../Queries/courseQueries'
 import { getAllCourseDiscussionsQuery } from '../Queries/courseQueries'
+import { getAllCourseDiscussionCommentsQuery } from '../Queries/courseQueries'
 // import { getAllTestDiscussionsQuery } from '../Queries/courseQueries'
 // import { getAllTestByCourseQuery } from '../Queries/courseQueries'
-// import { getAllCourseDiscussionCommentsQuery } from '../Queries/courseQueries'
 // import { getAllCourseProfessorsQuery } from '../Queries/courseQueries'
 // import { getAllTestDiscussionsCommentsQuery } from '../Queries/courseQueries'
 
@@ -49,18 +49,18 @@ export const getAllCourseDiscussions = () => {
 //     });
 // }
 
-// export const getAllCourseDiscussionComments = () => {
-//   axios.post('http://localhost:5000/graphql', {
-//       query: getAllCourseDiscussionCommentsQuery,
-//       variables: {}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+export const getAllCourseDiscussionComments = () => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: getAllCourseDiscussionCommentsQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
 // export const getAllCourseProfessors = () => {
 //   axios.post('http://localhost:5000/graphql', {

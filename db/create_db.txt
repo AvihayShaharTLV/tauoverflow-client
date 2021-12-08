@@ -290,7 +290,6 @@ CREATE TABLE IF NOT EXISTS public.tests
     period character(10) COLLATE pg_catalog."default" NOT NULL,
     pid integer NOT NULL,
     num_questions integer NOT NULL,
-    download_link text NOT NULL,
     CONSTRAINT tests_pkey PRIMARY KEY (id),
     CONSTRAINT tests_cid_fkey FOREIGN KEY (cid)
         REFERENCES public.courses (id) MATCH SIMPLE
@@ -368,6 +367,8 @@ CREATE TABLE IF NOT EXISTS public.test_comments
     id integer NOT NULL DEFAULT nextval('test_comments_id_seq'::regclass),
     uid integer NOT NULL,
     did integer NOT NULL,
+    tid integer NOT NULL,
+    cid character(15) NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,

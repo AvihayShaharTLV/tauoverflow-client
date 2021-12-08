@@ -1,48 +1,42 @@
-  // Test level queries
+// Test level queries
 
-  export const getAllTestDiscussionsQuery = `{
-    allTests {
-      nodes {
-        id
-        cid
-        testDiscussionsByTid {
-          nodes {
-            attachment
-            body
-            cid
-            createdAt
-            id
-            tid
-            title
-            uid
-            updatedAt
-          }
-        }
-      }
-    }
-  }`
-
-  export const getAllTestDiscussionsCommentsQuery = `{
+export const getAllTestDiscussionsQuery = `query MyQuery {
     allTestDiscussions {
       nodes {
+        attachment
+        body
+        cid
+        createdAt
         id
+        nodeId
         tid
-        testCommentsByDid {
-          nodes {
-            attachment
-            body
-            createdAt
-            did
-            id
-            uid
-            updatedAt
-          }
-        }
+        title
+        uid
+        updatedAt
       }
     }
-  }`
- 
-  export const getTestNumQuestionsQuery = `{
+  }
+  `
+
+export const getAllTestDiscussionsCommentsQuery = `
+  query MyQuery {
+    allTestComments {
+      nodes {
+        attachment
+        body
+        cid
+        createdAt
+        did
+        id
+        tid
+        uid
+        updatedAt
+      }
+    }
+  }
+  `
+
+export const getTestNumQuestionsQuery = `{
     allTests {
       nodes {
         id
@@ -51,7 +45,7 @@
     }
   }`
 
-  export const updateTestNumQuestionsQuery = `mutation updateTestById($id:Int!, $numQuestions: Int!) {
+export const updateTestNumQuestionsQuery = `mutation updateTestById($id:Int!, $numQuestions: Int!) {
     updateTestById(input:{id : $id , testPatch:{numQuestions: $numQuestions}}
     ) {
         test {
@@ -61,7 +55,7 @@
     }
 }`
 
- 
+
 export const createTestQuery = `mutation createTest( $cid: String!, $year: Int!, $semester: String!, $period: String!, $pid: Int!, $numQuestions: Int!, $downloadLink: String!) {
   createTest(input: {test: {cid: $cid, year: $year, semester: $semester, period: $period, pid: $pid, numQuestions: $numQuestions, downloadLink: $downloadLink}}
     ) {
