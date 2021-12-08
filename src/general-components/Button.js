@@ -1,9 +1,14 @@
+import { useParams } from "react-router"
+
 const Button = ({ clickHandler, text, isPopupOpen, setIsPopupOpen, disabled, setPopupType, type }) => {
+
+    const IDs = useParams();
+
     if (setIsPopupOpen) {
         return <button
             onClick={() => {
                 setIsPopupOpen(!isPopupOpen);
-                setPopupType(type);
+                setPopupType(type === 'discussion' ? 'discussion' : IDs.examID ? 'solution' : 'exam');
             }
             }
             disabled={disabled ? true : false}

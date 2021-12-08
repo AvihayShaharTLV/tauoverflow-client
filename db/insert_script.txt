@@ -71,16 +71,16 @@ INSERT INTO public.course_professors(
 -- Tests
 INSERT INTO public.tests(
 	id, cid, year, semester, period, pid, num_questions)
-	VALUES (1, 1, '2021', 'a', 'a', 1, 2);
+	VALUES (1, '0881-1103', '2021', 'a', 'a', 1, 2);
 INSERT INTO public.tests(
 	id, cid, year, semester, period, pid, num_questions)
-	VALUES (2, 1, '2021', 'a', 'b', 1, 1);
+	VALUES (2, '0881-1103', '2021', 'a', 'b', 1, 1);
 INSERT INTO public.tests(
 	id, cid, year, semester, period, pid, num_questions)
-	VALUES (3, 2, '2021', 'a', 'a', 2, 1);
+	VALUES (3, '0881-1101', '2021', 'a', 'a', 2, 1);
 INSERT INTO public.tests(
 	id, cid, year, semester, period, pid, num_questions)
-	VALUES (4, 2, '2021', 'a', 'b', 2, 1);
+	VALUES (4, '0881-1101', '2021', 'a', 'b', 2, 1);
 
 -- Questions
 INSERT INTO public.questions(

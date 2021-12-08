@@ -4,6 +4,7 @@ import H4 from "../../general-components/H4"
 import { DocumentTextIcon } from '@heroicons/react/solid'
 // import { DocumentTextIcon } from '@heroicons/react/outline'
 import { getAllCourseDiscussions } from "../../API/courseApi";
+import { getAllTests } from "../../API/testApi";
 import { getAllCourses } from '../../API/courseApi'
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
@@ -12,7 +13,6 @@ import Discussions from "../../components/discussions/Discussions"
 const ExamPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
 
     const [courseName, setCourseName] = useState('');
-    const [discussions, setDiscussions] = useState([]);
     const IDs = useParams();
 
     useEffect(() => {
@@ -25,6 +25,8 @@ const ExamPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated })
                         setCourseName(course.name);
                     }
                 });
+                const tests = await getAllTests();
+                console.log(tests.data)
             }
             catch (error) {
                 console.log(error);

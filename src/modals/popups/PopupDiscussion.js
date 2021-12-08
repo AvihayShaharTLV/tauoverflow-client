@@ -14,8 +14,6 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
     if (params[1]) examID = params[1].split('=')[1];
     if (params[2]) questionNum = params[2].split('=')[1];
 
-    console.log(courseID, examID, questionNum);
-
     const [inputTitle, setInputTitle] = useState("");
     const [description, setDescription] = useState("");
     const [isBTNdisabled, setIsBTNdisabled] = useState(false);
