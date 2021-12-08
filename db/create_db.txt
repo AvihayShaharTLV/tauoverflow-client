@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS public.course_discussions
     attachment text COLLATE pg_catalog."default",
     CONSTRAINT course_discussions_pkey PRIMARY KEY (id),
     CONSTRAINT course_discussions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
+        REFERENCES public.courses (id) 
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -123,7 +123,7 @@ CREATE TRIGGER set_timestamp
     ON public.course_comments
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
-	
+
 	
 -- Table: public.questions
 
@@ -237,13 +237,55 @@ CREATE TABLE IF NOT EXISTS public.tests
     id integer NOT NULL DEFAULT nextval('tests_id_seq'::regclass),
     cid character(15) NOT NULL,
     year smallint NOT NULL,
+    questions_num smallint NOT NULL,
     semester character(10) COLLATE pg_catalog."default" NOT NULL,
     period character(10) COLLATE pg_catalog."default" NOT NULL,
     pid integer NOT NULL,
-    num_questions integer NOT NULL,
     CONSTRAINT tests_pkey PRIMARY KEY (id),
     CONSTRAINT tests_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
+        REFERENCES public.courses (id) 
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+CREATE SEQUENCE solution_id_seq;
+
+-- Table: public.solutions
+
+-- DROP TABLE IF EXISTS public.solutions;
+
+CREATE TABLE IF NOT EXISTS public.solutions
+(
+    id integer NOT NULL DEFAULT nextval('solution_id_seq'::regclass),
+    tid integer NOT NULL,
+    cid character(15) NOT NULL,
+    pid integer NOT NULL,
+    download_link text NOT NULL,
+    CONSTRAINT solutions_pkey PRIMARY KEY (id),
+    CONSTRAINT solutions_cid_fkey FOREIGN KEY (cid)
+        REFERENCES public.courses (id) 
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+CREATE SEQUENCE exam_id_seq;
+
+-- Table: public.exams
+
+-- DROP TABLE IF EXISTS public.exams;
+
+CREATE TABLE IF NOT EXISTS public.exams
+(
+    id integer NOT NULL DEFAULT nextval('exam_id_seq'::regclass),
+    tid integer NOT NULL,
+    cid character(15) NOT NULL,
+    pid integer NOT NULL,
+    download_link text NOT NULL,
+    CONSTRAINT exams_pkey PRIMARY KEY (id),
+    CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
+        REFERENCES public.courses (id) 
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -278,7 +320,7 @@ CREATE TABLE IF NOT EXISTS public.test_discussions
     attachment text COLLATE pg_catalog."default",
     CONSTRAINT test_discussions_pkey PRIMARY KEY (id),
     CONSTRAINT test_discussions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
+        REFERENCES public.courses (id) 
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID,
@@ -380,12 +422,12 @@ CREATE TABLE IF NOT EXISTS public.user_courses
     cid character VARYING(20) NOT NULL,
     CONSTRAINT user_courses_pkey PRIMARY KEY (uid, cid),
     CONSTRAINT user_courses_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
+        REFERENCES public.courses (id) 
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID,
     CONSTRAINT user_courses_uid_fkey FOREIGN KEY (uid)
-        REFERENCES public.users (id)
+        REFERENCES public.users (id) 
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
