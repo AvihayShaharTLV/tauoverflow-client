@@ -123,56 +123,7 @@ CREATE TRIGGER set_timestamp
     ON public.course_comments
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
-
-
-
-CREATE SEQUENCE professors_id_seq;
-
--- Table: public.professors
-
--- DROP TABLE IF EXISTS public.professors;
-
-CREATE TABLE IF NOT EXISTS public.professors
-(
-    id integer NOT NULL DEFAULT nextval('professors_id_seq'::regclass),
-    name character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    CONSTRAINT professors_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.professors
-    OWNER to postgres;
 	
-
-
--- Table: public.course_professors
-
--- DROP TABLE IF EXISTS public.course_professors;
-
-CREATE TABLE IF NOT EXISTS public.course_professors
-(
-    cid character NOT NULL,
-    pid integer NOT NULL,
-    CONSTRAINT course_professors_pkey PRIMARY KEY (cid, pid),
-    CONSTRAINT course_professors_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID,
-    CONSTRAINT course_professors_pid_fkey FOREIGN KEY (pid)
-        REFERENCES public.professors (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.course_professors
-    OWNER to postgres;
-	
-
 	
 -- Table: public.questions
 
@@ -426,7 +377,7 @@ ALTER TABLE IF EXISTS public.users
 CREATE TABLE IF NOT EXISTS public.user_courses
 (
     uid integer NOT NULL,
-    cid character NOT NULL,
+    cid character VARYING(20) NOT NULL,
     CONSTRAINT user_courses_pkey PRIMARY KEY (uid, cid),
     CONSTRAINT user_courses_cid_fkey FOREIGN KEY (cid)
         REFERENCES public.courses (id) MATCH SIMPLE
@@ -434,11 +385,12 @@ CREATE TABLE IF NOT EXISTS public.user_courses
         ON DELETE NO ACTION
         NOT VALID,
     CONSTRAINT user_courses_uid_fkey FOREIGN KEY (uid)
-        REFERENCES public.users (id) MATCH SIMPLE
+        REFERENCES public.users (id)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
 )
+
 
 TABLESPACE pg_default;
 

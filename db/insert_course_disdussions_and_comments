@@ -1,0 +1,34 @@
+-- Discussion 1 + 2 comments - course 0103-0032
+INSERT INTO public.course_discussions(
+	id, uid, cid, created_at, updated_at, title, body, attachment)
+	VALUES (1, 1, '0103-0032', current_timestamp, current_timestamp, 'תנאי אי וודאות','מישהו היה בשיעור האחרון ויודע אם הנושא הזה בחומר השנה?', '');
+	
+INSERT INTO public.course_comments(
+	id, uid, did, cid, created_at, updated_at, body, attachment)
+	VALUES (1, 2, 1, '0103-0032', current_timestamp, current_timestamp, 'ככל הנראה כן, אמר שידבר על זה בהרחבה בהמשך', '');
+
+INSERT INTO public.course_comments(
+	id, uid, did, cid, created_at, updated_at, body, attachment)
+	VALUES (2, 3, 1, '0103-0032', current_timestamp, current_timestamp, 'זה גם מופיע בסילבוס', '');
+
+-- Discussion 2 + 2 comments - course 0161-1121
+INSERT INTO public.course_discussions(
+	id, uid, cid, created_at, updated_at, title, body, attachment)
+	VALUES (2, 6, '0161-1121', current_timestamp, current_timestamp, 'שאלות בנושא הגפיים', 'למישהו יש קובץ שאלות בנושאי הגפיים?', '');
+
+INSERT INTO public.course_comments(
+	id, uid, did, cid, created_at, updated_at, body, attachment)
+	VALUES (3, 7, 2, '0161-1121', current_timestamp, current_timestamp, 'אשמח גם, תודה רבה','');
+
+INSERT INTO public.course_comments(
+	id, uid, did, cid, created_at, updated_at, body, attachment)
+	VALUES (4, 8, 2, '0161-1121', current_timestamp, current_timestamp, 'מצורף קובץ שמצאתי באתר של אונ׳ סטנפורד','');
+
+-- Discussion 3 + 1 comment - course 0161-1121
+INSERT INTO public.course_discussions(
+	id, uid, cid, created_at, updated_at, title, body, attachment)
+	VALUES (3, 9, '0161-1121', current_timestamp, current_timestamp,'תורשה','מישהו יודע מה למדו בנושא תורשה בסמסטר הזה? ','');
+
+INSERT INTO public.course_comments(
+	id, uid, did, cid, created_at, updated_at, body, attachment)
+	VALUES (5, 8, 3, '0161-1121', current_timestamp, current_timestamp, 'לדעתי למדו רק מושגים בסיסיים ברבייה ביולוגית','');
