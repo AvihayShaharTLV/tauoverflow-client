@@ -9,8 +9,8 @@ export const getAllCoursesQuery = `{
 
 
 // From here - the updated functions!!! all of the abve - examples !!!!!!!
-  
-  export const getAllCourseDiscussionsQuery = `{
+
+export const getAllCourseDiscussionsQuery = `{
     faculty(nodeId: "") {
       englishName
       hebrewName
@@ -32,7 +32,7 @@ export const getAllCoursesQuery = `{
     }
   }`
 
-  export const getAllTestByCourseQuery = `{
+export const getAllTestByCourseQuery = `{
     allCourses {
       nodes {
         id
@@ -51,26 +51,23 @@ export const getAllCoursesQuery = `{
     }
   }`
 
-  export const getAllCourseDiscussionCommentsQuery = `{
-    allCourseDiscussions {
-      nodes {
-        id
-        courseCommentsByDid {
-          nodes {
-            attachment
-            body
-            did
-            createdAt
-            id
-            uid
-            updatedAt
-          }
-        }
-      }
+export const getAllCourseDiscussionCommentsQuery = `
+query MyQuery {
+  allCourseComments {
+    nodes {
+      attachment
+      body
+      cid
+      createdAt
+      did
+      id
+      uid
+      updatedAt
     }
-  }`
+  }
+}`
 
-  export const getAllCourseProfessorsQuery = `{
+export const getAllCourseProfessorsQuery = `{
     allCourses {
       nodes {
         id
@@ -86,4 +83,3 @@ export const getAllCoursesQuery = `{
     }
   }`
 
- 

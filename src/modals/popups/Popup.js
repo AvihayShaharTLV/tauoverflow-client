@@ -3,13 +3,13 @@ import H3 from "../../general-components/H3";
 import PopupDiscussion from "./PopupDiscussion";
 import PopupFileUploading from "./PopupFileUploading";
 
-const Popup = ({ popupType, setIsPopupOpen }) => {
+const Popup = ({ popupType, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
     const [title, setTitle] = useState("");
 
     const renderPopup = () => {
         switch (popupType) {
             case "discussion":
-                return <PopupDiscussion setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} />
+                return <PopupDiscussion setIsPopupOpen={setIsPopupOpen} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} setTitle={setTitle} />
             case "file":
                 return <PopupFileUploading setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} />
             default:

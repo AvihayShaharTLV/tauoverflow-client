@@ -47,13 +47,13 @@ export const createCourseDiscussion = (object) => {
       });
   }
 
-  export const updateTestDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+  export const updateTestDiscussion = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: updateTestDiscussionQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);

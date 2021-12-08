@@ -6,7 +6,6 @@ import { getAllDepartments } from '../../API/departmentApi'
 import { getAllCourses } from '../../API/courseApi'
 import { getAllCoursesInDepartments } from '../../API/departmentApi'
 import { useEffect, useState } from "react"
-import ExamsList from "../../components/exams-list/ExamsList"
 
 const HomePage = () => {
 

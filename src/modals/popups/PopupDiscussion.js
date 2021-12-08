@@ -5,7 +5,7 @@ import TextArea from '../../general-components/TextArea';
 import { createCourseDiscussion } from '../../API/discussionApi'
 import { createTestDiscussion } from '../../API/discussionApi'
 
-const PopupDiscussion = ({ setTitle, setIsPopupOpen }) => {
+const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
 
     let params = window.location.href.split('/').slice(3);
     let courseID, examID, questionNum;
@@ -25,52 +25,52 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen }) => {
     const postDiscussion = async (e) => {
         setIsBTNdisabled(true);
 
-        const courseID = window.location.href.split('=').slice(-1)[0];
-        console.log(courseID);
-
-        console.log('title length:', inputTitle.trim().length);
+        // if the title is empty, don't let the user commit the discussion!
         if (inputTitle.trim().length <= 0) {
             alert("Discussion must have a title");
             setIsBTNdisabled(false);
             return;
         }
 
-        console.log([inputTitle, description, courseID]);
-        let res;
-        if(questionNum){
-
+        // check what type of discussion the user wants to post {course, exam, question}
+        let response;
+        if (questionNum) {
+            console.log('pushing a discussion to questions');
+            console.log('questionNum=',questionNum);
         }
-        else if(examID){
-            res = await createTestDiscussion({
+        else if (examID) {
+            console.log('pushing a discussion to exams');
+            console.log('courseID=',courseID);
+            console.log('examID=',examID);
+            response = await createTestDiscussion({
                 "uid": 1,
                 "cid": courseID,
-                // "tid": examID, <--- won't work because there is no such exam in the DB
-                "tid": 1,
-                "title": inputTitle,
-                "body": description,
-                "attachment": ""
-            });
-
-        }
-        else if(courseID){
-            res = await createCourseDiscussion({
-                "uid": 1,
-                "cid": courseID,
+                "tid": parseInt(examID),
                 "title": inputTitle,
                 "body": description,
                 "attachment": ""
             });
         }
-        
-        if (res.status === 200) {
-            alert('דיון חדש נוצר בהצלחה');
+        else {
+            console.log('pushing a discussion to courses');
+            console.log('courseID=',courseID);
+            response = await createCourseDiscussion({
+                "uid": 1,
+                "cid": courseID,
+                "title": inputTitle,
+                "body": description,
+                "attachment": ""
+            });
+        }
+        if (response.status === 200) {
             setIsPopupOpen(false);
+            setContentUpdated(!contentUpdated);
         }
         else {
             alert('קרתה תקלה. אנא נסה בשנית')
         }
         setIsBTNdisabled(false);
-        console.log(res);
+        // console.log(response);
     }
 
     return (

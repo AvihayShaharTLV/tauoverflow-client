@@ -1,20 +1,20 @@
-import { createCourseCommentQuery } from '../Queries/CommentQueries'
-import { updateCourseCommentQuery } from '../Queries/CommentQueries'
-import { createTestCommentQuery } from '../Queries/CommentQueries'
-import { updateTestCommentQuery } from '../Queries/CommentQueries'
-import { createQuestionCommentQuery } from '../Queries/CommentQueries'
-import { updateQuestionCommentQuery } from '../Queries/CommentQueries'
+import { createCourseCommentQuery } from '../Queries/commentQueries'
+import { updateCourseCommentQuery } from '../Queries/commentQueries'
+import { createTestCommentQuery } from '../Queries/commentQueries'
+import { updateTestCommentQuery } from '../Queries/commentQueries'
+import { createQuestionCommentQuery } from '../Queries/commentQueries'
+import { updateQuestionCommentQuery } from '../Queries/commentQueries'
 
 import axios from 'axios'
 
 // Comment functions
-export const createCourseComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+export const createCourseComment = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createCourseCommentQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);
@@ -34,13 +34,13 @@ export const createCourseComment = (userData) => {
       });
   }
 
-  export const createTestComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+  export const createTestComment = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createTestCommentQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);

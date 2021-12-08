@@ -8,12 +8,12 @@ import axios from 'axios'
 
 // Test functions
 export const getAllTestDiscussions = () => {
-  axios.post('http://localhost:5000/graphql', {
+  return axios.post('http://localhost:5000/graphql', {
       query: getAllTestDiscussionsQuery,
       variables: {}
     })
     .then(function (response) {
-      console.log(response);
+       return response;
     })
     .catch(function (error) {
       console.log(error);
@@ -21,12 +21,12 @@ export const getAllTestDiscussions = () => {
 }
 
 export const getAllTestDiscussionsComments = () => {
-  axios.post('http://localhost:5000/graphql', {
+  return axios.post('http://localhost:5000/graphql', {
       query: getAllTestDiscussionsCommentsQuery,
       variables: {}
     })
     .then(function (response) {
-      console.log(response);
+      return response;
     })
     .catch(function (error) {
       console.log(error);
