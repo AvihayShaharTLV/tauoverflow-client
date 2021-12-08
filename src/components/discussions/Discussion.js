@@ -69,7 +69,7 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
         (async () => {
             try {
                 if (!selectedDiscussion) return;
-                let discussion, response, currentComments = [];
+                let response, currentComments = [];
                 switch (type) {
                     case 'course':
                         response = await getAllCourseDiscussionComments();
