@@ -131,11 +131,11 @@ CREATE TRIGGER set_timestamp
 
 CREATE TABLE IF NOT EXISTS public.questions
 (
-    "position" smallint NOT NULL,
+    qnum smallint NOT NULL,
     tid integer NOT NULL,
     rate_score smallint DEFAULT 0,
     rate_amount smallint DEFAULT 0,
-    CONSTRAINT questions_pkey PRIMARY KEY (tid, "position")
+    CONSTRAINT questions_pkey PRIMARY KEY (tid, index)
 )
 
 TABLESPACE pg_default;
@@ -154,16 +154,17 @@ CREATE TABLE IF NOT EXISTS public.question_discussions
 (
     id integer NOT NULL DEFAULT nextval('question_discussions_id_seq'::regclass),
     uid integer NOT NULL,
+    cid character(15) NOT NULL,
     tid integer NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     title character varying(100) COLLATE pg_catalog."default" NOT NULL,
     body text COLLATE pg_catalog."default" NOT NULL,
     attachment text COLLATE pg_catalog."default",
-    "position" integer,
+    qnum integer,
     CONSTRAINT question_discussions_pkey PRIMARY KEY (id),
-    CONSTRAINT question_discussions_tid_position_fkey FOREIGN KEY ("position", tid)
-        REFERENCES public.questions ("position", tid) MATCH SIMPLE
+    CONSTRAINT question_discussions_tid_qnum_fkey FOREIGN KEY (qnum, tid)
+        REFERENCES public.questions (qnum, tid) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -240,7 +241,6 @@ CREATE TABLE IF NOT EXISTS public.tests
     questions_num smallint NOT NULL,
     semester character(10) COLLATE pg_catalog."default" NOT NULL,
     period character(10) COLLATE pg_catalog."default" NOT NULL,
-    pid integer NOT NULL,
     CONSTRAINT tests_pkey PRIMARY KEY (id),
     CONSTRAINT tests_cid_fkey FOREIGN KEY (cid)
         REFERENCES public.courses (id) 
@@ -249,6 +249,11 @@ CREATE TABLE IF NOT EXISTS public.tests
         NOT VALID
 )
 
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.tests
+    OWNER to postgres;
+	
 CREATE SEQUENCE solution_id_seq;
 
 -- Table: public.solutions
@@ -260,7 +265,6 @@ CREATE TABLE IF NOT EXISTS public.solutions
     id integer NOT NULL DEFAULT nextval('solution_id_seq'::regclass),
     tid integer NOT NULL,
     cid character(15) NOT NULL,
-    pid integer NOT NULL,
     download_link text NOT NULL,
     CONSTRAINT solutions_pkey PRIMARY KEY (id),
     CONSTRAINT solutions_cid_fkey FOREIGN KEY (cid)
@@ -270,6 +274,12 @@ CREATE TABLE IF NOT EXISTS public.solutions
         NOT VALID
 )
 
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.solutions
+    OWNER to postgres;
+	
 CREATE SEQUENCE exam_id_seq;
 
 -- Table: public.exams
@@ -281,7 +291,6 @@ CREATE TABLE IF NOT EXISTS public.exams
     id integer NOT NULL DEFAULT nextval('exam_id_seq'::regclass),
     tid integer NOT NULL,
     cid character(15) NOT NULL,
-    pid integer NOT NULL,
     download_link text NOT NULL,
     CONSTRAINT exams_pkey PRIMARY KEY (id),
     CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
@@ -446,13 +455,13 @@ ALTER TABLE IF EXISTS public.user_courses
 
 CREATE TABLE IF NOT EXISTS public.questions_user_rate
 (
-    "position" smallint NOT NULL,
+    qnum smallint NOT NULL,
     tid integer NOT NULL,
     uid integer NOT NULL,
     personal_rate smallint DEFAULT 0,
-    CONSTRAINT questions_user_rate_pkey PRIMARY KEY (tid, "position", uid),
-    CONSTRAINT questions_user_rate_position_tid_fkey FOREIGN KEY ("position", tid)
-        REFERENCES public.questions ("position", tid) MATCH SIMPLE
+    CONSTRAINT questions_user_rate_pkey PRIMARY KEY (tid, qnum, uid),
+    CONSTRAINT questions_user_rate_qnum_tid_fkey FOREIGN KEY (qnum, tid)
+        REFERENCES public.questions (qnum, tid) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID,
