@@ -123,8 +123,7 @@ CREATE TRIGGER set_timestamp
     ON public.course_comments
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
-
-	
+ 
 -- Table: public.questions
 
 -- DROP TABLE IF EXISTS public.questions;
@@ -241,6 +240,7 @@ CREATE TABLE IF NOT EXISTS public.tests
     questions_num smallint NOT NULL,
     semester character(10) COLLATE pg_catalog."default" NOT NULL,
     period character(10) COLLATE pg_catalog."default" NOT NULL,
+						 
     CONSTRAINT tests_pkey PRIMARY KEY (id),
     CONSTRAINT tests_cid_fkey FOREIGN KEY (cid)
         REFERENCES public.courses (id) 
@@ -254,6 +254,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.tests
     OWNER to postgres;
 	
+
 CREATE SEQUENCE solution_id_seq;
 
 -- Table: public.solutions
@@ -266,9 +267,10 @@ CREATE TABLE IF NOT EXISTS public.solutions
     tid integer NOT NULL,
     cid character(15) NOT NULL,
     download_link text NOT NULL,
+    grade smallint NOT NULL,
     CONSTRAINT solutions_pkey PRIMARY KEY (id),
     CONSTRAINT solutions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
+        REFERENCES public.courses (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -279,7 +281,7 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.solutions
     OWNER to postgres;
-	
+
 CREATE SEQUENCE exam_id_seq;
 
 -- Table: public.exams
@@ -292,23 +294,20 @@ CREATE TABLE IF NOT EXISTS public.exams
     tid integer NOT NULL,
     cid character(15) NOT NULL,
     download_link text NOT NULL,
+    language text NOT NULL,
     CONSTRAINT exams_pkey PRIMARY KEY (id),
     CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
+        REFERENCES public.courses (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
 )
+	
 
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.tests
-    OWNER to postgres;
-	
-	
-
-
-
+    OWNER to postgres;	
 
 CREATE SEQUENCE test_discussions_id_seq;
 	
@@ -408,9 +407,9 @@ CREATE SEQUENCE users_id_seq;
 CREATE TABLE IF NOT EXISTS public.users
 (
     id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-    username character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    password character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    email TEXT NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
     CONSTRAINT users_pkey PRIMARY KEY (id)
 )
 
@@ -418,8 +417,6 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.users
     OWNER to postgres;
-	
-
 	
 -- Table: public.user_courses
 
@@ -441,7 +438,6 @@ CREATE TABLE IF NOT EXISTS public.user_courses
         ON DELETE NO ACTION
         NOT VALID
 )
-
 
 TABLESPACE pg_default;
 
@@ -476,5 +472,3 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.questions_user_rate
     OWNER to postgres;
-	
-	

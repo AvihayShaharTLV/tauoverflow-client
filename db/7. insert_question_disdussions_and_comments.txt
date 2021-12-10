@@ -100,14 +100,14 @@ INSERT INTO public.question_comments(
 
 INSERT INTO public.question_discussions(
 	id, uid, tid, created_at, updated_at, title, body, attachment, qnum, cid)
-	VALUES (1, 1, 1, current_timestamp, current_timestamp,'אשמח אם מישהו יוכל לצלם איך הוא פתר את השאלה הזו בבקשה!','אני פשוט לא מצליח להבין את הכתב בפתרונות שהעלו', '', 1, '0103-0032');
+	VALUES (2, 1, 1, current_timestamp, current_timestamp,'אשמח אם מישהו יוכל לצלם איך הוא פתר את השאלה הזו בבקשה!','אני פשוט לא מצליח להבין את הכתב בפתרונות שהעלו', '', 1, '0103-0032');
 INSERT INTO public.question_comments(
 	id, uid, did, created_at, updated_at, body, attachment)
 	VALUES (7, 4, 1, current_timestamp, current_timestamp, 'אני פתרתי, אעלה כשאגיע הביתה', '');
 
 INSERT INTO public.question_discussions(
 	id, uid, tid, created_at, updated_at, title, body, attachment, qnum, cid)
-	VALUES (1, 6, 4, current_timestamp, current_timestamp,'יכול להיות שהם למדו אחרת את הנושא? זה בדיוק הפוך ממה שלמדנו בשיעור 4.. או שאני טועה?','אנחנו למדנו שיש מקרים שבהם זה ייתכן, למשל כשההורים הם קרובי משפחה, אבל בפתרון התשובה היא שזה לא ייתכן.. אשמח לעזרה!', '', 3, '0161-1121');
+	VALUES (3, 6, 4, current_timestamp, current_timestamp,'יכול להיות שהם למדו אחרת את הנושא? זה בדיוק הפוך ממה שלמדנו בשיעור 4.. או שאני טועה?','אנחנו למדנו שיש מקרים שבהם זה ייתכן, למשל כשההורים הם קרובי משפחה, אבל בפתרון התשובה היא שזה לא ייתכן.. אשמח לעזרה!', '', 3, '0161-1121');
 INSERT INTO public.question_comments(
 	id, uid, did, created_at, updated_at, body, attachment)
 	VALUES (3, 9, 1, current_timestamp, current_timestamp, 'מצטרפת לשאלה, אני גם לא הבנתי', '');
