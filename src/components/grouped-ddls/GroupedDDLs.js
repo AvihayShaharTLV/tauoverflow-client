@@ -5,8 +5,7 @@ import Input from '../../general-components/Input'
 const semestersList = ['א', 'ב', 'קיץ'];
 const duesList = ['א', 'ב', 'ג', 'מיוחד'];
 
-const GroupedDDLs = ({ enableNulls, fileType, setFileType, upload, setYear, year, setSemester, semester, setDue, due, setMaestro, setQuestionNum, popupType }) => {
-
+const GroupedDDLs = ({ isQuestionNum, enableNulls, fileType, setFileType, upload, setYear, year, setSemester, semester, setDue, setGrade, due, language, setLanguage, setQuestionNum, popupType }) => {
     const generateArrayOfLastYears = (n) => {
         let years = [];
         let maxYear = new Date().getFullYear();
@@ -24,10 +23,11 @@ const GroupedDDLs = ({ enableNulls, fileType, setFileType, upload, setYear, year
             </div>
             {upload &&
                 <div className="flex items-end md:flex-row">
+                    {!isQuestionNum && <Input setInputValue={setQuestionNum} text={'מספר שאלות'} type={'number'}/>}
                     {popupType === 'solution' &&
                         <DropDownList object={fileType} setObject={setFileType} text={'סוג טופס'} list={['פיתרון', 'נוסח מבחן']} />}
-                    {/* <Input setInputValue={setMaestro} text={'מרצה'} type={'text'} /> */}
-                    {true && <Input setInputValue={setQuestionNum} text={'מספר שאלות'} type={'number'} />}
+                    {parseInt(fileType) === 0 && <Input setInputValue={setGrade} text={'ציון'} type={'number'} />}
+                    {parseInt(fileType) === 1 && <DropDownList type={"text"} object={language} setObject={setLanguage} text={'שפת הנוסח'} list={['עברית', 'אנגלית', 'ערבית', 'רוסית', 'ספרדית', 'צרפתית', 'איטלקית']} />}
                 </div>}
         </div>
 

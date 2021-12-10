@@ -15,6 +15,8 @@ const App = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState("");
   const [contentUpdated, setContentUpdated] = useState(false);
+  const [newSolutionUploaded, setNewSolutionUploaded] = useState(false);
+  const [newExamUploaded, setNewExamUploaded] = useState(false);
 
   useEffect(() => {
     if (isPopupOpen) {
@@ -32,19 +34,17 @@ const App = () => {
   return (
     <div className="min-h-screen">
       <Nav />
-      {isPopupOpen && <Popup contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} popupType={popupType} setIsPopupOpen={setIsPopupOpen} />}
+      {isPopupOpen && <Popup setNewExamUploaded={setNewExamUploaded} newExamUploaded={newExamUploaded} setNewSolutionUploaded={setNewSolutionUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} popupType={popupType} setIsPopupOpen={setIsPopupOpen} />}
       <div id="mainDiv">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/course=:courseID" element={<CoursePage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-            <Route path="/course=:courseID/exam=:examID" element={<ExamPage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-            <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-            <Route path="/profile" element={<PersonalInfo />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/course=:courseID" element={<CoursePage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+          <Route path="/course=:courseID/exam=:examID" element={<ExamPage newExamUploaded={newExamUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+          <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+          <Route path="/profile" element={<PersonalInfo />} />
+        </Routes>
       </div>
 
     </div>

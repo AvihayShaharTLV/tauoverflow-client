@@ -5,12 +5,10 @@ import ReactTooltip from "react-tooltip";
 import { useParams } from "react-router";
 import { useState } from "react";
 
-const questions = ['שאלה', 'question', ['1', '2', '3', '4', '5']]
 
-const QuestionSelector = () => {
-    const [questionNum, setQuestionNum] = useState(null);
+const QuestionSelector = ({ questionsNum, setQuestionSelected, questionSelected }) => {
+    
     const IDs = useParams();
-    // console.log(IDs)
 
     return (
         <div className="mt-3">
@@ -18,9 +16,9 @@ const QuestionSelector = () => {
                 <H3 text={'מאגר שאלות'} />
             </div>
             <div className="flex items-start justify-center">
-                <DropDownList id={questions[1]} list={questions[2]} IDs={IDs} setObject={setQuestionNum} object={questionNum}/>
+                <DropDownList list={Array.from({length: questionsNum}, (_, i) => i + 1)} IDs={IDs} setObject={setQuestionSelected} object={questionSelected} type={"text"}/>
                 <PlusCircleIcon data-tip data-for="registerTip" className="focus:outline-none cursor-pointer mt-1.5 h-9 w-9 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                <ReactTooltip id="registerTip" place="bottom" effect="solid">הוסף שאלה</ReactTooltip>
+                <ReactTooltip id="registerTip" className="text-center" place="bottom" effect="solid">חסרה שאלה?<br></br>לחץ כאן להוספה</ReactTooltip>
             </div>
         </div>
     )

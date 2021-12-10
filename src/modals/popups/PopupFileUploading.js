@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '../../general-components/Button';
 import UploadFile from '../../general-components/UploadFile';
 import GroupedDDLs from '../../components/grouped-ddls/GroupedDDLs';
-import { createExam, createTest, createSolution } from '../../API/testApi';
+import { createTest, createSolution, getAllTests, createExam } from '../../API/testApi';
 import { uploadToS3 } from '../../s3-methods/uploadFile';
 
-const PopupFileUploading = ({ setTitle, setIsPopupOpen, popupType }) => {
+const PopupFileUploading = ({setNewExamUploaded,newExamUploaded,newSolutionUploaded,setNewSolutionUploaded,setTitle, setIsPopupOpen, popupType }) => {
 
     let params = window.location.href.split('/').slice(3);
     let courseID, examID;
-
     if (params[0]) courseID = params[0].split('=')[1];
     if (params[1]) examID = params[1].split('=')[1];
 
@@ -41,6 +40,8 @@ const PopupFileUploading = ({ setTitle, setIsPopupOpen, popupType }) => {
     const [maestro, setMaestro] = useState(null);
     const [questionNum, setQuestionNum] = useState(null);
     const [fileType, setFileType] = useState(null);
+    const [grade, setGrade] = useState(null);
+    const [language, setLanguage] = useState(null);
 
     const handleFileInput = (file) => {
         if (file.size > 5000000) {
@@ -50,27 +51,33 @@ const PopupFileUploading = ({ setTitle, setIsPopupOpen, popupType }) => {
         setSelectedFile(file);
     }
 
-    const createExam = async () => {
-        console.log(year, semester, due);
+    const createTests = async () => {
+        console.log('creating a test:', year, semester, due, questionNum);
         // make sure all fields are filled
-        if (!(year && semester && due)) {
+        if (!(year && semester && due && questionNum)) {
             alert("All fields must be filled");
             return;
         }
         const response = await createTest({
             "cid": courseID,
             "year": parseInt(year),
+            "questionsNum": parseInt(questionNum), 
             "semester": semester,
             "period": due,
             "pid": 1,
         })
         if (response.status === 200) {
-            setIsBTNdisabled(false);
+            const response = await getAllTests();
+            console.log(response)
+            let lastTest = response.data.data.allTests.nodes[response.data.data.allTests.nodes.length - 1];
+            window.location.replace(`/course=${courseID.trim()}/exam=${lastTest.id}`);
+
+            // setIsBTNdisabled(false);
             setIsPopupOpen(false);
         }
         else if (response.status === 400) {
             alert('הקובץ לא הועלה כשורה. אנא נסה שוב.')
-            setIsBTNdisabled(false);
+            // setIsBTNdisabled(false);
         }
     }
 
@@ -89,23 +96,28 @@ const PopupFileUploading = ({ setTitle, setIsPopupOpen, popupType }) => {
             console.log('uploading a solution');
             response = await createSolution({
                 "cid": courseID,
-                "downloadLink": await uploadToS3(selectedFile, 'solution'),
                 "pid": 1,
+                "downloadLink": await uploadToS3(selectedFile, 'solution'),
                 "tid": parseInt(examID),
+                "grade": parseInt(grade),
             })
+            setNewSolutionUploaded(!newSolutionUploaded);
         }
         else if (parseInt(fileType) === 1) {
             console.log('uploading an exam');
             response = await createExam({
                 "cid": courseID,
                 "downloadLink": await uploadToS3(selectedFile, 'exam'),
-                "numQuestions": parseInt(questionNum),
                 "pid": 1,
                 "tid": parseInt(examID),
+                "language": language,
             })
+            setNewExamUploaded(!newExamUploaded);
         }
         if (response.status === 200) {
-            setIsBTNdisabled(false);
+            // setIsBTNdisabled(false);
+            // fetch the solutions and tests 
+            // rerender them
             setIsPopupOpen(false);
         }
         else if (response.status === 400) {
@@ -116,9 +128,10 @@ const PopupFileUploading = ({ setTitle, setIsPopupOpen, popupType }) => {
 
     return (
         <div className="flex flex-col items-center">
-            <GroupedDDLs fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} />
+            <GroupedDDLs isQuestionNum={examID} language={language} setLanguage={setLanguage} setGrade={setGrade} fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} />
             {examID && <UploadFile handleFileInput={handleFileInput} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
-            <Button text="אישור" clickHandler={examID ? uploadFile : createExam} disabled={isBTNdisabled} />
+            <Button text="אישור" clickHandler={examID ? uploadFile : createTests} disabled={isBTNdisabled} />
+
         </div>
     )
 }

@@ -21,24 +21,18 @@
     }
   }`
 
-  export const getAllQuestionDiscussionsQuery = `{
-    allQuestions {
+  export const getAllQuestionDiscussionsQuery = `query MyQuery {
+    allQuestionDiscussions {
       nodes {
+        attachment
+        body
+        createdAt
+        id
         position
         tid
-        questionDiscussionsByTidAndPosition {
-          nodes {
-            attachment
-            body
-            createdAt
-            id
-            position
-            tid
-            title
-            updatedAt
-            uid
-          }
-        }
+        title
+        uid
+        updatedAt
       }
     }
   }`

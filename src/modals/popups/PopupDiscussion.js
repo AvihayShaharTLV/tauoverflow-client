@@ -34,12 +34,12 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
         let response;
         if (questionNum) {
             console.log('pushing a discussion to questions');
-            console.log('questionNum=',questionNum);
+            // console.log('questionNum=',questionNum);
         }
         else if (examID) {
             console.log('pushing a discussion to exams');
-            console.log('courseID=',courseID);
-            console.log('examID=',examID);
+            // console.log('courseID=',courseID);
+            // console.log('examID=',examID);
             response = await createTestDiscussion({
                 "uid": 1,
                 "cid": courseID,
@@ -51,7 +51,7 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
         }
         else {
             console.log('pushing a discussion to courses');
-            console.log('courseID=',courseID);
+            // console.log('courseID=',courseID);
             response = await createCourseDiscussion({
                 "uid": 1,
                 "cid": courseID,
