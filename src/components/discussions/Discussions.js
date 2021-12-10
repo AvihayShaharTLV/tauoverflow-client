@@ -33,7 +33,7 @@ const Discussions = ({ type, contentUpdated }) => {
                     case 'question':
                         console.log('fetching all questions discussions');
                         response = await getAllQuestionDiscussions();
-                        allDiscussions = response?.data?.data?.getAllQuestionDiscussions?.nodes;
+                        allDiscussions = response?.data?.data?.allQuestionDiscussions?.nodes;
                         break;
                     default:
                         break;

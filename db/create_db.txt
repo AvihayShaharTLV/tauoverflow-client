@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS public.questions
     tid integer NOT NULL,
     rate_score smallint DEFAULT 0,
     rate_amount smallint DEFAULT 0,
-    CONSTRAINT questions_pkey PRIMARY KEY (tid, index)
+    CONSTRAINT questions_pkey PRIMARY KEY (tid, qnum)
 )
 
 TABLESPACE pg_default;

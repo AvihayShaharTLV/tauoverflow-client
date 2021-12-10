@@ -2,7 +2,7 @@ const DropDownList = ({ enableNulls, type, text, list, IDs, object, setObject })
 
     const handleRedirectChanges = (event) => {
         handleChanges(event);
-        window.open(`/course=${IDs.courseID}/exam=${IDs.examID}/question=${parseInt(event.target.value)+1}`)
+        window.open(`/course=${IDs.courseID}/exam=${IDs.examID}/question=${parseInt(event.target.value)}`)
     }
     const handleChanges = (event) => {
         setObject(event.target.value);

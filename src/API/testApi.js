@@ -1,10 +1,10 @@
-import { getAllTestDiscussionsQuery } from '../Queries/testQueries'
+import { getAllSolutionsQuery, getAllTestDiscussionsQuery } from '../Queries/testQueries'
 import { getAllTestDiscussionsCommentsQuery } from '../Queries/testQueries'
 import { updateTestNumQuestionsQuery } from '../Queries/testQueries'
 import { getTestNumQuestionsQuery } from '../Queries/testQueries'
 import { createTestQuery } from '../Queries/testQueries'
 import { createExamQuery } from '../Queries/testQueries'
-import { createSolutionQuery } from '../Queries/testQueries'
+import { createSolutionQuery, getAllExamsQuery } from '../Queries/testQueries'
 import { getAllTestsQuery } from '../Queries/testQueries'
 
 import axios from 'axios'
@@ -87,6 +87,33 @@ export const createExam = (object) => {
       console.log(error);
     });
 }
+
+export const getAllExams = () => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: getAllExamsQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export const getAllSolutions = () => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: getAllSolutionsQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 
 export const createSolution = (object) => {
   return axios.post('http://localhost:5000/graphql', {

@@ -3,8 +3,9 @@ import { Popover, Transition } from '@headlessui/react'
 import { ChevronDownIcon, SunIcon, MoonIcon } from '@heroicons/react/solid'
 import { BookmarkAltIcon, CalendarIcon, ChartBarIcon, CursorClickIcon, MenuIcon, PhoneIcon, PlayIcon, RefreshIcon, ShieldCheckIcon, SupportIcon, ViewGridIcon, XIcon, } from '@heroicons/react/outline'
 import useDarkMode from '../../hooks/useDarkMode'
-// import useUserLogged from '../../hooks/useUserLogged'
-// import { Link } from 'react-router-dom'
+import LoginButton from '../../general-components/LoginButton'
+import LogoutButton from '../../general-components/LogoutButton'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const solutions = [
   {
@@ -68,8 +69,10 @@ const classNames = (...classes) => {
 }
 
 const Nav = () => {
+
+  const { user } = useAuth0();
   const [isDarkMode, setIsDarkMode] = useDarkMode();
-  // const [isLogged, setIsLogged] = useUserLogged();
+  console.log(user);
 
   return (
     <Popover className="bg-white sticky top-0 z-10 dark:bg-black dark:text-white">
@@ -111,15 +114,7 @@ const Nav = () => {
                     />
                   </Popover.Button>
 
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="opacity-0 translate-y-1"
-                    enterTo="opacity-100 translate-y-0"
-                    leave="transition ease-in duration-150"
-                    leaveFrom="opacity-100 translate-y-0"
-                    leaveTo="opacity-0 translate-y-1"
-                  >
+                  <Transition as={Fragment} enter="transition ease-out duration-200" enterFrom="opacity-0 translate-y-1" enterTo="opacity-100 translate-y-0" leave="transition ease-in duration-150" leaveFrom="opacity-100 translate-y-0" leaveTo="opacity-0 translate-y-1">
                     <Popover.Panel className="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
                       <div dir='rtl' className="rounded-lg  shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                         <div className="relative dark:bg-gray-900 grid gap-6 z-15 bg-white px-5 py-6 sm:gap-8 sm:p-8">
@@ -157,16 +152,10 @@ const Nav = () => {
               )}
             </Popover>
 
-            {/* <a href="/" className="text-base font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-400 dark:text-white">
-              מבחנים
-            </a>
-            <a href="/" className="text-base font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-400 dark:text-white">
-              דוקומנטציות
-            </a> */}
             <Popover className="relative">
               {({ open }) => (
                 <>
-              
+
                   <div className="w-10 flex justify-center">
                     {isDarkMode && <MoonIcon onClick={() => setIsDarkMode(false)} className='h-6 w-6 text-indigo-700 cursor-pointer' aria-hidden="true" />}
                     {!isDarkMode && <SunIcon onClick={() => setIsDarkMode(true)} className='h-6 w-6 text-yellow-500 cursor-pointer' aria-hidden="true" />}
@@ -225,34 +214,25 @@ const Nav = () => {
             </Popover>
           </Popover.Group>
 
-          {/* {!isLogged && <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0"> */}
-          {true && <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a href="/login" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 dark:hover:text-gray-400 dark:text-white">
-              התחבר
-            </a>
-            <a href="/signup"
-              className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              הירשם
-            </a>
-          </div>}
-
-          {/* Large Nav Profile Picture */}
-          {/* {isLogged && */}
-          {false &&
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 ">
-              <a href="/profile">
-                <div className="mx-2">
-                  <div className="mt-1 flex items-center">
-                    <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                      <svg className="cursor-pointer h-full w-full text-gray-300 dark:bg-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    </span>
+          <div className="hidden md:flex items-center justify-center md:flex-1 lg:w-0 ">
+            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+              {!user && <LoginButton />}
+              {user && <div className='flex items-center'>
+                <LogoutButton />
+                <a href="/profile">
+                  <div className="ml-5">
+                    <div className="flex items-center">
+                      <span className="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
+                        <svg className="cursor-pointer h-full w-full text-gray-300 dark:bg-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </a>
-            </div>}
+                </a>
+              </div>}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -306,25 +286,9 @@ const Nav = () => {
               </div>
             </div>
             <div dir='rtl' className="py-6 px-5 text-center space-y-6 ">
-              {/* <div className="grid grid-cols-2 gap-y-4 gap-x-8">
-                <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">מחירים</a>
-                <a href="/" className="text-base font-medium text-gray-900 hover:text-gray-700">דוקומנטציות</a>
-                {resources.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="text-base font-medium text-gray-900 hover:text-gray-700"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div> */}
               <div>
-                <a href="/signup" className="w-full flex  items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">הירשם</a>
-                <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  משתמש קיים?{' '}
-                  <a href="/login" className="text-indigo-600 hover:text-indigo-500">התחבר</a>
-                </p>
+                {!user && <LoginButton />}
+                {user && <LogoutButton />}
               </div>
             </div>
           </div>

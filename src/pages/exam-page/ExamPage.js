@@ -4,20 +4,49 @@ import H4 from "../../general-components/H4"
 import { DocumentTextIcon } from '@heroicons/react/solid'
 // import { DocumentTextIcon } from '@heroicons/react/outline'
 import { getAllCourseDiscussions } from "../../API/courseApi";
-import { getAllTests } from "../../API/testApi";
+import { getAllTests, getAllExams, getAllSolutions } from "../../API/testApi";
 import { getAllCourses } from '../../API/courseApi'
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import Discussions from "../../components/discussions/Discussions"
 
-const ExamPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
+const ExamPage = ({newExamUploaded,newSolutionUploaded, setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
 
     const [courseName, setCourseName] = useState('');
+    const [questionsNum, setQuestionsNum] = useState(0);
+    const [questionSelected, setQuestionSelected] = useState(-1);
+    const [examDefenition, setExamDefenition] = useState('');
+    const [allExams, setAllExams] = useState([]);
+    const [currentTest, setCurrentTest] = useState(null);
+    const [allSolutions, setAllSolutions] = useState([]);
     const IDs = useParams();
+
+    const updateSolutions = async () =>{
+        const solutions = await getAllSolutions();
+        let correctSolutions = solutions.data.data.allSolutions.nodes.filter(solution =>
+            solution.tid == IDs.examID);
+        console.log("allSolutions", allSolutions)
+        setAllSolutions(correctSolutions);
+    }
+    const updateExams = async () =>{
+        const exams = await getAllExams();
+        let correctExams = exams.data.data.allExams.nodes.filter(exam =>
+            exam.tid == IDs.examID);
+        setAllExams(correctExams);
+    }
+    useEffect( () => {
+        updateExams();
+    },[newExamUploaded])
+
+    useEffect( () => {
+        updateSolutions();
+    },[newSolutionUploaded])
 
     useEffect(() => {
         (async () => {
             try {
+                updateExams();
+                updateSolutions();
                 const response = await getAllCourses();
                 const allCourses = response?.data?.data?.allCourses?.nodes;
                 allCourses.forEach(course => {
@@ -26,53 +55,64 @@ const ExamPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated })
                     }
                 });
                 const tests = await getAllTests();
-                console.log(tests.data)
+                tests.data.data.allTests.nodes.forEach(test => {
+                    if (test.cid.trim() === IDs.courseID && test.id === parseInt(IDs.examID)) {
+                        setCurrentTest(test);
+                        setExamDefenition(`שנה: ${test.year}, סמסטר: ${test.period}, מועד: ${test.semester}`)
+                        setQuestionsNum(test.questionsNum);
+                    }
+                })
+
+                
             }
             catch (error) {
                 console.log(error);
             }
         })();
-    })
+    }, [])
 
     return (
         <>
             <div dir='rtl' className="flex shadow rounded-lg p-5 flex-col dark:bg-gray-900 mx-auto my-10 items-center max-w-7xl">
                 <div className="w-full">
-                    <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} examID={IDs.examID} discussionBTN={'דיון חדש'} filesUploadBTN={'העלה טופס'} />
+                    <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} examID={examDefenition} discussionBTN={'דיון חדש'} filesUploadBTN={'העלה טופס'} />
                     <div className="flex mr-5 dark:text-white">
                         <div className="my-2 mx-5">
                             <div>
-                                <H4 text={'טופס המבחן'} />
+                                {allExams.length == 0 ? <H4 text={'אין מבחנים להצגה'} /> : <H4 text={'טופס המבחן'} />}
                             </div>
                             <div className="pr-5">
-                                <div className="flex items-center">
-                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                    <p>נוסח בעברית</p>
-                                </div>
-                                <div className="flex items-center">
-                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                    <p>נוסח באנגלית</p>
-                                </div>
+                                {allExams.map(exam => {
+                                    return (
+                                        <a href={exam.downloadLink} target="_blank">
+                                            <div className="flex items-center">
+                                                <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
+                                                <p>נוסח ב{exam.language}</p>
+                                            </div>
+                                        </a>)
+                                })}
                             </div>
                         </div>
                         <div className="my-2 mx-5 ">
                             <div>
-                                <H4 text={'פתרונות'} />
+                                {allSolutions.length == 0 ? <H4 text={'אין פתרונות להצגה'} /> : <H4 text={'פתרונות'} />}
                             </div>
                             <div className="pr-5">
-                                <div className="flex items-center">
-                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                    <p>פתרון 1 - ציון 100</p>
-                                </div>
-                                <div className="flex items-center">
-                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                    <p>פתרון 2 - ציון 98</p>
-                                </div>
+                                {allSolutions.map(solution => {
+                                    return (
+                                        <a href={solution.downloadLink} target="_blank">
+                                            <div className="flex items-center">
+                                                <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
+                                                <p>ציון - {solution.grade}</p>
+                                            </div>
+                                        </a>)
+                                })}
+
                             </div>
                         </div>
                     </div>
                     <Discussions type={'exam'} contentUpdated={contentUpdated} />
-                    <QuestionSelector />
+                    <QuestionSelector questionsNum={questionsNum} questionSelected={questionSelected} setQuestionSelected={setQuestionSelected} />
                 </div>
             </div>
         </>

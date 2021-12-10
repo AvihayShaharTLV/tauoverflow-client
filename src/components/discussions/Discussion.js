@@ -17,10 +17,10 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
     const [comments, setComments] = useState([]);
     const IDs = useParams();
 
-
     const pushComment = async () => {
         try {
             let response;
+            if(description.trim() === '') return;
             switch (type) {
                 case 'course':
                     response = await createCourseComment({
@@ -54,7 +54,6 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
             if (response.status === 200) {
                 setDescription('');
                 setCommentsChanged(!commentsChanged);
-                console.log(response, selectedDiscussion);
             }
             else if (response.status === 400) {
                 alert('לא הצלחתי להוסיף את התגובה שלך. אנא נסה שוב!');
@@ -95,8 +94,6 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
             }
         })()
     }, [commentsChanged, selectedDiscussion])
-
-
 
     return (
         <div className="relative dark:text-white w-full dark:bg-gray-900 dark:bg-opacity-20 py-3 px-5 rounded-xl">

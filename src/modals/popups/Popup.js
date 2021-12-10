@@ -2,16 +2,19 @@ import { useState } from "react";
 import H3 from "../../general-components/H3";
 import PopupDiscussion from "./PopupDiscussion";
 import PopupFileUploading from "./PopupFileUploading";
+import { useParams } from "react-router";
 
-const Popup = ({ popupType, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
+const Popup = ({newExamUploaded,setNewExamUploaded, newSolutionUploaded,setNewSolutionUploaded,popupType, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
     const [title, setTitle] = useState("");
+ 
+
 
     const renderPopup = () => {
         switch (popupType) {
             case "discussion":
                 return <PopupDiscussion setIsPopupOpen={setIsPopupOpen} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} setTitle={setTitle} />
             case "exam": case "solution":
-                return <PopupFileUploading setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} popupType={popupType}/>
+                return <PopupFileUploading newExamUploaded={newExamUploaded} setNewExamUploaded={setNewExamUploaded} newSolutionUploaded={newSolutionUploaded} setNewSolutionUploaded={setNewSolutionUploaded} setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} popupType={popupType}/>
             default:
                 return "";
         }

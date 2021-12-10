@@ -6,7 +6,7 @@ const CourseHeader = ({ setPopupType,isPopupOpen, setIsPopupOpen, courseName, ex
         <div className="flex w-full items-center justify-between mb-5 border-b py-2 dark:border-gray-600">
             <div>
                 {courseName && <H3 text={'שם הקורס: '+ courseName} />}
-                {examID && <H3 text={'מזהה מבחן: '+ examID} />}
+                {examID && <H3 text={examID} />}
                 {questionNum && <H3 text={'מספר שאלה: '+ questionNum} />}
             </div>
             <div>
