@@ -4,7 +4,7 @@
     allQuestions {
       nodes {
         tid
-        qnum
+        position
         rateScore
       }
     }
@@ -14,31 +14,25 @@
     allQuestionsUserRates {
       nodes {
         tid
-        qnum
+        position
         uid
         personalRate
       }
     }
   }`
 
-  export const getAllQuestionDiscussionsQuery = `{
-    allQuestions {
+  export const getAllQuestionDiscussionsQuery = `query MyQuery {
+    allQuestionDiscussions {
       nodes {
-        qnum
+        attachment
+        body
+        createdAt
+        id
+        position
         tid
-        questionDiscussionsByTidAndQnum {
-          nodes {
-            attachment
-            body
-            createdAt
-            id
-            qnum
-            tid
-            title
-            updatedAt
-            uid
-          }
-        }
+        title
+        uid
+        updatedAt
       }
     }
   }`
@@ -48,7 +42,7 @@
       nodes {
         id
         tid
-        qnum
+        position
         questionCommentsByDid {
           nodes {
             attachment
@@ -64,12 +58,12 @@
     }
   }`
  
-  export const createQuestionQuery = `mutation createQuestion( {$tid: Int!, $qnum: Int!) {
-    createQuestion(input: {question: {tid: $tid, qnum: $qnum}}
+  export const createQuestionQuery = `mutation createQuestion( {$tid: Int!, $position: Int!) {
+    createQuestion(input: {question: {tid: $tid, position: $position}}
       ) {
         question {
           tid
-          qnum
+          position
         }
       } 
   }`
@@ -79,7 +73,7 @@
       nodes {
         uid
         tid
-        qnum
+        position
       }
     }
   }`
@@ -88,19 +82,19 @@
     allQuestions {
       nodes {
         tid
-        qnum
+        position
         rateScore
         rateAmount
       }
     }
   }`
 
-  export const updateQuestionRateQuery = `mutation updateQuestionByTidAndQnum($tid:Int!, $qnum: Int!, $rateAmount: Int!, $rateScore: Int!) {
-    updateQuestionByTidAndQnum(input:{tid : $tid , qnum: $qnum, questionPatch:{rateAmount: $rateAmount, rateScore: $rateScore}}
+  export const updateQuestionRateQuery = `mutation updateQuestionByTidAndPosition($tid:Int!, $position: Int!, $rateAmount: Int!, $rateScore: Int!) {
+    updateQuestionByTidAndPosition(input:{tid : $tid , position: $position, questionPatch:{rateAmount: $rateAmount, rateScore: $rateScore}}
     ) {
       question {
         tid
-        qnum
+        position
         rateAmount
         rateScore
         }
@@ -108,24 +102,24 @@
 }`
 
 export const createQuestionUserRateQuery = `mutation createQuestionsUserRate( {$uid: Int!, $tid: Int!, $position: Int!, $personalRate: Int!) {
-  createQuestionsUserRate(input: {questionsUserRate: {uid: $uid, tid: $tid, qnum: $qnum, personalRate: $personalRate}}
+  createQuestionsUserRate(input: {questionsUserRate: {uid: $uid, tid: $tid, position: $position, personalRate: $personalRate}}
     ) {
       questionsUserRate {
         uid
         tid
-        qnum
+        position
         personalRate
       }
     } 
 }`
 
-export const updateQuestionUserRateQuery = `mutation updateQuestionsUserRateByTidAndQnumAndUid($uid: Int!, $tid:Int!, $position: Int!, $personalRate: Int!) {
-  updateQuestionsUserRateByTidAndQnumAndUid(input:{uid: $uid, tid : $tid , qnum: $qnum, questionsUserRatePatch:{personalRate: $personalRate}}
+export const updateQuestionUserRateQuery = `mutation updateQuestionsUserRateByTidAndPositionAndUid($uid: Int!, $tid:Int!, $position: Int!, $personalRate: Int!) {
+  updateQuestionsUserRateByTidAndPositionAndUid(input:{uid: $uid, tid : $tid , position: $position, questionsUserRatePatch:{personalRate: $personalRate}}
   ) {
     questionsUserRate {
       uid
       tid
-      qnum
+      position
       personalRate
       }
   }

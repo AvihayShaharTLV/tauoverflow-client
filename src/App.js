@@ -7,16 +7,61 @@ import Signup from './pages/signup-page/Signup';
 import ExamPage from './pages/exam-page/ExamPage';
 import PersonalInfo from './modals/personal-info/PersonalInfo'
 import QuestionPage from './pages/question-page/QuestionPage';
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import Popup from './modals/popups/Popup'
 import { useEffect, useState } from 'react';
+import { createUser } from './API/usersApi';
+import { useAuth0 } from '@auth0/auth0-react';
+import SelectCourses from './pages/SelectCourses';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupType, setPopupType] = useState("");
   const [contentUpdated, setContentUpdated] = useState(false);
   const [newSolutionUploaded, setNewSolutionUploaded] = useState(false);
   const [newExamUploaded, setNewExamUploaded] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(null);
+  const navigate = useNavigate();
+  const { logout } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
+  const { user } = useAuth0();
+
+  useEffect(() => {
+    if (user) {
+        let emailDomain = user.email.split("@")[1];
+      // if (!user.email.split("@")[2] && 
+      //      emailDomain !== "mail.tau.ac.il" || 
+      //      emailDomain!== "tauex.tau.ac.il" || 
+      //      emailDomain !== "eng.tau.ac.il") {
+      //   alert('התחברות לחשבון באמצעות TAU אימייל בלבד');
+      //   logout();
+      //   loginWithRedirect();
+      //   return;
+      // }
+      (async () => {
+        const response = await createUser({
+          "id": user.sub.split("|")[1],
+          "firstname": user.given_name,
+          "lastname": user.family_name,
+          "email": user.email
+        })
+        console.log(response);
+        if(!response.data.errors) {
+          alert('this is a new user!');
+          navigate('/selectCourses');
+          setIsNewUser(true);
+        }
+        else{
+          alert('this user already exists in the db!');
+          navigate('/');
+          setIsNewUser(false);
+        }
+      })()
+
+    }
+  }, [user])
 
   useEffect(() => {
     if (isPopupOpen) {
@@ -40,13 +85,13 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/course=:courseID" element={<CoursePage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
+          {isNewUser && <Route path="/selectCourses" element={<SelectCourses />} />}
+          {!isNewUser && <Route path="/course=:courseID" element={<CoursePage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />}
           <Route path="/course=:courseID/exam=:examID" element={<ExamPage newExamUploaded={newExamUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
           <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-          <Route path="/profile" element={<PersonalInfo />} />
+          {/* <Route path="/profile" element={<PersonalInfo />} /> */}
         </Routes>
       </div>
-
     </div>
   );
 }

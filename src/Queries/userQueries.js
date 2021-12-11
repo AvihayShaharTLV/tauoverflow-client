@@ -9,15 +9,19 @@ export const getAllUsersQuery = `{
     }
   }`
 
-export const createUserQuery = `mutation createUser( $name: String!,  $email: String!,  $pass: String!) {
-    createUser(input:{user : {name: $name, pass: $pass, email:$email}}
-    ) {
-      user {
-        id
-        name
-      }
+export const createUserQuery = `mutation createUser($firstname: String!, $lastname: String!, $email: String!, $id: String!) {
+  createUser(
+    input: {user: {firstname: $firstname, lastname: $lastname, email: $email, id: $id}}
+  ) {
+    user {
+      id
+      firstname
+      lastname
+      email
     }
-  }`
+  }
+}
+`
 
 export const updateUserQuery = `mutation updateUser($id:Int!, $name: String!,  $email: String!,  $pass: String!) {
     updateUserById(input:{id : $id , userPatch:{name: $name, pass: $pass, email:$email}}
@@ -54,7 +58,7 @@ export const getAllUserCoursesQuery = `{
   }
 }`
 
-export const createUserCourseQurey = `mutation createUserCourse( {$uid: Int!, $cid: Int!) {
+export const createUserCourseQurey = `mutation createUserCourse( $uid: String!, $cid: String!) {
   createUserCourse(input: {userCourse: {uid: $uid, cid: $cid}}
     ) {
       userCourse {

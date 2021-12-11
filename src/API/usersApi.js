@@ -1,4 +1,4 @@
-import { getAllUsersQuery, createUserQuery, updateUserQuery, createUserCourseQurey, deleteUserCourseQurey } from '../../Queries/userQueries'
+import { getAllUsersQuery, createUserQuery, updateUserQuery, createUserCourseQurey, deleteUserCourseQurey } from '../Queries/userQueries'
 import axios from 'axios'
 
 export const getAllUsers = () => {
@@ -14,70 +14,70 @@ export const getAllUsers = () => {
       });
 }
 
-export const createUser = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+export const createUser = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createUserQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
-        console.log(error);
+        console.log('could not create a user', error);
       });
 }
 
-export const updateUser = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
-        query: updateUserQuery,
-        variables: {...userData}
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-}
+// export const updateUser = (userData) => {
+//     axios.post('http://localhost:5000/graphql', {
+//         query: updateUserQuery,
+//         variables: {...userData}
+//       })
+//       .then(function (response) {
+//         console.log(response);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
+// }
 
-// From here - the updated queries!!! all of the abve - examples !!!!!!!
+// // From here - the updated queries!!! all of the abve - examples !!!!!!!
 
-export const getAllUserCourses = () => {
-  axios.post('http://localhost:5000/graphql', {
-      query: getAllUserCoursesQuery,
-      variables: {}
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+// export const getAllUserCourses = () => {
+//   axios.post('http://localhost:5000/graphql', {
+//       query: getAllUserCoursesQuery,
+//       variables: {}
+//     })
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
 
-export const createUserCourse = (userData) => {
-  axios.post('http://localhost:5000/graphql', {
+export const createUserCourse = (object) => {
+  return axios.post('http://localhost:5000/graphql', {
       query: createUserCourseQurey,
-      variables: {...userData}
+      variables: object
     })
     .then(function (response) {
-      console.log(response);
+      return response;
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
-export const deleteUserCourse = (userData) => {
-  axios.post('http://localhost:5000/graphql', {
-      query: deleteUserCourseQurey,
-      variables: {...userData}
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+// export const deleteUserCourse = (userData) => {
+//   axios.post('http://localhost:5000/graphql', {
+//       query: deleteUserCourseQurey,
+//       variables: {...userData}
+//     })
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
 

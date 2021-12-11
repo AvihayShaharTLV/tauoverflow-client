@@ -64,7 +64,6 @@ const PopupFileUploading = ({setNewExamUploaded,newExamUploaded,newSolutionUploa
             "questionsNum": parseInt(questionNum), 
             "semester": semester,
             "period": due,
-            "pid": 1,
         })
         if (response.status === 200) {
             const response = await getAllTests();

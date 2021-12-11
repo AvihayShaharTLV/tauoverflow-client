@@ -56,9 +56,9 @@ export const updateTestNumQuestionsQuery = `mutation updateTestById($id:Int!, $n
 }`
 
 
-export const createTestQuery = `mutation createTest($cid: String!, $year: Int!, $questionsNum: Int!, $semester: String!, $period: String!, $pid: Int!) {
+export const createTestQuery = `mutation createTest($cid: String!, $year: Int!, $questionsNum: Int!, $semester: String!, $period: String!) {
   createTest(
-    input: {test: {cid: $cid, year: $year, questionsNum: $questionsNum, semester: $semester, period: $period, pid: $pid}}
+    input: {test: {cid: $cid, year: $year, questionsNum: $questionsNum, semester: $semester, period: $period }}
   ) {
     test {
       cid
@@ -66,7 +66,6 @@ export const createTestQuery = `mutation createTest($cid: String!, $year: Int!, 
       questionsNum
       semester
       period
-      pid
     }
   }
 }`

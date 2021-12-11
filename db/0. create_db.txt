@@ -1,4 +1,7 @@
 
+
+
+
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -11,29 +14,90 @@ $$ LANGUAGE plpgsql;
 
 -- DROP TABLE IF EXISTS public.courses;
 
+CREATE TABLE IF NOT EXISTS public.courses (
+	id TEXT PRIMARY KEY,
+	name TEXT
+);
+
 CREATE TABLE IF NOT EXISTS public.faculties (
 	id serial NOT NULL,
-	english_name character varying(150) NOT NULL,
-	hebrew_name character varying(150) NOT NULL,
+	english_name TEXT NOT NULL,
+	hebrew_name TEXT NOT NULL,
 	CONSTRAINT faculty_id_constraint PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.departments (
 	id serial NOT NULL,
-	english_name character varying(150) NOT NULL,
-	hebrew_name character varying(150) NOT NULL,
+	english_name TEXT NOT NULL,
+	hebrew_name TEXT NOT NULL,
 	faculty_id int NOT NULL,
 	FOREIGN KEY (faculty_id) REFERENCES public.faculties(id),
 	CONSTRAINT department_id_constraint PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS public.courses (
-	id character VARYING(20) PRIMARY KEY,
-	name character varying(150)
-);
+ALTER TABLE IF EXISTS public.courses
+    OWNER to postgres;
+	
+-- Table: public.users
 
+-- DROP TABLE IF EXISTS public.users;
+
+CREATE SEQUENCE exam_id_seq;
+
+CREATE TABLE IF NOT EXISTS public.exams
+(
+    id integer NOT NULL DEFAULT nextval('exam_id_seq'::regclass),
+    tid integer NOT NULL,
+    cid TEXT NOT NULL,
+    download_link text NOT NULL,
+    language text NOT NULL,
+    CONSTRAINT exams_pkey PRIMARY KEY (id),
+    CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
+        REFERENCES public.courses (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE SEQUENCE tests_id_seq;
+
+-- Table: public.tests
+
+-- DROP TABLE IF EXISTS public.tests;
+
+CREATE TABLE IF NOT EXISTS public.tests
+(
+    cid TEXT REFERENCES public.courses(id) NOT NULL,
+    questions_num smallint NOT NULL,
+    year smallint NOT NULL,
+    semester TEXT NOT NULL,
+    period TEXT NOT NULL,
+    PRIMARY KEY (cid, year, semester, period)
+)
+
+TABLESPACE pg_default;
+
+-- Table: public.users
+
+-- DROP TABLE IF EXISTS public.users;
+
+CREATE TABLE IF NOT EXISTS public.users
+(
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.users
+    OWNER to postgres;
+	
 CREATE TABLE IF NOT EXISTS public.courses_in_departments (
-	course_id character VARYING(20) NOT NULL,
+	course_id TEXT NOT NULL,
 	department_id int NOT NULL,
 	CONSTRAINT double_pkey PRIMARY KEY (course_id, department_id),
 	FOREIGN KEY (course_id) REFERENCES public.courses(id),
@@ -41,9 +105,6 @@ CREATE TABLE IF NOT EXISTS public.courses_in_departments (
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.courses
-    OWNER to postgres;
 
 CREATE SEQUENCE course_discussions_id_seq;
 
@@ -54,16 +115,16 @@ CREATE SEQUENCE course_discussions_id_seq;
 CREATE TABLE IF NOT EXISTS public.course_discussions
 (
     id integer NOT NULL DEFAULT nextval('course_discussions_id_seq'::regclass),
-    uid integer NOT NULL,
-    cid character(15) NOT NULL,
+    uid TEXT NOT NULL REFERENCES public.users (id),
+    cid TEXT NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
-    title character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    title TEXT COLLATE pg_catalog."default" NOT NULL,
     body text COLLATE pg_catalog."default" NOT NULL,
     attachment text COLLATE pg_catalog."default",
     CONSTRAINT course_discussions_pkey PRIMARY KEY (id),
     CONSTRAINT course_discussions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
+        REFERENCES public.courses (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
         NOT VALID
@@ -83,8 +144,6 @@ CREATE TRIGGER set_timestamp
     ON public.course_discussions
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
-	
-
 
 CREATE SEQUENCE course_comments_id_seq;
 
@@ -95,9 +154,9 @@ CREATE SEQUENCE course_comments_id_seq;
 CREATE TABLE IF NOT EXISTS public.course_comments
 (
     id integer NOT NULL DEFAULT nextval('course_comments_id_seq'::regclass),
-    uid integer NOT NULL,
+    uid TEXT NOT NULL REFERENCES public.users (id),
     did integer NOT NULL,
-    cid character(15) NOT NULL,
+    cid TEXT NOT NULL REFERENCES public.courses (id),
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,
@@ -123,7 +182,7 @@ CREATE TRIGGER set_timestamp
     ON public.course_comments
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
- 
+	
 -- Table: public.questions
 
 -- DROP TABLE IF EXISTS public.questions;
@@ -142,7 +201,6 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.questions
     OWNER to postgres;
 
-
 CREATE SEQUENCE question_discussions_id_seq;
 
 -- Table: public.question_discussions
@@ -152,15 +210,14 @@ CREATE SEQUENCE question_discussions_id_seq;
 CREATE TABLE IF NOT EXISTS public.question_discussions
 (
     id integer NOT NULL DEFAULT nextval('question_discussions_id_seq'::regclass),
-    uid integer NOT NULL,
-    cid character(15) NOT NULL,
+    uid TEXT NOT NULL REFERENCES public.users (id),
     tid integer NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
-    title character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    title TEXT COLLATE pg_catalog."default" NOT NULL,
     body text COLLATE pg_catalog."default" NOT NULL,
     attachment text COLLATE pg_catalog."default",
-    qnum integer,
+    qnum smallint,
     CONSTRAINT question_discussions_pkey PRIMARY KEY (id),
     CONSTRAINT question_discussions_tid_qnum_fkey FOREIGN KEY (qnum, tid)
         REFERENCES public.questions (qnum, tid) MATCH SIMPLE
@@ -194,7 +251,7 @@ CREATE SEQUENCE question_comments_id_seq;
 CREATE TABLE IF NOT EXISTS public.question_comments
 (
     id integer NOT NULL DEFAULT nextval('question_comments_id_seq'::regclass),
-    uid integer NOT NULL,
+    uid TEXT NOT NULL references public.users (id),
     did integer NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
@@ -222,93 +279,9 @@ CREATE TRIGGER set_timestamp
     FOR EACH ROW
     EXECUTE FUNCTION public.trigger_set_timestamp();
 	
-
-
-
-
-CREATE SEQUENCE tests_id_seq;
-
--- Table: public.tests
-
--- DROP TABLE IF EXISTS public.tests;
-
-CREATE TABLE IF NOT EXISTS public.tests
-(
-    id integer NOT NULL DEFAULT nextval('tests_id_seq'::regclass),
-    cid character(15) NOT NULL,
-    year smallint NOT NULL,
-    questions_num smallint NOT NULL,
-    semester character(10) COLLATE pg_catalog."default" NOT NULL,
-    period character(10) COLLATE pg_catalog."default" NOT NULL,
-						 
-    CONSTRAINT tests_pkey PRIMARY KEY (id),
-    CONSTRAINT tests_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
-)
-
-TABLESPACE pg_default;
-
 ALTER TABLE IF EXISTS public.tests
     OWNER to postgres;
 	
-
-CREATE SEQUENCE solution_id_seq;
-
--- Table: public.solutions
-
--- DROP TABLE IF EXISTS public.solutions;
-
-CREATE TABLE IF NOT EXISTS public.solutions
-(
-    id integer NOT NULL DEFAULT nextval('solution_id_seq'::regclass),
-    tid integer NOT NULL,
-    cid character(15) NOT NULL,
-    download_link text NOT NULL,
-    grade smallint NOT NULL,
-    CONSTRAINT solutions_pkey PRIMARY KEY (id),
-    CONSTRAINT solutions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
-)
-
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.solutions
-    OWNER to postgres;
-
-CREATE SEQUENCE exam_id_seq;
-
--- Table: public.exams
-
--- DROP TABLE IF EXISTS public.exams;
-
-CREATE TABLE IF NOT EXISTS public.exams
-(
-    id integer NOT NULL DEFAULT nextval('exam_id_seq'::regclass),
-    tid integer NOT NULL,
-    cid character(15) NOT NULL,
-    download_link text NOT NULL,
-    language text NOT NULL,
-    CONSTRAINT exams_pkey PRIMARY KEY (id),
-    CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
-)
-	
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.tests
-    OWNER to postgres;	
-
 CREATE SEQUENCE test_discussions_id_seq;
 	
 -- Table: public.test_discussions
@@ -317,26 +290,16 @@ CREATE SEQUENCE test_discussions_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.test_discussions
 (
-    id integer NOT NULL DEFAULT nextval('test_discussions_id_seq'::regclass),
-    uid integer NOT NULL,
-    cid character(15) NOT NULL,
-    tid integer NOT NULL,
+	id integer NOT NULL DEFAULT nextval('test_discussions_id_seq'::regclass) PRIMARY KEY,
+    uid TEXT NOT NULL references public.users (id),
+    cid TEXT NOT NULL references public.courses (id),
+    semester TEXT NOT NULL,
+    period TEXT NOT NULL,
+	year smallint NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
-    title character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    body text COLLATE pg_catalog."default" NOT NULL,
-    attachment text COLLATE pg_catalog."default",
-    CONSTRAINT test_discussions_pkey PRIMARY KEY (id),
-    CONSTRAINT test_discussions_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID,
-    CONSTRAINT test_discussions_tid_fkey FOREIGN KEY (tid)
-        REFERENCES public.tests (id) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
+    title TEXT COLLATE pg_catalog."default" NOT NULL,
+    body text COLLATE pg_catalog."default" NOT NULL
 )
 
 TABLESPACE pg_default;
@@ -366,10 +329,10 @@ CREATE SEQUENCE test_comments_id_seq;
 CREATE TABLE IF NOT EXISTS public.test_comments
 (
     id integer NOT NULL DEFAULT nextval('test_comments_id_seq'::regclass),
-    uid integer NOT NULL,
+    uid TEXT NOT NULL references public.users (id),
     did integer NOT NULL,
     tid integer NOT NULL,
-    cid character(15) NOT NULL,
+    cid TEXT NOT NULL references public.courses (id),
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,
@@ -398,25 +361,6 @@ CREATE TRIGGER set_timestamp
 	
 
 
-CREATE SEQUENCE users_id_seq;
-
--- Table: public.users
-
--- DROP TABLE IF EXISTS public.users;
-
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-    email TEXT NOT NULL,
-    firstName TEXT NOT NULL,
-    lastName TEXT NOT NULL,
-    CONSTRAINT users_pkey PRIMARY KEY (id)
-)
-
-TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to postgres;
 	
 -- Table: public.user_courses
 
@@ -424,19 +368,9 @@ ALTER TABLE IF EXISTS public.users
 
 CREATE TABLE IF NOT EXISTS public.user_courses
 (
-    uid integer NOT NULL,
-    cid character VARYING(20) NOT NULL,
-    CONSTRAINT user_courses_pkey PRIMARY KEY (uid, cid),
-    CONSTRAINT user_courses_cid_fkey FOREIGN KEY (cid)
-        REFERENCES public.courses (id) 
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID,
-    CONSTRAINT user_courses_uid_fkey FOREIGN KEY (uid)
-        REFERENCES public.users (id) 
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-        NOT VALID
+    uid TEXT NOT NULL REFERENCES public.users(id),
+	cid TEXT NOT NULL REFERENCES public.courses(id),
+    CONSTRAINT user_courses_pkey PRIMARY KEY (uid, cid)
 )
 
 TABLESPACE pg_default;
@@ -453,7 +387,7 @@ CREATE TABLE IF NOT EXISTS public.questions_user_rate
 (
     qnum smallint NOT NULL,
     tid integer NOT NULL,
-    uid integer NOT NULL,
+    uid TEXT NOT NULL,
     personal_rate smallint DEFAULT 0,
     CONSTRAINT questions_user_rate_pkey PRIMARY KEY (tid, qnum, uid),
     CONSTRAINT questions_user_rate_qnum_tid_fkey FOREIGN KEY (qnum, tid)
