@@ -60,13 +60,13 @@ export const createCourseComment = (object) => {
       });
   }
 
-  export const createQuestionComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+  export const createQuestionComment = (object) => {
+    return axios.post('http://localhost:5000/graphql', {
         query: createQuestionCommentQuery,
-        variables: {...userData}
+        variables: object,
       })
       .then(function (response) {
-        console.log(response);
+        return response;
       })
       .catch(function (error) {
         console.log(error);

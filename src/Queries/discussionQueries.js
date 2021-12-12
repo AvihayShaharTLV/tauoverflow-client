@@ -1,6 +1,6 @@
 // Discussion level queries
 
-export const createCourseDiscussionQuery = `mutation createCourseDiscussion( $uid: Int!, $cid:String!, $title: String!, $body: String!, $attachment: String!) {
+export const createCourseDiscussionQuery = `mutation createCourseDiscussion( $uid: String!, $cid:String!, $title: String!, $body: String!, $attachment: String!) {
   createCourseDiscussion(input: {courseDiscussion: {uid: $uid, cid: $cid, title: $title, body: $body, attachment: $attachment}}
     ) {
       courseDiscussion {
@@ -25,19 +25,19 @@ export const updateCourseDiscussionQuery = `mutation updateCourseDiscussionById(
       } 
   }`
 
-export const createTestDiscussionQuery = `mutation createTestDiscussion( $uid: Int!, $cid:String!, $tid:Int!, $title: String!, $body: String!, $attachment: String!) {
-    createTestDiscussion(input: {testDiscussion: {uid: $uid, cid: $cid, tid: $tid, title: $title, body: $body, attachment: $attachment}}
-      ) {
-        testDiscussion {
-            uid
-            cid
-            tid
-            title
-            body
-            attachment
-        }
-      } 
-  }`
+export const createTestDiscussionQuery = `mutation createTestDiscussion($uid: String!, $cid: String!, $tid: Int!, $title: String!, $body: String!) {
+  createTestDiscussion(
+    input: {testDiscussion: {uid: $uid, cid: $cid, tid: $tid , title: $title, body:  $body}}
+  ) {
+    testDiscussion {
+      body
+      cid
+      title
+      uid
+      tid
+    }
+  }
+}`
 
 export const updateTestDiscussionQuery = `mutation updateTestDiscussionById( {$id: Int!, $title: String!, $body: String!, $attachment: String!) {
     updateTestDiscussionById(input: {id: $id, testDiscussionPatch: {title: $title, body: $body, attachment: $attachment}}
@@ -51,7 +51,7 @@ export const updateTestDiscussionQuery = `mutation updateTestDiscussionById( {$i
       } 
   }`
 
-export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion( {$uid: Int!, $tid:Int!, $position: Int!, $title: String!, $body: String!, $attachment: String!) {
+export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion( {$uid: String!, $tid:Int!, $position: Int!, $title: String!, $body: String!, $attachment: String!) {
     createQuestionDiscussion(input: {questionDiscussion: {uid: $uid, tid: $tid, position: $position, title: $title, body: $body, attachment: $attachment}}
       ) {
         questionDiscussion {

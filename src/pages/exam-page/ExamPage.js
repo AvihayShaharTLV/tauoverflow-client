@@ -2,15 +2,13 @@ import CourseHeader from "../../components/course-header/CourseHeader"
 import QuestionSelector from "../../components/question-selector/QuestionSelector"
 import H4 from "../../general-components/H4"
 import { DocumentTextIcon } from '@heroicons/react/solid'
-// import { DocumentTextIcon } from '@heroicons/react/outline'
-import { getAllCourseDiscussions } from "../../API/courseApi";
 import { getAllTests, getAllExams, getAllSolutions } from "../../API/testApi";
 import { getAllCourses } from '../../API/courseApi'
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import Discussions from "../../components/discussions/Discussions"
 
-const ExamPage = ({newExamUploaded,newSolutionUploaded, setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
+const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
 
     const [courseName, setCourseName] = useState('');
     const [questionsNum, setQuestionsNum] = useState(0);
@@ -21,26 +19,26 @@ const ExamPage = ({newExamUploaded,newSolutionUploaded, setIsPopupOpen, isPopupO
     const [allSolutions, setAllSolutions] = useState([]);
     const IDs = useParams();
 
-    const updateSolutions = async () =>{
+    const updateSolutions = async () => {
         const solutions = await getAllSolutions();
         let correctSolutions = solutions.data.data.allSolutions.nodes.filter(solution =>
             solution.tid == IDs.examID);
-        console.log("allSolutions", allSolutions)
         setAllSolutions(correctSolutions);
     }
-    const updateExams = async () =>{
+    const updateExams = async () => {
         const exams = await getAllExams();
         let correctExams = exams.data.data.allExams.nodes.filter(exam =>
             exam.tid == IDs.examID);
         setAllExams(correctExams);
     }
-    useEffect( () => {
-        updateExams();
-    },[newExamUploaded])
 
-    useEffect( () => {
+    useEffect(() => {
+        updateExams();
+    }, [newExamUploaded])
+
+    useEffect(() => {
         updateSolutions();
-    },[newSolutionUploaded])
+    }, [newSolutionUploaded])
 
     useEffect(() => {
         (async () => {
@@ -56,14 +54,12 @@ const ExamPage = ({newExamUploaded,newSolutionUploaded, setIsPopupOpen, isPopupO
                 });
                 const tests = await getAllTests();
                 tests.data.data.allTests.nodes.forEach(test => {
-                    if (test.cid.trim() === IDs.courseID && test.id === parseInt(IDs.examID)) {
+                    if (test.cid.trim() === IDs.courseID && parseInt(test.id) === parseInt(IDs.examID)) {
                         setCurrentTest(test);
                         setExamDefenition(`שנה: ${test.year}, סמסטר: ${test.period}, מועד: ${test.semester}`)
                         setQuestionsNum(test.questionsNum);
                     }
                 })
-
-                
             }
             catch (error) {
                 console.log(error);
@@ -107,7 +103,6 @@ const ExamPage = ({newExamUploaded,newSolutionUploaded, setIsPopupOpen, isPopupO
                                             </div>
                                         </a>)
                                 })}
-
                             </div>
                         </div>
                     </div>

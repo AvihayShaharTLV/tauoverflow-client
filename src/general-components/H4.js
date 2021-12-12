@@ -1,7 +1,7 @@
 const H4 = ({text}) => {
     return(
         <>
-            <h4 className="text-md font-bold dark:text-white">{text}</h4>
+            <h4 className="text-sm font-bold dark:text-white">{text}</h4>
         </>
     )
 }

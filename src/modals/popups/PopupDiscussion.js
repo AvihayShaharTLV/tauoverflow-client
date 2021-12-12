@@ -4,8 +4,12 @@ import Button from '../../general-components/Button';
 import TextArea from '../../general-components/TextArea';
 import { createCourseDiscussion } from '../../API/discussionApi'
 import { createTestDiscussion } from '../../API/discussionApi'
+import { createQuestionDiscussion } from "../../API/questionApi";
+import userEvent from '@testing-library/user-event';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
+    const { user } = useAuth0();
 
     let params = window.location.href.split('/').slice(3);
     let courseID, examID, questionNum;
@@ -34,29 +38,36 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
         let response;
         if (questionNum) {
             console.log('pushing a discussion to questions');
-            // console.log('questionNum=',questionNum);
+            let object = {
+                "attachment": "",
+                "body": description.trim(),
+                "qnum": parseInt(questionNum),
+                "tid": parseInt(examID),
+                "title": inputTitle.trim(),
+                "uid": user.sub.split("|")[1],
+            };
+            console.log(object);
+            response = await createQuestionDiscussion(object);
+            console.log(response);
         }
         else if (examID) {
             console.log('pushing a discussion to exams');
-            // console.log('courseID=',courseID);
-            // console.log('examID=',examID);
             response = await createTestDiscussion({
-                "uid": 1,
+                "uid": user.sub.split("|")[1],
                 "cid": courseID,
                 "tid": parseInt(examID),
-                "title": inputTitle,
-                "body": description,
-                "attachment": ""
+                "title": inputTitle.trim(),
+                "body": description.trim(),
             });
         }
         else {
             console.log('pushing a discussion to courses');
             // console.log('courseID=',courseID);
             response = await createCourseDiscussion({
-                "uid": 1,
+                "uid": user.sub.split("|")[1],
                 "cid": courseID,
-                "title": inputTitle,
-                "body": description,
+                "title": inputTitle.trim(),
+                "body": description.trim(),
                 "attachment": ""
             });
         }

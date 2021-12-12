@@ -57,7 +57,7 @@ const ExamFilter = () => {
             <div className="mb-3 flex justify-center items-center">
                 <H3 text={exams.length == 0 ? 'לא נמצאו מבחנים' : 'רשימת המבחנים שנמצאו'} />
             </div>
-            <div className="flex justify-start overflow-x-auto p-4  scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500">
+            <div className="flex justify-start overflow-x-auto p-4  scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600">
                 {viewExams && <ExamsList exams={exams} />}
             </div>
             <div className="flex items-center p-4 justify-center">

@@ -5,7 +5,7 @@ import Input from '../../general-components/Input'
 const semestersList = ['א', 'ב', 'קיץ'];
 const duesList = ['א', 'ב', 'ג', 'מיוחד'];
 
-const GroupedDDLs = ({ isQuestionNum, enableNulls, fileType, setFileType, upload, setYear, year, setSemester, semester, setDue, setGrade, due, language, setLanguage, setQuestionNum, popupType }) => {
+const GroupedDDLs = ({ isQuestionNum, disabled, enableNulls, fileType, setFileType, upload, setYear, year, setSemester, semester, setDue, setGrade, due, language, setLanguage, setQuestionNum, popupType }) => {
     const generateArrayOfLastYears = (n) => {
         let years = [];
         let maxYear = new Date().getFullYear();
@@ -17,13 +17,13 @@ const GroupedDDLs = ({ isQuestionNum, enableNulls, fileType, setFileType, upload
     return (
         <div dir="rtl" className="flex flex-col items-center my-2 w-full justify-center">
             <div className="flex flex-col md:flex-row ">
-                <DropDownList enableNulls={enableNulls} type={"text"} object={year} setObject={setYear} text={'שנה'} list={upload ? generateArrayOfLastYears(10) : generateArrayOfLastYears(20)} />
-                <DropDownList enableNulls={enableNulls} type={"text"} object={semester} setObject={setSemester} text={'סמסטר'} list={semestersList} />
-                <DropDownList enableNulls={enableNulls} type={"text"} object={due} setObject={setDue} text={'מועד'} list={duesList} />
+                <DropDownList enableNulls={enableNulls} disabled={disabled} type={"text"} object={year} setObject={setYear} text={'שנה'} list={upload ? generateArrayOfLastYears(10) : generateArrayOfLastYears(20)} />
+                <DropDownList enableNulls={enableNulls} disabled={disabled} type={"text"} object={semester} setObject={setSemester} text={'סמסטר'} list={semestersList} />
+                <DropDownList enableNulls={enableNulls} disabled={disabled} type={"text"} object={due} setObject={setDue} text={'מועד'} list={duesList} />
             </div>
             {upload &&
                 <div className="flex items-end md:flex-row">
-                    {!isQuestionNum && <Input setInputValue={setQuestionNum} text={'מספר שאלות'} type={'number'}/>}
+                    {!isQuestionNum && <Input setInputValue={setQuestionNum} text={'מספר שאלות'} type={'number'} />}
                     {popupType === 'solution' &&
                         <DropDownList object={fileType} setObject={setFileType} text={'סוג טופס'} list={['פיתרון', 'נוסח מבחן']} />}
                     {parseInt(fileType) === 0 && <Input setInputValue={setGrade} text={'ציון'} type={'number'} />}
