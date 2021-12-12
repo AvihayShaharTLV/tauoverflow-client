@@ -12,7 +12,7 @@ import { createUserCourse } from "../API/usersApi";
 import { useNavigate } from 'react-router-dom';
 
 const SelectCourses = () => {
-    const MAX_COUNT = 5;
+    const MAX_COUNT = 10;
 
     // check if ddl is changed
     const [isDDL1changed, setIsDDL1changed] = useState(null);
@@ -25,7 +25,7 @@ const SelectCourses = () => {
     const [courses, setCourses] = useState([]);
     const [coursesInDepartments, setCoursesInDepartments] = useState([]);
     const [selectedValues, setSelectedValues] = useState([])
-    const [countInputs, setCountInputs] = useState(5);
+    const [countInputs, setCountInputs] = useState(MAX_COUNT);
 
     // user data
     const { user } = useAuth0();
@@ -124,7 +124,6 @@ const SelectCourses = () => {
 
     const saveCourses = async () => {
         for (let courseID of selectedValues) {
-            console.log(courseID, user.sub.split("|")[1]);
             await createUserCourse({
                 "uid": user.sub.split("|")[1],
                 "cid": courseID

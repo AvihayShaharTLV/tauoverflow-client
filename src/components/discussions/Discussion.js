@@ -9,42 +9,64 @@ import { getAllCourseDiscussionComments } from "../../API/courseApi";
 import { getAllTestDiscussionsComments } from '../../API/testApi';
 import Comments from "./Comments";
 import { useParams } from "react-router";
+import { useAuth0 } from '@auth0/auth0-react';
+import { getAllUsers } from '../../API/usersApi';
+import { createQuestionComment } from "../../API/commentApi";
+import { getAllQuestionDiscussionsComments } from "../../API/questionApi";
 
 const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
 
+    const { user } = useAuth0();
     const [description, setDescription] = useState('');
     const [commentsChanged, setCommentsChanged] = useState(false);
     const [comments, setComments] = useState([]);
+    const [users, setUsers] = useState([]);
+
     const IDs = useParams();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await getAllUsers();
+                setUsers(response.data.data.allUsers.nodes);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        })();
+    }, [])
 
     const pushComment = async () => {
         try {
             let response;
-            if(description.trim() === '') return;
+            if (description.trim() === '') return;
             switch (type) {
                 case 'course':
+                    console.log('pushing a course comment')
                     response = await createCourseComment({
-                        "uid": 1,
-                        "did": selectedDiscussion[0].id,
+                        "uid": user.sub.split('|')[1],
                         "cid": selectedDiscussion[0].cid.trim(),
+                        "did": selectedDiscussion[0].id,
                         "body": description.trim(),
-                        "attachment": ""
                     });
                     break;
 
                 case 'exam':
                     response = await createTestComment({
-                        "uid": 1,
+                        "uid": user.sub.split('|')[1],
                         "did": parseInt(selectedDiscussion[0].id),
                         "tid": parseInt(IDs.examID),
                         "cid": IDs.courseID,
                         "body": description.trim(),
-                        "attachment": ""
                     })
                     break;
 
                 case 'question':
-
+                    response = await createQuestionComment({
+                        "uid": user.sub.split('|')[1],
+                        "did": parseInt(selectedDiscussion[0].id),
+                        "body": description.trim(),
+                    })
                     break;
 
                 default:
@@ -72,18 +94,19 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
                 switch (type) {
                     case 'course':
                         response = await getAllCourseDiscussionComments();
-                        currentComments = response.data.data.allCourseComments.nodes.filter(a_discussion =>
-                            a_discussion.did === selectedDiscussion[0]?.id)
+                        currentComments = response.data.data.allCourseComments.nodes.filter(a_comment =>
+                            a_comment.did === selectedDiscussion[0]?.id)
                         break;
                     case 'exam':
-                        response = await getAllTestDiscussionsComments()
-                        currentComments = response.data.data.allTestComments.nodes.filter(a_discussion =>
-                            a_discussion?.did === selectedDiscussion[0]?.id && parseInt(a_discussion?.tid) === parseInt(IDs.examID));
+                        response = await getAllTestDiscussionsComments();
+                        currentComments = response.data.data.allTestComments.nodes.filter(a_comment =>
+                            a_comment?.did === selectedDiscussion[0]?.id && parseInt(a_comment?.tid) === parseInt(IDs.examID));
                         break;
                     case 'question':
-
+                        response = await getAllQuestionDiscussionsComments();
+                        currentComments = response.data.data.allQuestionComments.nodes.filter(a_comment =>
+                            a_comment?.did === selectedDiscussion[0]?.id)
                         break;
-
                     default:
                         break;
                 }
@@ -95,6 +118,14 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
         })()
     }, [commentsChanged, selectedDiscussion])
 
+    const checkUserName = (id) => {
+        let a_user;
+        users.forEach(user => { if (user.id === id) a_user = user });
+        // console.log(a_user);
+        // return `${a_user.firstname}_${a_user.lastname}`
+
+    }
+
     return (
         <div className="relative dark:text-white w-full dark:bg-gray-900 dark:bg-opacity-20 py-3 px-5 rounded-xl">
             <div className="text-center dark:bg-transparent mb-1 p-3 rounded-xl">
@@ -102,12 +133,12 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
                 <p onClick={() => setSelectedDiscussion(null)} className="absolute -top-3 text-white -left-3 w-8 h-8 bg-indigo-600 hover:bg-indigo-700 rounded-full text-xl cursor-pointer">&times;</p>
                 <p className="text-right mt-3 break-words">{selectedDiscussion[0].body}</p>
                 <div className="flex justify-around items-center mt-2">
-                    <p dir="ltr" className="font-semibold">@dsadsa</p>
+                    <p dir="ltr" className="font-semibold">@{checkUserName(selectedDiscussion[0].uid)}</p>
                     <div className="flex items-center">
-                        <div className="flex mx-3 justify-between items-center">
+                        {/* <div className="flex mx-3 justify-between items-center">
                             <ThumbUpIcon className="h-5 w-5" />
                             <p className=" text-md">2</p>
-                        </div>
+                        </div> */}
                         <p className="mx-2 text-sm">{(new Date(selectedDiscussion[0].createdAt)).toUTCString().replace("GMT", "")}</p>
                     </div>
                 </div>

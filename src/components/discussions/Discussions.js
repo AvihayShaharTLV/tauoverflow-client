@@ -19,7 +19,7 @@ const Discussions = ({ type, contentUpdated }) => {
                     case 'course':
                         console.log('fetching all courses discussions');
                         response = await getAllCourseDiscussions();
-                        allDiscussions = response?.data?.data?.allCourseDiscussions?.nodes.filter(discussion => 
+                        allDiscussions = response.data.data.allCourseDiscussions.nodes.filter(discussion => 
                             IDs.courseID === discussion.cid.trim());
                         break;
 
@@ -33,7 +33,7 @@ const Discussions = ({ type, contentUpdated }) => {
                     case 'question':
                         console.log('fetching all questions discussions');
                         response = await getAllQuestionDiscussions();
-                        allDiscussions = response?.data?.data?.allQuestionDiscussions?.nodes;
+                        allDiscussions = response.data.data.allQuestionDiscussions.nodes;
                         break;
                     default:
                         break;

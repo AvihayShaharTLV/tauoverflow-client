@@ -1,13 +1,14 @@
-export const getAllUsersQuery = `{
-    allUsers {
-      nodes {
-        id
-        name
-        pass
-        email
-      }
+export const getAllUsersQuery = `query MyQuery {
+  allUsers {
+    nodes {
+      email
+      firstname
+      id
+      lastname
     }
-  }`
+  }
+}
+`
 
 export const createUserQuery = `mutation createUser($firstname: String!, $lastname: String!, $email: String!, $id: String!) {
   createUser(
@@ -20,8 +21,7 @@ export const createUserQuery = `mutation createUser($firstname: String!, $lastna
       email
     }
   }
-}
-`
+}`
 
 export const updateUserQuery = `mutation updateUser($id:Int!, $name: String!,  $email: String!,  $pass: String!) {
     updateUserById(input:{id : $id , userPatch:{name: $name, pass: $pass, email:$email}}
@@ -39,24 +39,14 @@ export const updateUserQuery = `mutation updateUser($id:Int!, $name: String!,  $
 
 
 export const getAllUserCoursesQuery = `{
-  allUsers {
+  allUserCourses {
     nodes {
-      email
-      id
-      password
-      userCoursesByUid {
-        nodes {
-          cid
-          uid
-          courseByCid {
-            id
-            name
-          }
-        }
-      }
+      cid
+      uid
     }
   }
-}`
+}
+`
 
 export const createUserCourseQurey = `mutation createUserCourse( $uid: String!, $cid: String!) {
   createUserCourse(input: {userCourse: {uid: $uid, cid: $cid}}
@@ -68,8 +58,8 @@ export const createUserCourseQurey = `mutation createUserCourse( $uid: String!, 
     } 
 }`
 
-export const deleteUserCourseQurey = `mutation deleteUserCourse( {$uid: Int!, $cid: Int!) {
-  deleteUserCourse(input: {userCourse: {uid: $uid, cid: $cid}}
+export const deleteUserCourseQurey = `mutation deleteUserCourse( $uid: String!, $cid: String!) {
+  deleteUserCourseByUidAndCid(input:{uid: $uid, cid: $cid}
     ) {
       userCourse {
         uid

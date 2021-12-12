@@ -51,8 +51,27 @@ CREATE TABLE IF NOT EXISTS public.exams
     cid TEXT NOT NULL,
     download_link text NOT NULL,
     language text NOT NULL,
-    CONSTRAINT exams_pkey PRIMARY KEY (id),
+    CONSTRAINT exams_pkey PRIMARY KEY (id, tid),
     CONSTRAINT exams_cid_fkey FOREIGN KEY (cid)
+        REFERENCES public.courses (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+CREATE SEQUENCE solution_id_seq;
+
+CREATE TABLE IF NOT EXISTS public.solutions
+(
+    id integer NOT NULL DEFAULT nextval('solution_id_seq'::regclass),
+    tid integer NOT NULL,
+    cid TEXT NOT NULL,
+    download_link text NOT NULL,
+    grade smallint NOT NULL,
+    CONSTRAINT solutions_pkey PRIMARY KEY (id, tid),
+    CONSTRAINT solutions_cid_fkey FOREIGN KEY (cid)
         REFERENCES public.courses (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
@@ -69,12 +88,13 @@ CREATE SEQUENCE tests_id_seq;
 
 CREATE TABLE IF NOT EXISTS public.tests
 (
+    id integer NOT NULL DEFAULT nextval('tests_id_seq'::regclass),
     cid TEXT REFERENCES public.courses(id) NOT NULL,
     questions_num smallint NOT NULL,
     year smallint NOT NULL,
     semester TEXT NOT NULL,
     period TEXT NOT NULL,
-    PRIMARY KEY (cid, year, semester, period)
+    PRIMARY KEY (cid, year, semester, period, id)
 )
 
 TABLESPACE pg_default;
@@ -160,7 +180,6 @@ CREATE TABLE IF NOT EXISTS public.course_comments
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,
-    attachment text COLLATE pg_catalog."default",
     CONSTRAINT course_comments_pkey PRIMARY KEY (id),
     CONSTRAINT course_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.course_discussions (id) MATCH SIMPLE
@@ -191,8 +210,6 @@ CREATE TABLE IF NOT EXISTS public.questions
 (
     qnum smallint NOT NULL,
     tid integer NOT NULL,
-    rate_score smallint DEFAULT 0,
-    rate_amount smallint DEFAULT 0,
     CONSTRAINT questions_pkey PRIMARY KEY (tid, qnum)
 )
 
@@ -256,7 +273,6 @@ CREATE TABLE IF NOT EXISTS public.question_comments
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,
-    attachment text COLLATE pg_catalog."default",
     CONSTRAINT question_comments_pkey PRIMARY KEY (id),
     CONSTRAINT question_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.question_discussions (id) MATCH SIMPLE
@@ -291,11 +307,9 @@ CREATE SEQUENCE test_discussions_id_seq;
 CREATE TABLE IF NOT EXISTS public.test_discussions
 (
 	id integer NOT NULL DEFAULT nextval('test_discussions_id_seq'::regclass) PRIMARY KEY,
+    tid integer NOT NULL,
     uid TEXT NOT NULL references public.users (id),
     cid TEXT NOT NULL references public.courses (id),
-    semester TEXT NOT NULL,
-    period TEXT NOT NULL,
-	year smallint NOT NULL,
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     title TEXT COLLATE pg_catalog."default" NOT NULL,
@@ -336,7 +350,6 @@ CREATE TABLE IF NOT EXISTS public.test_comments
     created_at timestamp with time zone NOT NULL DEFAULT now(),
     updated_at timestamp with time zone NOT NULL DEFAULT now(),
     body text COLLATE pg_catalog."default" NOT NULL,
-    attachment text COLLATE pg_catalog."default",
     CONSTRAINT test_comments_pkey PRIMARY KEY (id),
     CONSTRAINT test_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.test_discussions (id) MATCH SIMPLE

@@ -10,27 +10,21 @@ export const getAllCoursesQuery = `{
 
 // From here - the updated functions!!! all of the abve - examples !!!!!!!
 
-export const getAllCourseDiscussionsQuery = `{
-    faculty(nodeId: "") {
-      englishName
-      hebrewName
+export const getAllCourseDiscussionsQuery = `query MyQuery {
+  allCourseDiscussions {
+    nodes {
+      attachment
+      body
+      cid
+      createdAt
       id
-      nodeId
+      title
+      uid
+      updatedAt
     }
-    allCourseDiscussions {
-      nodes {
-        attachment
-        body
-        cid
-        createdAt
-        id
-        nodeId
-        title
-        uid
-        updatedAt
-      }
-    }
-  }`
+  }
+}
+`
 
 export const getAllTestByCourseQuery = `{
     allCourses {
@@ -42,7 +36,6 @@ export const getAllTestByCourseQuery = `{
             id
             numQuestions
             period
-            pid
             semester
             year
           }
@@ -55,7 +48,6 @@ export const getAllCourseDiscussionCommentsQuery = `
 query MyQuery {
   allCourseComments {
     nodes {
-      attachment
       body
       cid
       createdAt
@@ -65,21 +57,6 @@ query MyQuery {
       updatedAt
     }
   }
-}`
-
-export const getAllCourseProfessorsQuery = `{
-    allCourses {
-      nodes {
-        id
-        courseProfessorsByCid {
-          nodes {
-            professorByPid {
-              id
-              name
-            }
-          }
-        }
-      }
-    }
-  }`
+}
+`
 

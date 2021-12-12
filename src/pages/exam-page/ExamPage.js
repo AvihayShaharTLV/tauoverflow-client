@@ -31,6 +31,7 @@ const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopu
             exam.tid == IDs.examID);
         setAllExams(correctExams);
     }
+
     useEffect(() => {
         updateExams();
     }, [newExamUploaded])
@@ -53,7 +54,7 @@ const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopu
                 });
                 const tests = await getAllTests();
                 tests.data.data.allTests.nodes.forEach(test => {
-                    if (test.cid.trim() === IDs.courseID && test.id === parseInt(IDs.examID)) {
+                    if (test.cid.trim() === IDs.courseID && parseInt(test.id) === parseInt(IDs.examID)) {
                         setCurrentTest(test);
                         setExamDefenition(`שנה: ${test.year}, סמסטר: ${test.period}, מועד: ${test.semester}`)
                         setQuestionsNum(test.questionsNum);

@@ -15,7 +15,7 @@ const QuestionPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdate
         (async () => {
             try {
                 const response = await getAllCourses();
-                const allCourses = response?.data?.data?.allCourses?.nodes;
+                const allCourses = response.data.data.allCourses.nodes;
                 allCourses.forEach(course => {
                     if (course.id === IDs.courseID) {
                         setCourseName(course.name);

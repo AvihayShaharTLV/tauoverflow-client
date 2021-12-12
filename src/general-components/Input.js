@@ -8,7 +8,7 @@ const Input = ({ text, type, setInputValue, isChecked, value, courseSelection })
                         min={1}
                         type={type}
                         value={value}
-                        defaultChecked={isChecked}
+                        // defaultChecked={isChecked}
                         className="dark:text-white focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 dark:bg-gray-600 dark:border-gray-600 rounded-md" />
                     <label className="mx-3 block dark:text-white text-sm font-medium text-gray-700">{text}</label>
                 </div>
@@ -18,7 +18,7 @@ const Input = ({ text, type, setInputValue, isChecked, value, courseSelection })
                     <input min={0} onChange={(e) => setInputValue(e.target.value.trim())}
                         min={1}
                         type={type}
-                        className="dark:text-white focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 dark:bg-gray-600 dark:border-gray-600 rounded-md" />
+                        className="dark:text-white w-full focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 dark:bg-gray-600 dark:border-gray-600 rounded-md" />
                 </div>
             }
 

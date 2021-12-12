@@ -23,14 +23,16 @@ const App = () => {
   const [newSolutionUploaded, setNewSolutionUploaded] = useState(false);
   const [newExamUploaded, setNewExamUploaded] = useState(false);
   const [isNewUser, setIsNewUser] = useState(null);
+  const [isListUpdated, setIsListUpdated] = useState(null);
   const navigate = useNavigate();
   const { logout } = useAuth0();
   const { loginWithRedirect } = useAuth0();
-  const { user } = useAuth0();
+  const { user, isLoading } = useAuth0();
+
 
   useEffect(() => {
     if (user) {
-        let emailDomain = user.email.split("@")[1];
+      let emailDomain = user.email.split("@")[1];
       // if (!user.email.split("@")[2] && 
       //      emailDomain !== "mail.tau.ac.il" || 
       //      emailDomain!== "tauex.tau.ac.il" || 
@@ -47,21 +49,26 @@ const App = () => {
           "lastname": user.family_name,
           "email": user.email
         })
-        console.log(response);
-        if(!response.data.errors) {
+        if (!response.data.errors) {
           alert('this is a new user!');
           navigate('/selectCourses');
           setIsNewUser(true);
         }
-        else{
-          alert('this user already exists in the db!');
-          navigate('/');
+        else {
+          // navigate('/');
           setIsNewUser(false);
         }
       })()
 
     }
   }, [user])
+
+  useEffect(() =>{
+    if(!isLoading){
+      if(!user)
+        loginWithRedirect()
+    }
+  },[isLoading])
 
   useEffect(() => {
     if (isPopupOpen) {
@@ -78,7 +85,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen">
-      <Nav />
+      <Nav isListUpdated={isListUpdated}/>
       {isPopupOpen && <Popup setNewExamUploaded={setNewExamUploaded} newExamUploaded={newExamUploaded} setNewSolutionUploaded={setNewSolutionUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} popupType={popupType} setIsPopupOpen={setIsPopupOpen} />}
       <div id="mainDiv">
         <Routes>
@@ -86,7 +93,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           {isNewUser && <Route path="/selectCourses" element={<SelectCourses />} />}
-          {!isNewUser && <Route path="/course=:courseID" element={<CoursePage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />}
+          {!isNewUser && <Route path="/course=:courseID" element={<CoursePage isListUpdated={isListUpdated} setIsListUpdated={setIsListUpdated} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />}
           <Route path="/course=:courseID/exam=:examID" element={<ExamPage newExamUploaded={newExamUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
           <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
           {/* <Route path="/profile" element={<PersonalInfo />} /> */}
