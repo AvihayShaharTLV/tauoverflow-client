@@ -91,18 +91,32 @@ export const createQuestion = (object) => {
     });
 }
 
-// export const  getQuestionUserRate = () => {
-//   axios.post('http://localhost:5000/graphql', {
-//       query: getAllQuestionUserRateQuery,
-//       variables: {}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+export const  getQuestionUserRate = () => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: getAllQuestionUserRateQuery,
+      variables: {}
+    })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+export const createQuestionUserRate = (object) => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: createQuestionUserRateQuery,
+      variables: object,
+    })
+    .then(function (response) {
+     return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 
 // export const  getQuestionRateScoreAndRateAmount = () => {
 //   axios.post('http://localhost:5000/graphql', {
@@ -130,18 +144,7 @@ export const createQuestion = (object) => {
 //     });
 // }
 
-// export const createQuestionUserRate = (userData) => {
-//   axios.post('http://localhost:5000/graphql', {
-//       query: createQuestionUserRateQuery,
-//       variables: {...userData}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+
 
 // export const updateQuestionUserRate = (userData) => {
 //   axios.post('http://localhost:5000/graphql', {

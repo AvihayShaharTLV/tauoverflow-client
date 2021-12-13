@@ -25,8 +25,9 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
     setTitle("צור דיון חדש");
 
     const postDiscussion = async (e) => {
-        setIsBTNdisabled(true);
-
+        // setIsBTNdisabled(true);
+        console.log("post")
+        console.log(inputTitle)
         // if the title is empty, don't let the user commit the discussion!
         if (inputTitle.trim().length <= 0) {
             alert("Discussion must have a title");

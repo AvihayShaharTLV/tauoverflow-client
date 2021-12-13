@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../../general-components/Button';
 import UploadFile from '../../general-components/UploadFile';
 import GroupedDDLs from '../../components/grouped-ddls/GroupedDDLs';
 import { createTest, createSolution, createExam } from '../../API/testApi';
 import { uploadToS3 } from '../../s3-methods/uploadFile';
 import { createQuestion } from '../../API/questionApi';
+import { getAllTests } from '../../API/testApi';
 
-const PopupFileUploading = ({ setNewExamUploaded, newExamUploaded, newSolutionUploaded, setNewSolutionUploaded, setTitle, setIsPopupOpen, popupType }) => {
+const PopupFileUploading = ({ examDefenition, setNewExamUploaded, newExamUploaded, newSolutionUploaded, setNewSolutionUploaded, setTitle, setIsPopupOpen, popupType }) => {
 
     let params = window.location.href.split('/').slice(3);
     let courseID, examID;
@@ -35,14 +36,20 @@ const PopupFileUploading = ({ setNewExamUploaded, newExamUploaded, newSolutionUp
     const [selectedFile, setSelectedFile] = useState(null);
 
     // ddls and inputs data
-    const [year, setYear] = useState(new Date().getFullYear());
-    const [semester, setSemester] = useState(findSemester());
+    const [year, setYear] = useState(null);
+    const [semester, setSemester] = useState(null);
     const [due, setDue] = useState(null);
     const [maestro, setMaestro] = useState(null);
-    const [questionNum, setQuestionNum] = useState(null);
+    const [questionNum, setQuestionNum] = useState(1);
     const [fileType, setFileType] = useState(null);
     const [grade, setGrade] = useState(null);
     const [language, setLanguage] = useState(null);
+
+    useEffect(()=>{
+        setYear(examID ? examDefenition.year : new Date().getFullYear())
+        setSemester(examID ? examDefenition.semester : findSemester())
+        setDue(examID ? examDefenition.period : null)
+    },[examID])
 
     const handleFileInput = (file) => {
         if (file.size > 5000000) {
@@ -53,12 +60,26 @@ const PopupFileUploading = ({ setNewExamUploaded, newExamUploaded, newSolutionUp
     }
 
     const createTests = async () => {
-        console.log('creating a test:', year, semester, due, questionNum, courseID);
+
         // make sure all fields are filled
         if (!(year && semester && due && questionNum)) {
             alert("All fields must be filled");
             return;
         }
+
+        // get all stored tests
+        const tests = await getAllTests();
+        for (const test of tests.data.data.allTests.nodes) {
+            if(test.cid === courseID && test.year === year && test.period === due && test.semester === semester){
+                // alert and navigate to test page
+                alert("המבחן כבר קיים, תועבר באופן אוטומטי")
+                window.location.replace(`/course=${courseID.trim()}/exam=${test.id}`);
+                return;
+            }
+        }
+       
+        
+        // if isnt a match => continue and create
         const testID = await createTest({
             "cid": courseID,
             "year": parseInt(year),
@@ -67,12 +88,10 @@ const PopupFileUploading = ({ setNewExamUploaded, newExamUploaded, newSolutionUp
             "period": due,
         })
         for (let i = 1; i <= parseInt(questionNum); i++) {
-            console.log('creating question number: ', i);
             let question = await createQuestion({
                 "tid": parseInt(testID.data.data.createTest.test.id),
                 "qnum": i,
             })
-            console.log(question);
         }
         if (testID.status === 200) {
             window.location.replace(`/course=${courseID.trim()}/exam=${testID.data.data.createTest.test.id}`);
@@ -129,10 +148,10 @@ const PopupFileUploading = ({ setNewExamUploaded, newExamUploaded, newSolutionUp
         }
     }
 
+
     return (
         <div className="flex flex-col items-center">
-            <GroupedDDLs isQuestionNum={examID} language={language} setLanguage={setLanguage} setGrade={setGrade} fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} />
-            {/* <GroupedDDLs isQuestionNum={examID} language={language} disabled={true} setLanguage={setLanguage} setGrade={setGrade} fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} /> */}
+            <GroupedDDLs examDefenition={examDefenition} grade={grade} questionNum={questionNum} isQuestionNum={examID} language={language} setLanguage={setLanguage} setGrade={setGrade} fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} />
             {examID && <UploadFile handleFileInput={handleFileInput} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
             <Button text="אישור" clickHandler={examID ? uploadFile : createTests} disabled={isBTNdisabled} />
 

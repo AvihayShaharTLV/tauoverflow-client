@@ -114,7 +114,6 @@ const SelectCourses = () => {
     }
 
     const checkIfIncludes = (courseID) => {
-        if (selectedValues.includes(courseID)) console.log(courseID, selectedValues);
         return selectedValues.includes(courseID);
     }
 
@@ -129,7 +128,9 @@ const SelectCourses = () => {
                 "cid": courseID
             })
         }
-        navigate('/');
+        // navigate('/');
+        window.location.replace(`/`);
+
     }
 
     return (

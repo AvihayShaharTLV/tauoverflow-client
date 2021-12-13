@@ -5,6 +5,7 @@ import { useState } from "react";
 import ExamsList from "../../components/exams-list/ExamsList";
 import { getAllTests } from '../../API/testApi';
 import { useParams } from "react-router";
+import { ArrowCircleUpIcon } from '@heroicons/react/solid'
 
 const ExamFilter = () => {
 
@@ -13,7 +14,7 @@ const ExamFilter = () => {
     const [semester, setSemester] = useState(null);
     const [due, setDue] = useState(null);
     const [exams, setExams] = useState([]);
-    const [viewExams, setViewExams] = useState(false)
+    const [viewExams, setViewExams] = useState(false);
 
     const hideFilteredExams = () => {
         setViewExams(false);
@@ -54,16 +55,17 @@ const ExamFilter = () => {
             <div className="flex my-2 w-full justify-center">
                 <Button text={'סינון'} clickHandler={filterExams} />
             </div>
-            <div className="mb-3 flex justify-center items-center">
-                <H3 text={exams.length == 0 ? 'לא נמצאו מבחנים' : 'רשימת המבחנים שנמצאו'} />
-            </div>
-            <div className="flex justify-start overflow-x-auto p-4  scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600">
-                {viewExams && <ExamsList exams={exams} />}
-            </div>
-            <div className="flex items-center p-4 justify-center">
-                {viewExams && <Button text={'סגור'} clickHandler={hideFilteredExams} />}
-            </div>
-
+            {viewExams && <div className="bg-gray-100 w-full rounded-xl pt-4 shadow-lg mt-4 ">
+                <div className="mb-3 flex justify-center items-center">
+                    <H3 text={exams.length == 0 ? 'לא נמצאו מבחנים' : 'רשימת המבחנים שנמצאו'} />
+                </div>
+                <div className="flex justify-start overflow-x-auto pb-10  scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600">
+                    {viewExams && <ExamsList exams={exams} />}
+                </div>
+                <div className="flex pt-4 items-center justify-center">
+                    {viewExams && exams.length != 0 && <ArrowCircleUpIcon className="h-10 w-10  transform rotate-180 text-indigo-600 cursor-pointer animate-bounce" onClick={hideFilteredExams} />}
+                </div>
+            </div>}
         </div>
     )
 }

@@ -27,7 +27,6 @@ const Comments = ({ comments }) => {
         let a_user;
         users.forEach(user => {if(user.id === id) a_user = user});
         return `${a_user.firstname}_${a_user.lastname}`
-
     }
 
     const renderReplies = (comments) => {
@@ -41,13 +40,13 @@ const Comments = ({ comments }) => {
                 <p className="mb-4 break-words">{comment.body}</p>
                 <div className="flex justify-between items-center mt-2">
                     {/* <p dir="ltr" className="font-semibold">@{comment.user.name.replaceAll(" ", "_")}</p> */}
-                    <p dir="ltr" className="font-semibold">@{checkUserName(comment.uid)}</p>
+                    <p dir="ltr" className="text-sm font-semibold">@{checkUserName(comment.uid)}</p>
                     <div className="flex items-center">
                         {/* <div className="flex mx-3 justify-between items-center">
                             <ThumbUpIcon className="h-5 w-5" />
                             <p className=" text-md">{4}</p>
                         </div> */}
-                        <p className="mx-2 text-sm">{(new Date(comment.createdAt)).toUTCString().replace("GMT", "")}</p>
+                        <p className="mx-2 text-sm">{(new Date(comment.createdAt)).toString().split("GMT")[0]}</p>
                     </div>
                 </div>
             </div>

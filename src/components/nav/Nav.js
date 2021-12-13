@@ -45,7 +45,8 @@ const Nav = ({ isListUpdated }) => {
     (async () => {
       try {
         const response = await getAllUserCourses();
-        setUserCourses(response.data.data.allUserCourses.nodes.filter(course => course.uid === user.sub.split("|")[1]));
+        if (!isLoading)
+          setUserCourses(response.data.data.allUserCourses.nodes.filter(course => course.uid === user.sub.split("|")[1]));
       }
       catch (error) {
         console.log(error);
@@ -105,7 +106,7 @@ const Nav = ({ isListUpdated }) => {
             <Popover className="relative">
               {({ open }) => (
                 <>
-                  {true && <Popover.Button
+                  {createList(userCourses, 'useCours').length > 0 && <Popover.Button
                     className={classNames(
                       open ? 'text-gray-900' : 'text-gray-500',
                       'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500  dark:bg-black dark:hover:text-gray-400 dark:text-white'
