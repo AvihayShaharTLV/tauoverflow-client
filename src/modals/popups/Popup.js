@@ -4,9 +4,9 @@ import PopupDiscussion from "./PopupDiscussion";
 import PopupFileUploading from "./PopupFileUploading";
 import { useParams } from "react-router";
 
-const Popup = ({newExamUploaded,setNewExamUploaded, newSolutionUploaded,setNewSolutionUploaded,popupType, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
+const Popup = ({ examDefenition, newExamUploaded, setNewExamUploaded, newSolutionUploaded, setNewSolutionUploaded, popupType, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
     const [title, setTitle] = useState("");
- 
+
 
 
     const renderPopup = () => {
@@ -14,7 +14,7 @@ const Popup = ({newExamUploaded,setNewExamUploaded, newSolutionUploaded,setNewSo
             case "discussion":
                 return <PopupDiscussion setIsPopupOpen={setIsPopupOpen} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} setTitle={setTitle} />
             case "exam": case "solution":
-                return <PopupFileUploading newExamUploaded={newExamUploaded} setNewExamUploaded={setNewExamUploaded} newSolutionUploaded={newSolutionUploaded} setNewSolutionUploaded={setNewSolutionUploaded} setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} popupType={popupType}/>
+                return <PopupFileUploading examDefenition={examDefenition} newExamUploaded={newExamUploaded} setNewExamUploaded={setNewExamUploaded} newSolutionUploaded={newSolutionUploaded} setNewSolutionUploaded={setNewSolutionUploaded} setIsPopupOpen={setIsPopupOpen} setTitle={setTitle} popupType={popupType} />
             default:
                 return "";
         }
