@@ -8,12 +8,11 @@ import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import Discussions from "../../components/discussions/Discussions"
 
-const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
+const ExamPage = ({ examDefenition, setExamDefenition, newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopupOpen, setPopupType, contentUpdated }) => {
 
     const [courseName, setCourseName] = useState('');
     const [questionsNum, setQuestionsNum] = useState(0);
     const [questionSelected, setQuestionSelected] = useState(-1);
-    const [examDefenition, setExamDefenition] = useState('');
     const [allExams, setAllExams] = useState([]);
     const [currentTest, setCurrentTest] = useState(null);
     const [allSolutions, setAllSolutions] = useState([]);
@@ -56,7 +55,11 @@ const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopu
                 tests.data.data.allTests.nodes.forEach(test => {
                     if (test.cid.trim() === IDs.courseID && parseInt(test.id) === parseInt(IDs.examID)) {
                         setCurrentTest(test);
-                        setExamDefenition(`שנה: ${test.year}, סמסטר: ${test.period}, מועד: ${test.semester}`)
+                        setExamDefenition({
+                            "year": test.year,
+                            "period": test.period,
+                            "semester": test.semester
+                        })
                         setQuestionsNum(test.questionsNum);
                     }
                 })
@@ -77,13 +80,13 @@ const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopu
                             <div>
                                 {allExams.length == 0 ? <H4 text={'אין מבחנים להצגה'} /> : <H4 text={'טופס המבחן'} />}
                             </div>
-                            <div className="pr-5">
-                                {allExams.map(exam => {
+                            <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
+                                {allExams.map((exam,index) => {
                                     return (
-                                        <a href={exam.downloadLink} target="_blank">
-                                            <div className="flex items-center">
+                                        <a key={index} href={exam.downloadLink} target="_blank">
+                                            <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
                                                 <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                                <p>נוסח ב{exam.language}</p>
+                                                <p className="dark:text-black">נוסח ב{exam.language}</p>
                                             </div>
                                         </a>)
                                 })}
@@ -93,13 +96,13 @@ const ExamPage = ({ newExamUploaded, newSolutionUploaded, setIsPopupOpen, isPopu
                             <div>
                                 {allSolutions.length == 0 ? <H4 text={'אין פתרונות להצגה'} /> : <H4 text={'פתרונות'} />}
                             </div>
-                            <div className="pr-5">
-                                {allSolutions.map(solution => {
+                            <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
+                                {allSolutions.map((solution, index) => {
                                     return (
-                                        <a href={solution.downloadLink} target="_blank">
-                                            <div className="flex items-center">
+                                        <a key={index} href={solution.downloadLink} target="_blank">
+                                            <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
                                                 <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                                <p>ציון - {solution.grade}</p>
+                                                <p className="dark:text-black">{index + 1}. ציון - {solution.grade}</p>
                                             </div>
                                         </a>)
                                 })}

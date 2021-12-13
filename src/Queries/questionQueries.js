@@ -61,15 +61,31 @@ export const createQuestionQuery = `mutation createQuestion( $tid: Int!, $qnum: 
       } 
   }`
 
-// export const getAllQuestionUserRateQuery = `{
-//   allQuestionsUserRates {
-//     nodes {
-//       uid
-//       tid
-//       position
-//     }
-//   }
-// }`
+export const getAllQuestionUserRateQuery = `query MyQuery {
+  allQuestionsUserRates {
+    nodes {
+      personalRate
+      qnum
+      tid
+      uid
+    }
+  }
+}`
+
+
+export const createQuestionUserRateQuery = `mutation createQuestionsUserRate($uid: String!, $tid: Int!, $qnum: Int!, $personalRate: Int!) {
+  createQuestionsUserRate(
+    input: {questionsUserRate: {uid: $uid, tid: $tid, qnum: $qnum, personalRate: $personalRate}}
+  ) {
+    questionsUserRate {
+      uid
+      tid
+      personalRate
+      qnum
+    }
+  }
+}
+`
 
 // export const getAllQuestionRateScoreAndRateAmountQuery = `{
 //   allQuestions {
@@ -94,17 +110,6 @@ export const createQuestionQuery = `mutation createQuestion( $tid: Int!, $qnum: 
 //     }
 // }`
 
-// export const createQuestionUserRateQuery = `mutation createQuestionsUserRate( {$uid: Int!, $tid: Int!, $position: Int!, $personalRate: Int!) {
-//   createQuestionsUserRate(input: {questionsUserRate: {uid: $uid, tid: $tid, position: $position, personalRate: $personalRate}}
-//     ) {
-//       questionsUserRate {
-//         uid
-//         tid
-//         position
-//         personalRate
-//       }
-//     } 
-// }`
 
 export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion($uid: String!, $tid: Int!, $title: String!, $body: String!, $attachment: String!, $qnum: Int!) {
   createQuestionDiscussion( input: {questionDiscussion: {uid: $uid, tid: $tid, title: $title, body: $body, attachment: $attachment, qnum: $qnum}}

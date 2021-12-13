@@ -4,6 +4,7 @@ module.exports = {
   blur: "class",
   theme: {
     maxHeight: {
+      xxs: '8.5rem',
       xs: '14rem',
       sm: '17rem',
       md: '25rem',
