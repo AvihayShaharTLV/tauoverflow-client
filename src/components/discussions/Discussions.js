@@ -17,21 +17,21 @@ const Discussions = ({ type, contentUpdated }) => {
                 let response, allDiscussions = [];
                 switch (type) {
                     case 'course':
-                        console.log('fetching all courses discussions');
+                        // console.log('fetching all courses discussions');
                         response = await getAllCourseDiscussions();
                         allDiscussions = response.data.data.allCourseDiscussions.nodes.filter(discussion => 
                             IDs.courseID === discussion.cid.trim());
                         break;
 
                     case 'exam':
-                        console.log('fetching all exams discussions');
+                        // console.log('fetching all exams discussions');
                         response = await getAllTestDiscussions();
                         allDiscussions = response.data.data.allTestDiscussions.nodes.filter(exam => 
                             exam.cid.trim() === IDs.courseID && exam.tid === parseInt(IDs.examID));
                         break;
 
                     case 'question':
-                        console.log('fetching all questions discussions');
+                        // console.log('fetching all questions discussions');
                         response = await getAllQuestionDiscussions();
                         allDiscussions = response.data.data.allQuestionDiscussions.nodes;
                         break;
