@@ -12,7 +12,7 @@ const Button = ({ clickHandler, text, isPopupOpen, setIsPopupOpen, disabled, set
             }
             }
             disabled={disabled ? true : false}
-            className="m-1 inline-flex justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            className="m-1 inline-flex select-none justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {text}
         </button>
     }
@@ -20,14 +20,14 @@ const Button = ({ clickHandler, text, isPopupOpen, setIsPopupOpen, disabled, set
         return <button
             onClick={(e) => clickHandler(e)}
             disabled={disabled ? true : false}
-            className="m-1 inline-flex justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            className="m-1 inline-flex select-none justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {text}
         </button>
     }
     else {
         return <button
             disabled={disabled ? true : false}
-            className="m-1 inline-flex justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            className="m-1 inline-flex select-none justify-center py-2 mx-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {text}
         </button>
     }

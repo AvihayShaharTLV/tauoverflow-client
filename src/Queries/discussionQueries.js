@@ -1,6 +1,6 @@
 // Discussion level queries
 
-export const createCourseDiscussionQuery = `mutation createCourseDiscussion( $uid: String!, $cid:String!, $title: String!, $body: String!, $attachment: String!) {
+export const createCourseDiscussionQuery = `mutation createCourseDiscussion( $uid: String!, $cid:String!, $title: String!, $body: String!, $attachment: String) {
   createCourseDiscussion(input: {courseDiscussion: {uid: $uid, cid: $cid, title: $title, body: $body, attachment: $attachment}}
     ) {
       courseDiscussion {
@@ -25,7 +25,7 @@ export const updateCourseDiscussionQuery = `mutation updateCourseDiscussionById(
       } 
   }`
 
-export const createTestDiscussionQuery = `mutation createTestDiscussion($uid: String!, $cid: String!, $tid: Int!, $title: String!, $body: String!) {
+export const createTestDiscussionQuery = `mutation createTestDiscussion($uid: String!, $cid: String!, $tid: Int!, $title: String!, $body: String) {
   createTestDiscussion(
     input: {testDiscussion: {uid: $uid, cid: $cid, tid: $tid , title: $title, body:  $body}}
   ) {

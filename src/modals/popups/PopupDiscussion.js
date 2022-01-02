@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Input from '../../general-components/Input';
 import Button from '../../general-components/Button';
 import TextArea from '../../general-components/TextArea';
@@ -7,6 +7,8 @@ import { createTestDiscussion } from '../../API/discussionApi'
 import { createQuestionDiscussion } from "../../API/questionApi";
 import userEvent from '@testing-library/user-event';
 import { useAuth0 } from '@auth0/auth0-react';
+import UploadFile from '../../general-components/UploadFile';
+import { uploadToS3 } from '../../s3-methods/uploadFile';
 
 const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentUpdated }) => {
     const { user } = useAuth0();
@@ -22,9 +24,27 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
     const [description, setDescription] = useState("");
     const [isBTNdisabled, setIsBTNdisabled] = useState(false);
 
+    // file uploading code
+    const FILE_LIMIT = 500000;
+    const [selectedFile, setSelectedFile] = useState(null);
+    const handleFileInput = (file) => {
+        if (file.size > 5000000) {
+            alert("file uploading is limited up to 5MB");
+            return;
+        }
+        setSelectedFile(file);
+    }
+
     setTitle("צור דיון חדש");
 
     const postDiscussion = async (e) => {
+
+        // check if there is a attachment && upload it to S3 
+        let attachment = "";
+        if (selectedFile){
+            console.log("uploading to s3 disc",selectedFile);
+            attachment = await uploadToS3(selectedFile, 'image')
+        }
         // setIsBTNdisabled(true);
         console.log("post")
         console.log(inputTitle)
@@ -40,7 +60,7 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
         if (questionNum) {
             console.log('pushing a discussion to questions');
             let object = {
-                "attachment": "",
+                "attachment": attachment ? attachment : null,
                 "body": description.trim(),
                 "qnum": parseInt(questionNum),
                 "tid": parseInt(examID),
@@ -59,6 +79,7 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
                 "tid": parseInt(examID),
                 "title": inputTitle.trim(),
                 "body": description.trim(),
+                "attachment": attachment ? attachment : null
             });
         }
         else {
@@ -69,7 +90,7 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
                 "cid": courseID,
                 "title": inputTitle.trim(),
                 "body": description.trim(),
-                "attachment": ""
+                "attachment": attachment ? attachment : null
             });
         }
         if (response.status === 200) {
@@ -87,6 +108,7 @@ const PopupDiscussion = ({ setTitle, setIsPopupOpen, setContentUpdated, contentU
         <div className="flex justify-between flex-col ">
             <Input setInputValue={setInputTitle} text={"כותרת"} type={"text"} />
             <TextArea setDescription={setDescription} text={"תיאור"} rows={6} />
+            <UploadFile uploadTitle={"צרף תמונה"} uploadFileLimit={FILE_LIMIT} uploadType={"PNG"} handleFileInput={handleFileInput} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />
             <Button clickHandler={postDiscussion} text={"אישור"} disabled={isBTNdisabled} />
         </div>
     )

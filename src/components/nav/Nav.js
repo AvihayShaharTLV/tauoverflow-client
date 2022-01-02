@@ -138,7 +138,7 @@ const Nav = ({ isListUpdated }) => {
                   <div data-tip data-for="MainDarkModeTip" className="w-10 flex justify-center">
                     {isDarkMode && <MoonIcon onClick={() => setIsDarkMode(false)} className='h-6 w-6 text-indigo-700 cursor-pointer' aria-hidden="true" />}
                     {!isDarkMode && <SunIcon onClick={() => setIsDarkMode(true)} className='h-6 w-6 text-yellow-500 cursor-pointer' aria-hidden="true" />}
-                    <ReactTooltip id="MainDarkModeTip" className="text-center" place="bottom" effect="solid">Toggle between<br></br>light and dark mode</ReactTooltip>
+                    <ReactTooltip id="MainDarkModeTip" className="text-center" place="bottom" effect="solid">החלף בין<br></br>מצב לילה ליום</ReactTooltip>
                   </div>
                 </>
               )}
@@ -176,7 +176,7 @@ const Nav = ({ isListUpdated }) => {
                 <div data-tip data-for="DarkModeTip" className="w-10 flex justify-center">
                   {isDarkMode && <MoonIcon onClick={() => setIsDarkMode(false)} className='h-6 w-6 text-indigo-700 cursor-pointer' aria-hidden="true" />}
                   {!isDarkMode && <SunIcon onClick={() => setIsDarkMode(true)} className='h-6 w-6 text-yellow-500 cursor-pointer' aria-hidden="true" />}
-                  <ReactTooltip id="DarkModeTip" className="text-center" place="bottom" effect="solid">Toggle between<br></br>light and dark mode</ReactTooltip>
+                  <ReactTooltip id="DarkModeTip" className="text-center" place="bottom" effect="solid">החלף בין<br></br>מצב לילה ליום</ReactTooltip>
                 </div>
                 <div className="-mr-2">
                   <Popover.Button className="bg-white  rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
