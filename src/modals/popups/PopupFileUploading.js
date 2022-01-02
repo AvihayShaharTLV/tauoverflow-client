@@ -44,6 +44,7 @@ const PopupFileUploading = ({ examDefenition, setNewExamUploaded, newExamUploade
     const [fileType, setFileType] = useState(null);
     const [grade, setGrade] = useState(null);
     const [language, setLanguage] = useState(null);
+    const FILE_LIMIT = 5000000;
 
     useEffect(()=>{
         setYear(examID ? examDefenition.year : new Date().getFullYear())
@@ -52,7 +53,7 @@ const PopupFileUploading = ({ examDefenition, setNewExamUploaded, newExamUploade
     },[examID])
 
     const handleFileInput = (file) => {
-        if (file.size > 5000000) {
+        if (file.size > FILE_LIMIT) {
             alert("file uploading is limited up to 5MB");
             return;
         }
@@ -152,7 +153,7 @@ const PopupFileUploading = ({ examDefenition, setNewExamUploaded, newExamUploade
     return (
         <div className="flex flex-col items-center">
             <GroupedDDLs examDefenition={examDefenition} grade={grade} questionNum={questionNum} isQuestionNum={examID} language={language} setLanguage={setLanguage} setGrade={setGrade} fileType={fileType} setFileType={setFileType} setYear={setYear} year={year} setSemester={setSemester} semester={semester} setDue={setDue} due={due} setMaestro={setMaestro} setQuestionNum={setQuestionNum} upload={true} popupType={popupType} />
-            {examID && <UploadFile handleFileInput={handleFileInput} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
+            {examID && <UploadFile uploadTitle={"העלה קובץ"} uploadFileLimit={FILE_LIMIT} uploadType={"PDF"} handleFileInput={handleFileInput} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
             <Button text="אישור" clickHandler={examID ? uploadFile : createTests} disabled={isBTNdisabled} />
 
         </div>

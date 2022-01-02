@@ -55,6 +55,7 @@ query MyQuery {
       id
       uid
       updatedAt
+      attachment
     }
   }
 }

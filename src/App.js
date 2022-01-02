@@ -14,6 +14,7 @@ import { createUser } from './API/usersApi';
 import { useAuth0 } from '@auth0/auth0-react';
 import SelectCourses from './pages/SelectCourses';
 import { useNavigate } from 'react-router-dom';
+import Intro from './pages/Intro';
 
 const App = () => {
 
@@ -30,8 +31,6 @@ const App = () => {
   const { user, isLoading } = useAuth0();
   const [examDefenition, setExamDefenition] = useState('');
 
-
-
   useEffect(() => {
     if (user) {
       let emailDomain = user.email.split("@")[1];
@@ -39,7 +38,7 @@ const App = () => {
       //      emailDomain !== "mail.tau.ac.il" || 
       //      emailDomain!== "tauex.tau.ac.il" || 
       //      emailDomain !== "eng.tau.ac.il") {
-      //   alert('התחברות לחשבון באמצעות TAU אימייל בלבד');
+      //   alert('התחברות לחשבון באמצעות אימייל TAU בלבד');
       //   logout();
       //   loginWithRedirect();
       //   return;
@@ -65,12 +64,12 @@ const App = () => {
     }
   }, [user])
 
-  useEffect(() =>{
-    if(!isLoading){
-      if(!user)
-        loginWithRedirect()
-    }
-  },[isLoading])
+  // useEffect(() =>{
+  //   if(!isLoading){
+  //     if(!user)
+  //       loginWithRedirect()
+  //   }
+  // },[isLoading])
 
   useEffect(() => {
     if (isPopupOpen) {
@@ -86,12 +85,13 @@ const App = () => {
   }, [isPopupOpen]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Nav isListUpdated={isListUpdated}/>
       {isPopupOpen && <Popup examDefenition={examDefenition} setNewExamUploaded={setNewExamUploaded} newExamUploaded={newExamUploaded} setNewSolutionUploaded={setNewSolutionUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setContentUpdated={setContentUpdated} popupType={popupType} setIsPopupOpen={setIsPopupOpen} />}
       <div id="mainDiv">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Intro />} />
+          <Route path="/homepage" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           {isNewUser && <Route path="/selectCourses" element={<SelectCourses />} />}

@@ -47,6 +47,7 @@ export const getAllQuestionDiscussionsCommentsQuery = `query MyQuery {
         id
         uid
         updatedAt
+        attachment
       }
     }
   }`
@@ -126,13 +127,13 @@ export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion(
 }
 `
 
-export const updateQuestionUserRateQuery = `mutation updateQuestionsUserRateByTidAndPositionAndUid($uid: Int!, $tid:Int!, $position: Int!, $personalRate: Int!) {
-  updateQuestionsUserRateByTidAndPositionAndUid(input:{uid: $uid, tid : $tid , position: $position, questionsUserRatePatch:{personalRate: $personalRate}}
+export const updateQuestionUserRateQuery = `mutation updateQuestionsUserRateByTidAndPositionAndUid($uid: String!, $tid:Int!, $qnum: Int!, $personalRate: Int!) {
+  updateQuestionsUserRateByTidAndQnumAndUid(input:{uid: $uid, tid : $tid , qnum: $qnum, questionsUserRatePatch:{personalRate: $personalRate}}
   ) {
     questionsUserRate {
       uid
       tid
-      position
+      qnum
       personalRate
       }
   }

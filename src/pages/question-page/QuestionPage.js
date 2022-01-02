@@ -59,16 +59,14 @@ const QuestionPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdate
         const newList = list.filter(item => item.qnum === parseInt(IDs.questionID) && item.tid === parseInt(IDs.examID))
         if (newList.length <= 0) return;
         const avg = newList.reduce((a, b) => { return a + b.personalRate }, 0) / newList.length;
-        console.log(avg);
         setAvgVote(avg);
     }
-
-    console.log(avgVote);
 
     useEffect(() => {
         (async () => {
             try {
-                if (!isLoading && user) {
+                if (!isLoading && user && !hasUserVoted) {
+                    // user hasnt voted yet
                     // push hardness to db
                     const response = await createQuestionUserRate({
                         "uid": user.sub.split("|")[1],
@@ -83,6 +81,12 @@ const QuestionPage = ({ setIsPopupOpen, isPopupOpen, setPopupType, contentUpdate
                         if (userVotes.data.data.allQuestionsUserRates.nodes.length > 0)
                             calculateAvgRating(userVotes.data.data.allQuestionsUserRates.nodes);
                     }
+                }
+                else{
+                    // only update is needed
+                    const userVotes = await getQuestionUserRate();
+                        if (userVotes.data.data.allQuestionsUserRates.nodes.length > 0)
+                            calculateAvgRating(userVotes.data.data.allQuestionsUserRates.nodes);
                 }
             }
             catch (error) {

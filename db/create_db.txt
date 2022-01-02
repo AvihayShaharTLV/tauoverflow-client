@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS public.tests
     year smallint NOT NULL,
     semester TEXT NOT NULL,
     period TEXT NOT NULL,
+    CONSTRAINT UC_Person UNIQUE (id),
     PRIMARY KEY (cid, year, semester, period, id)
 )
 
@@ -160,6 +161,7 @@ CREATE TABLE IF NOT EXISTS public.course_comments
     created_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     body text COLLATE pg_catalog."default" NOT NULL,
+    attachment text,
     CONSTRAINT course_comments_pkey PRIMARY KEY (id),
     CONSTRAINT course_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.course_discussions (id) MATCH SIMPLE
@@ -233,6 +235,7 @@ CREATE TABLE IF NOT EXISTS public.question_comments
     created_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     body text COLLATE pg_catalog."default" NOT NULL,
+    attachment text,
     CONSTRAINT question_comments_pkey PRIMARY KEY (id),
     CONSTRAINT question_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.question_discussions (id) MATCH SIMPLE
@@ -263,7 +266,8 @@ CREATE TABLE IF NOT EXISTS public.test_discussions
     created_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     title TEXT COLLATE pg_catalog."default" NOT NULL,
-    body text COLLATE pg_catalog."default" NOT NULL
+    body text COLLATE pg_catalog."default" NOT NULL,
+    attachment text
 )
 
 TABLESPACE pg_default;
@@ -288,6 +292,7 @@ CREATE TABLE IF NOT EXISTS public.test_comments
     created_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     body text COLLATE pg_catalog."default" NOT NULL,
+    attachment text,
     CONSTRAINT test_comments_pkey PRIMARY KEY (id),
     CONSTRAINT test_comments_did_fkey FOREIGN KEY (did)
         REFERENCES public.test_discussions (id) MATCH SIMPLE

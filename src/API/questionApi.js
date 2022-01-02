@@ -146,15 +146,15 @@ export const createQuestionUserRate = (object) => {
 
 
 
-// export const updateQuestionUserRate = (userData) => {
-//   axios.post('http://localhost:5000/graphql', {
-//       query: updateQuestionUserRateQuery,
-//       variables: {...userData}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
+export const updateQuestionUserRate = (object) => {
+  return axios.post('http://localhost:5000/graphql', {
+      query: updateQuestionUserRateQuery,
+      variables: object
+    })
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}

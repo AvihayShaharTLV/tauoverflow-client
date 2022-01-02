@@ -7,6 +7,6 @@ export const uploadToS3 = async (file, type) => {
         },
         body: file
     })
-    alert('file uploaded successfully');
+    // alert('file uploaded successfully');
     return url.split('?')[0];;
 }

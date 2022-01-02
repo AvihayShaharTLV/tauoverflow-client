@@ -75,42 +75,44 @@ const ExamPage = ({ examDefenition, setExamDefenition, newExamUploaded, newSolut
             <div dir='rtl' className="flex shadow rounded-lg p-5 flex-col dark:bg-gray-900 mx-auto my-10 items-center max-w-7xl">
                 <div className="w-full">
                     <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} examID={examDefenition} discussionBTN={'דיון חדש'} filesUploadBTN={'העלה טופס'} />
-                    <div className="flex mr-5 dark:text-white">
-                        <div className="my-2 mx-5">
-                            <div>
-                                {allExams.length == 0 ? <H4 text={'אין מבחנים להצגה'} /> : <H4 text={'טופס המבחן'} />}
+                    <div className="flex justify-around items-center">
+                        <div className="flex mr-5 dark:text-white">
+                            <div className="my-2 mx-5 ">
+                                <div>
+                                    {allExams.length == 0 ? <H4 text={'אין מבחנים לתצוגה'} /> : <H4 text={'טופס המבחן'} />}
+                                </div>
+                                <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
+                                    {allExams.map((exam, index) => {
+                                        return (
+                                            <a key={index} href={exam.downloadLink} target="_blank">
+                                                <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
+                                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
+                                                    <p className="dark:text-black">נוסח ב{exam.language}</p>
+                                                </div>
+                                            </a>)
+                                    })}
+                                </div>
                             </div>
-                            <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
-                                {allExams.map((exam,index) => {
-                                    return (
-                                        <a key={index} href={exam.downloadLink} target="_blank">
-                                            <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
-                                                <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                                <p className="dark:text-black">נוסח ב{exam.language}</p>
-                                            </div>
-                                        </a>)
-                                })}
+                            <div className="my-2 mx-5 ">
+                                <div>
+                                    {allSolutions.length == 0 ? <H4 text={'אין פתרונות לתצוגה'} /> : <H4 text={'פתרונות'} />}
+                                </div>
+                                <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
+                                    {allSolutions.map((solution, index) => {
+                                        return (
+                                            <a key={index} href={solution.downloadLink} target="_blank">
+                                                <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
+                                                    <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
+                                                    <p className="dark:text-black">{index + 1}. ציון - {solution.grade}</p>
+                                                </div>
+                                            </a>)
+                                    })}
+                                </div>
                             </div>
                         </div>
-                        <div className="my-2 mx-5 ">
-                            <div>
-                                {allSolutions.length == 0 ? <H4 text={'אין פתרונות להצגה'} /> : <H4 text={'פתרונות'} />}
-                            </div>
-                            <div className="max-h-xxs px-2 scrollbar scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-100 dark:scrollbar-thumb-gray-500 pl-5 overflow-y-auto rounded-xl">
-                                {allSolutions.map((solution, index) => {
-                                    return (
-                                        <a key={index} href={solution.downloadLink} target="_blank">
-                                            <div className="flex items-center bg-gray-100 dark:bg-gray-500 rounded-full my-2 py-1 hover:bg-gray-200 transition ease-in-out px-3 justify-center shadow">
-                                                <DocumentTextIcon className="cursor-pointer h-7 w-7 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                                                <p className="dark:text-black">{index + 1}. ציון - {solution.grade}</p>
-                                            </div>
-                                        </a>)
-                                })}
-                            </div>
-                        </div>
+                        <QuestionSelector questionsNum={questionsNum} questionSelected={questionSelected} setQuestionSelected={setQuestionSelected} />
                     </div>
                     <Discussions type={'exam'} contentUpdated={contentUpdated} />
-                    <QuestionSelector questionsNum={questionsNum} questionSelected={questionSelected} setQuestionSelected={setQuestionSelected} />
                 </div>
             </div>
         </>
