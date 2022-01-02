@@ -8,8 +8,8 @@ import { getAllUserCourses } from "../../API/usersApi"
 import { getAllCoursesInDepartments } from '../../API/departmentApi'
 import { useEffect, useState } from "react"
 import { useAuth0 } from '@auth0/auth0-react';
-import H4 from "../../general-components/H4";
 import H3 from "../../general-components/H3";
+import H1 from "../../general-components/H1";
 
 
 const HomePage = () => {
@@ -109,8 +109,8 @@ const HomePage = () => {
 
     return (
         <div dir='rtl' className="my-10 flex flex-col items-center justify-center">
-            <div className="flex flex-col max-w-7xl justify-center items-center p-5 shadow rounded-lg dark:bg-gray-900">
-                <H3 text={'חפש את הקורס שלך'}/>
+            <div className="flex flex-col max-w-7xl justify-center items-center p-5 shadow rounded-lg dark:bg-gray-900 bg-indigo-50">
+                <H1 text={'חפש את הקורס שלך'}/>
                 <div className="mx-6 mt-8 flex flex-col md:flex-row">
                     <DropDownList text={'פקולטה'} list={createList(faculties, 'faculty')} object={isDDL1changed} setObject={setIsDDL1changed} />
                     <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />
@@ -123,7 +123,7 @@ const HomePage = () => {
                 </Link>
             </div>
             {user && <div className="my-8 w-screen max-w-7xl flex flex-col text-center">
-                {createList(userCourses, 'userCourse').length > 0 && <H4 text={'אפשר גם לקצר קצת את הדרך...'} />}
+                {createList(userCourses, 'userCourse').length > 0 && <H3 text={'אפשר גם לקצר קצת את הדרך...'} />}
                 <div className="mx-10 pb-6 rounded-xl flex flex-wrap justify-center items-center md:items-stretch md:flex-nowrap md:justify-start md:overflow-x-auto p-4 scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600">
                     {renderUserCourses()}
                 </div>

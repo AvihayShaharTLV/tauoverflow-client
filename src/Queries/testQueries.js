@@ -30,6 +30,7 @@ query MyQuery {
       tid
       uid
       updatedAt
+      attachment
     }
   }
 }

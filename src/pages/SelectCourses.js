@@ -4,8 +4,8 @@ import { getAllFaculties } from '../API/facultyApi'
 import { getAllDepartments, getAllCoursesInDepartments } from '../API/departmentApi'
 import { getAllCourses } from '../API/courseApi'
 import Input from "../general-components/Input";
+import H1 from "../general-components/H1";
 import H3 from "../general-components/H3";
-import H4 from "../general-components/H4";
 import Button from "../general-components/Button";
 import { useAuth0 } from '@auth0/auth0-react';
 import { createUserCourse } from "../API/usersApi";
@@ -134,16 +134,15 @@ const SelectCourses = () => {
     }
 
     return (
-        <div dir="rtl" className="flex flex-col my-6 items-center">
-            <H3 text={'סנן קורסים שרלוונטים אליך כדי לקצר את תהליך החיפוש שלך'} />
-
+        <div dir="rtl" className="flex flex-col my-6 items-center bg-indigo-50 mx-10 rounded-xl shadow">
+            <H1 text={'סנן קורסים שרלוונטים אליך כדי לקצר את תהליך החיפוש שלך'} />
             <div className="flex my-6">
                 <DropDownList text={'פקולטה'} list={createList(faculties, 'faculty')} object={isDDL1changed} setObject={setIsDDL1changed} />
                 <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />
             </div>
             {isDDL3changed && <div className="w-full text-center">
                 <div className="flex justify-center items-center">
-                    <H4 text={`בחר עד ${MAX_COUNT} קורסים (${countInputs} נותרו)`} />
+                    <H3 text={`בחר עד ${MAX_COUNT} קורסים (${countInputs} נותרו)`} />
                     <Button clickHandler={saveCourses} text={'שמור'} />
                 </div>
                 <div className="flex p-5 mx-10 flex-col items-start">

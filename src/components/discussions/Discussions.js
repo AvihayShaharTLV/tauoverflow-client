@@ -47,11 +47,11 @@ const Discussions = ({ type, contentUpdated }) => {
     }, [contentUpdated])
 
     return (
-        <div className="flex flex-col h-screen-1/2 md:flex-row p-3">
-            <div className="flex sm:flex-auto m-2 md:w-1 shadow dark:bg-gray-800 rounded-lg">
+        <div className="flex flex-col h-screen-1/2 md:flex-row p-3 mt-5">
+            <div className="flex sm:flex-auto bg-purple-50 m-2 md:w-1 shadow dark:bg-gray-800 rounded-lg">
                 <DiscussionsList type={type} discussions={discussions} setSelectedDiscussion={setSelectedDiscussion} />
             </div>
-            {selectedDiscussion && <div className="flex sm:flex-auto dark:bg-gray-800 m-2 md:w-80 rounded-lg shadow">
+            {selectedDiscussion && <div className="flex bg-purple-50 sm:flex-auto dark:bg-gray-800 m-2 md:w-80 rounded-lg shadow">
                 <Discussion type={type} selectedDiscussion={selectedDiscussion} setSelectedDiscussion={setSelectedDiscussion} />
             </div>}
         </div>
