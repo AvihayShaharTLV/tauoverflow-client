@@ -22,7 +22,7 @@ const UploadFile = ({ handleFileInput, setSelectedFile, selectedFile, uploadTitl
     }
 
     return (
-        <div className="m-2 mb-5">
+        <div className="m-2 mb-5 max-h-md max-w-md">
             <div className="relative mt-1 flex justify-center  px-10 py-2 border-2 border-gray-400 border-dashed rounded-md dark:bg-gray-800">
                 {!selectedFile && <div className="space-y-1 text-center">
                     <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">

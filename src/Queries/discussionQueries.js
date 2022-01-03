@@ -25,16 +25,17 @@ export const updateCourseDiscussionQuery = `mutation updateCourseDiscussionById(
       } 
   }`
 
-export const createTestDiscussionQuery = `mutation createTestDiscussion($uid: String!, $cid: String!, $tid: Int!, $title: String!, $body: String) {
+export const createTestDiscussionQuery = `mutation createTestDiscussion($uid: String!, $cid: String!, $tid: Int!, $title: String!, $body: String!, $attachment: String) {
   createTestDiscussion(
-    input: {testDiscussion: {uid: $uid, cid: $cid, tid: $tid , title: $title, body:  $body}}
+    input: {testDiscussion: {uid: $uid, cid: $cid, tid: $tid, title: $title, attachment: $attachment, body: $body}}
   ) {
     testDiscussion {
-      body
+      attachment
       cid
       title
       uid
       tid
+      body
     }
   }
 }`
