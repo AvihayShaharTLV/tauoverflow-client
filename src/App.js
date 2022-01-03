@@ -38,7 +38,7 @@ const App = () => {
       //      emailDomain !== "mail.tau.ac.il" || 
       //      emailDomain!== "tauex.tau.ac.il" || 
       //      emailDomain !== "eng.tau.ac.il") {
-      //   alert('התחברות לחשבון באמצעות TAU אימייל בלבד');
+      //   alert('התחברות לחשבון באמצעות אימייל TAU בלבד');
       //   logout();
       //   loginWithRedirect();
       //   return;
