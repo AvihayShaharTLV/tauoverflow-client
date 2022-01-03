@@ -112,7 +112,7 @@ export const createQuestionUserRateQuery = `mutation createQuestionsUserRate($ui
 // }`
 
 
-export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion($uid: String!, $tid: Int!, $title: String!, $body: String!, $attachment: String!, $qnum: Int!) {
+export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion($uid: String!, $tid: Int!, $title: String!, $body: String!, $attachment: String, $qnum: Int!) {
   createQuestionDiscussion( input: {questionDiscussion: {uid: $uid, tid: $tid, title: $title, body: $body, attachment: $attachment, qnum: $qnum}}
   ) {
     questionDiscussion {
