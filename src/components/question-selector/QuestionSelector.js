@@ -17,8 +17,8 @@ const QuestionSelector = ({ questionsNum, setQuestionSelected, questionSelected 
             </div>
             <div className="flex items-start justify-center ">
                 <DropDownList list={Array.from({length: questionsNum}, (_, i) => i + 1)} IDs={IDs} setObject={setQuestionSelected} object={questionSelected} type={"text"}/>
-                <PlusCircleIcon data-tip data-for="questionTip" className="focus:outline-none cursor-pointer mt-1.5 h-9 w-9 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
-                <ReactTooltip id="questionTip" className="text-center" place="bottom" effect="solid">חסרה שאלה?<br></br>לחץ כאן להוספה</ReactTooltip>
+                {/* <PlusCircleIcon data-tip data-for="questionTip" className="focus:outline-none cursor-pointer mt-1.5 h-9 w-9 text-indigo-600 hover:text-indigo-700" aria-hidden="true" />
+                <ReactTooltip id="questionTip" className="text-center" place="bottom" effect="solid">חסרה שאלה?<br></br>לחץ כאן להוספה</ReactTooltip> */}
             </div>
         </div>
     )

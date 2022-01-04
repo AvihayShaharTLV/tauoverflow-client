@@ -43,7 +43,7 @@ const UploadFile = ({ handleFileInput, setSelectedFile, selectedFile, uploadTitl
                         {uploadType === "PDF" && <DocumentTextIcon className="h-12 w-12 outline-none" />}
                         <input id="file-upload" name="file-upload" type="file" className="sr-only outline-none" onChange={(e) => clickHandle(e)} />
                     </label>
-                    {uploadType === "PDF" ? <p className="text-center text-xs text-gray-500">נבחר קובץ {typeOfFile?.length ? typeOfFile.toUpperCase() : ''}</p> : <img src={previewUrl} />}
+                    {uploadType === "PDF" ? <p className="text-center text-xs text-gray-500">נבחר קובץ {typeOfFile?.length ? typeOfFile.toUpperCase() : ''}</p> : <img className='max-h-md max-w-md' src={previewUrl} />}
                     <XIcon className="absolute top-0 left-0 transform dark:bg-gray-800 -translate-x-1/2 -translate-y-1/2 h-7 w-7 bg-gray-200 text-indigo-600 hover:text-indigo-500 cursor-pointer border-dashed border-2 border-gray-400 rounded-full p-1" onClick={() => setSelectedFile(false)} />
                 </div>}
             </div>

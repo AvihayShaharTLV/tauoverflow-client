@@ -51,7 +51,7 @@ const ExamFilter = () => {
             <div className="flex my-2 w-full justify-center">
                 <Button text={'סינון'} clickHandler={filterExams} />
             </div>
-            {viewExams && <div className="bg-blue-100 w-full rounded-xl pt-4 shadow mt-4 ">
+            {viewExams && <div className="bg-blue-100 dark:bg-gray-700 w-full rounded-xl pt-4 shadow mt-4 ">
                 <div className="mb-3 flex justify-center items-center">
                     <H2 text={exams.length == 0 ? 'לא נמצאו מבחנים' : 'רשימת המבחנים שנמצאו'} />
                 </div>
