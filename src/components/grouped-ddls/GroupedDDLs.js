@@ -22,7 +22,7 @@ const GroupedDDLs = ({examDefenition,grade,questionNum, isQuestionNum, enableNul
                 <DropDownList value={examDefenition?.period} enableNulls={enableNulls}  type={"text"} object={due} setObject={setDue} text={'מועד'} list={duesList} />
             </div>
             {upload &&
-                <div className="flex items-end sm:flex-row">
+                <div className="flex items-start sm:flex-row">
                     {!isQuestionNum && <Input value={questionNum} setInputValue={setQuestionNum} text={'מספר שאלות'} type={'number'}  />}
                     {popupType === 'solution' &&
                         <DropDownList object={fileType} setObject={setFileType} text={'סוג טופס'} list={['פיתרון', 'נוסח מבחן']} />}

@@ -28,7 +28,7 @@ const Input = ({ text, type, setInputValue, isChecked, value, courseSelection })
                     <label className="mx-3 block dark:text-white text-sm font-medium text-gray-700">{text}</label>
                 </div>
                 :
-                <div dir="rtl" className="mx-2 mb-5 col-span-6 sm:col-span-3 ">
+                <div dir="rtl" className="mx-2 mb-5 mt-1 col-span-6 sm:col-span-3 ">
                     <label className="block dark:text-white text-sm font-medium text-gray-700">{text}</label>
                     <input min={0} onChange={(e) => preventMinus(e.target.value.trim())}
                         value={value}

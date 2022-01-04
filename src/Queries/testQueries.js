@@ -12,10 +12,10 @@ export const getAllTestDiscussionsQuery = `query MyQuery {
       title
       uid
       updatedAt
+      attachment
     }
   }
 }
-
 `
 
 export const getAllTestDiscussionsCommentsQuery = `
