@@ -37,11 +37,14 @@ const Discussions = ({ type, contentUpdated }) => {
             break;
 
           case "question":
+            console.log(IDs);
             // console.log('fetching all questions discussions');
             response = await getAllQuestionDiscussions();
             allDiscussions =
               response.data.data.allQuestionDiscussions.nodes.filter(
-                (discussion) => discussion.qnum === parseInt(IDs.questionID)
+                (discussion) =>
+                  discussion.qnum === parseInt(IDs.questionID) &&
+                  discussion.tid === parseInt(IDs.examID) 
               );
             break;
           default:
