@@ -9,7 +9,7 @@ import axios from 'axios'
 
 // Comment functions
 export const createCourseComment = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createCourseCommentQuery,
         variables: object,
       })
@@ -22,7 +22,7 @@ export const createCourseComment = (object) => {
   }
 
   export const updateCourseComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateCourseCommentQuery,
         variables: {...userData}
       })
@@ -35,7 +35,7 @@ export const createCourseComment = (object) => {
   }
 
   export const createTestComment = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createTestCommentQuery,
         variables: object,
       })
@@ -48,7 +48,7 @@ export const createCourseComment = (object) => {
   }
 
   export const updateTestComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateTestCommentQuery,
         variables: {...userData}
       })
@@ -61,7 +61,7 @@ export const createCourseComment = (object) => {
   }
 
   export const createQuestionComment = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createQuestionCommentQuery,
         variables: object,
       })
@@ -74,7 +74,7 @@ export const createCourseComment = (object) => {
   }
 
   export const updateQuestionComment = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateQuestionCommentQuery,
         variables: {...userData}
       })

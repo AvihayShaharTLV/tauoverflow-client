@@ -9,7 +9,7 @@ import { getAllCourseDiscussionCommentsQuery } from '../Queries/courseQueries'
 import axios from 'axios'
 
 export const getAllCourses = () => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: getAllCoursesQuery,
         variables: {}
       })
@@ -24,7 +24,7 @@ export const getAllCourses = () => {
 // From here - the updated functions!!! all of the abve - examples !!!!!!!
 
 export const getAllCourseDiscussions = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllCourseDiscussionsQuery,
       variables: {}
     })
@@ -37,7 +37,7 @@ export const getAllCourseDiscussions = () => {
 }
 
 // export const getAllTestByCourse = () => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: getAllTestByCourseQuery,
 //       variables: {}
 //     })
@@ -50,7 +50,7 @@ export const getAllCourseDiscussions = () => {
 // }
 
 export const getAllCourseDiscussionComments = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllCourseDiscussionCommentsQuery,
       variables: {}
     })
@@ -63,7 +63,7 @@ export const getAllCourseDiscussionComments = () => {
 }
 
 // export const getAllCourseProfessors = () => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: getAllCourseProfessorsQuery,
 //       variables: {}
 //     })
@@ -77,7 +77,7 @@ export const getAllCourseDiscussionComments = () => {
  
 // // Test functions
 // export const getAllTestDiscussions = () => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: getAllTestDiscussionsQuery,
 //       variables: {}
 //     })
@@ -90,7 +90,7 @@ export const getAllCourseDiscussionComments = () => {
 // }
 
 // export const getAllTestDiscussionsComments = () => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: getAllTestDiscussionsCommentsQuery,
 //       variables: {}
 //     })

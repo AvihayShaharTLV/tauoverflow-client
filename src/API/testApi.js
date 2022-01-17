@@ -11,7 +11,7 @@ import axios from 'axios'
 
 // Test functions
 export const getAllTestDiscussions = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllTestDiscussionsQuery,
       variables: {}
     })
@@ -24,7 +24,7 @@ export const getAllTestDiscussions = () => {
 }
 
 export const getAllTestDiscussionsComments = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllTestDiscussionsCommentsQuery,
       variables: {}
     })
@@ -37,7 +37,7 @@ export const getAllTestDiscussionsComments = () => {
 }
 
 export const getTestNumQuestions = () => {
-  axios.post('http://localhost:5000/graphql', {
+  axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getTestNumQuestionsQuery,
       variables: {}
     })
@@ -50,7 +50,7 @@ export const getTestNumQuestions = () => {
 }
 
 export const updateTestNumQuestions = (userData) => {
-  axios.post('http://localhost:5000/graphql', {
+  axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: updateTestNumQuestionsQuery,
       variables: {...userData}
     })
@@ -63,7 +63,7 @@ export const updateTestNumQuestions = (userData) => {
 }
 
 export const createTest = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: createTestQuery,
       variables: object
     })
@@ -76,7 +76,7 @@ export const createTest = (object) => {
 }
 
 export const createExam = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: createExamQuery,
       variables: object,
     })
@@ -89,7 +89,7 @@ export const createExam = (object) => {
 }
 
 export const getAllExams = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllExamsQuery,
       variables: {}
     })
@@ -102,7 +102,7 @@ export const getAllExams = () => {
 }
 
 export const getAllSolutions = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllSolutionsQuery,
       variables: {}
     })
@@ -116,7 +116,7 @@ export const getAllSolutions = () => {
 
 
 export const createSolution = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: createSolutionQuery,
       variables: object,
     })
@@ -129,7 +129,7 @@ export const createSolution = (object) => {
 }
 
 export const getAllTests = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllTestsQuery,
       variables: {}
     })

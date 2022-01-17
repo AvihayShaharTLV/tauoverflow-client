@@ -2,7 +2,7 @@ import { getAllUsersQuery, createUserQuery, updateUserQuery, createUserCourseQur
 import axios from 'axios'
 
 export const getAllUsers = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllUsersQuery,
     variables: {}
   })
@@ -15,7 +15,7 @@ export const getAllUsers = () => {
 }
 
 export const createUser = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: createUserQuery,
     variables: object,
   })
@@ -28,7 +28,7 @@ export const createUser = (object) => {
 }
 
 // export const updateUser = (userData) => {
-//     axios.post('http://localhost:5000/graphql', {
+//     axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //         query: updateUserQuery,
 //         variables: {...userData}
 //       })
@@ -43,7 +43,7 @@ export const createUser = (object) => {
 // // From here - the updated queries!!! all of the abve - examples !!!!!!!
 
 export const getAllUserCourses = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllUserCoursesQuery,
     variables: {}
   })
@@ -56,7 +56,7 @@ export const getAllUserCourses = () => {
 }
 
 export const createUserCourse = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: createUserCourseQurey,
     variables: object
   })
@@ -69,7 +69,7 @@ export const createUserCourse = (object) => {
 }
 
 export const deleteUserCourse = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: deleteUserCourseQurey,
       variables: object,
     })
