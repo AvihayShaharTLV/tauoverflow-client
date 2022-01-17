@@ -136,7 +136,7 @@ const SelectCourses = () => {
     return (
         <div dir="rtl" className="flex flex-col my-6 items-center bg-indigo-50 mx-10 rounded-xl shadow">
             <H1 text={'סנן קורסים שרלוונטים אליך כדי לקצר את תהליך החיפוש שלך'} />
-            <div className="flex-col sm:flex-row my-6">
+            <div className="flex flex-col sm:flex-row my-6">
                 <DropDownList text={'פקולטה'} list={createList(faculties, 'faculty')} object={isDDL1changed} setObject={setIsDDL1changed} />
                 <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />
             </div>
