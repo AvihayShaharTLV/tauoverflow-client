@@ -4,7 +4,7 @@ import { getAllCoursesInDepartmentsQuery } from '../Queries/departmentsQueries'
 import axios from 'axios'
 
 export const getAllDepartments = () => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: getAllDepartmentsQuery, 
         variables: {}
     })
@@ -17,7 +17,7 @@ export const getAllDepartments = () => {
 }
 
 export const getAllCoursesInDepartments = () => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: getAllCoursesInDepartmentsQuery, 
         variables: {}
     })

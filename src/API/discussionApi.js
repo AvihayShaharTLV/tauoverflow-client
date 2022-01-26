@@ -9,7 +9,7 @@ import axios from 'axios'
 
 // Comment functions
 export const createCourseDiscussion = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createCourseDiscussionQuery,
         variables: object,
       })
@@ -22,7 +22,7 @@ export const createCourseDiscussion = (object) => {
   }
 
   export const updateCourseDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateCourseDiscussionQuery,
         variables: {...userData}
       })
@@ -35,7 +35,7 @@ export const createCourseDiscussion = (object) => {
   }
 
   export const createTestDiscussion = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createTestDiscussionQuery,
         variables: object,
       })
@@ -48,7 +48,7 @@ export const createCourseDiscussion = (object) => {
   }
 
   export const updateTestDiscussion = (object) => {
-    return axios.post('http://localhost:5000/graphql', {
+    return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateTestDiscussionQuery,
         variables: object,
       })
@@ -61,7 +61,7 @@ export const createCourseDiscussion = (object) => {
   }
 
   export const createQuestionDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: createQuestionDiscussionQuery,
         variables: {...userData}
       })
@@ -74,7 +74,7 @@ export const createCourseDiscussion = (object) => {
   }
 
   export const updateQuestionDiscussion = (userData) => {
-    axios.post('http://localhost:5000/graphql', {
+    axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
         query: updateQuestionDiscussionQuery,
         variables: {...userData}
       })

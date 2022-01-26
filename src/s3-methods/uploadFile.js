@@ -1,6 +1,6 @@
 export const uploadToS3 = async (file, type) => {
   const { url } = await fetch(
-    `http://localhost:5000/s3Url?folderName=${
+    `https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/s3Url?folderName=${
       type === "exam" ? "exams" : type === "solution" ? "solutions" : "images"
     }`
   ).then((ressponse) => ressponse.json());

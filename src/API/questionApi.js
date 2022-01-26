@@ -14,7 +14,7 @@ import axios from 'axios'
 
 // Question functions
 export const getAllQuestionsRate = () => {
-  axios.post('http://localhost:5000/graphql', {
+  axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllQuestionsRateQuery,
     variables: {}
   })
@@ -27,7 +27,7 @@ export const getAllQuestionsRate = () => {
 }
 
 export const getAllQuestionsUserRate = () => {
-  axios.post('http://localhost:5000/graphql', {
+  axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllQuestionsUserRateQuery,
     variables: {}
   })
@@ -40,7 +40,7 @@ export const getAllQuestionsUserRate = () => {
 }
 
 export const getAllQuestionDiscussions = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllQuestionDiscussionsQuery,
     variables: {}
   })
@@ -53,7 +53,7 @@ export const getAllQuestionDiscussions = () => {
 }
 
 export const getAllQuestionDiscussionsComments = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: getAllQuestionDiscussionsCommentsQuery,
     variables: {}
   })
@@ -66,7 +66,7 @@ export const getAllQuestionDiscussionsComments = () => {
 }
 
 export const createQuestionDiscussion = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
     query: createQuestionDiscussionQuery,
     variables: object,
   })
@@ -79,7 +79,7 @@ export const createQuestionDiscussion = (object) => {
 }
 
 export const createQuestion = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: createQuestionQuery,
       variables: object,
     })
@@ -92,7 +92,7 @@ export const createQuestion = (object) => {
 }
 
 export const  getQuestionUserRate = () => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: getAllQuestionUserRateQuery,
       variables: {}
     })
@@ -105,7 +105,7 @@ export const  getQuestionUserRate = () => {
 }
 
 export const createQuestionUserRate = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: createQuestionUserRateQuery,
       variables: object,
     })
@@ -119,7 +119,7 @@ export const createQuestionUserRate = (object) => {
 
 
 // export const  getQuestionRateScoreAndRateAmount = () => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: getAllQuestionRateScoreAndRateAmountQuery,
 //       variables: {}
 //     })
@@ -132,7 +132,7 @@ export const createQuestionUserRate = (object) => {
 // }
 
 // export const updateQuestionRate = (userData) => {
-//   axios.post('http://localhost:5000/graphql', {
+//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
 //       query: updateQuestionRateQuery,
 //       variables: {...userData}
 //     })
@@ -147,7 +147,7 @@ export const createQuestionUserRate = (object) => {
 
 
 export const updateQuestionUserRate = (object) => {
-  return axios.post('http://localhost:5000/graphql', {
+  return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: updateQuestionUserRateQuery,
       variables: object
     })
