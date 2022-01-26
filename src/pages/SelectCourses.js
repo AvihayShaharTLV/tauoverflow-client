@@ -142,8 +142,8 @@ const SelectCourses = () => {
             </div>
             {isDDL3changed && <div className="w-full text-center">
                 <div className="flex justify-center items-center">
-                    <H3 text={`בחר עד ${MAX_COUNT} קורסים (${countInputs} נותרו)`} />
-                    <Button clickHandler={saveCourses} text={'שמור'} />
+                    <H3 text={`בחירת עד ${MAX_COUNT} קורסים (${countInputs} נותרו)`} />
+                    <Button clickHandler={saveCourses} text={'שמירה'} />
                 </div>
                 <div className="flex p-5 mx-10 flex-col items-start">
                     {renderCoursesInputs(createList(courses, 'course'))}

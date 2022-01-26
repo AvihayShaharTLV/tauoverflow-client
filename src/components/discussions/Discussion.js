@@ -106,7 +106,7 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
         setIsPushLoading(false);
       } else if (response.status === 400) {
         setIsPushLoading(false);
-        alert("לא הצלחתי להוסיף את התגובה שלך. אנא נסה שוב!");
+        alert("לא הצלחתי להוסיף את התגובה שלך. נא לנסות שוב!");
       }
     } catch (error) {
       setIsPushLoading(false);
@@ -252,7 +252,7 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
                   place="bottom"
                   effect="solid"
                 >
-                  צרף תמונה
+                  צירוף תמונה
                 </ReactTooltip>
                 <input
                   id="file-upload"
@@ -279,7 +279,7 @@ const Discussion = ({ setSelectedDiscussion, selectedDiscussion, type }) => {
             )}
           </div>
           <TextArea
-            text={"נו תגיב משהו:"}
+            text={"הוספת תגובה:"}
             description={description}
             setDescription={setDescription}
             rows={2}

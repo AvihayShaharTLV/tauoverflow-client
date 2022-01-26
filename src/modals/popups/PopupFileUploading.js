@@ -24,7 +24,7 @@ const PopupFileUploading = ({
   if (params[0]) courseID = params[0].split("=")[1];
   if (params[1]) examID = params[1].split("=")[1];
 
-  examID ? setTitle("העלה קובץ") : setTitle("צור מבחן");
+  examID ? setTitle(" קובץ") : setTitle("יצירת מבחן");
 
   const findSemester = () => {
     let month = new Date().getMonth() + 1;
@@ -94,7 +94,7 @@ const PopupFileUploading = ({
         test.semester === semester
       ) {
         // alert and navigate to test page
-        alert("המבחן כבר קיים, תועבר באופן אוטומטי");
+        alert("המבחן כבר קיים, העברת אוטומטית תבוצע מיד");
         window.location.replace(`/course=${courseID.trim()}/exam=${test.id}`);
         return;
       }
@@ -121,7 +121,7 @@ const PopupFileUploading = ({
 
       setIsPopupOpen(false);
     } else if (testID.status === 400) {
-      alert("הקובץ לא הועלה כשורה. אנא נסה שוב.");
+      alert("הקובץ לא הועלה כשורה, נא לנסות שוב.");
     }
   };
 
@@ -155,7 +155,7 @@ const PopupFileUploading = ({
     if (response.status === 200) {
       setIsPopupOpen(false);
     } else if (response.status === 400) {
-      alert("הקובץ לא הועלה כשורה. אנא נסה שוב.");
+      alert("הקובץ לא הועלה כשורה. נא לנסות שוב.");
       setIsLoading(false);
     }
   };
@@ -188,7 +188,7 @@ const PopupFileUploading = ({
         <div className="select-none flex flex-col items-center justify-center">
           {examID && (
             <UploadFile
-              uploadTitle={"העלה קובץ"}
+              uploadTitle={"העלאת קובץ"}
               uploadFileLimit={FILE_LIMIT}
               uploadType={"PDF"}
               handleFileInput={handleFileInput}
@@ -203,7 +203,7 @@ const PopupFileUploading = ({
         </div>
       ) : (
         <div className="select-none flex flex-col items-center justify-center">
-          <p>יוצר טופס. אנא המתן.</p>
+          <p>יצירת טופס בתהליך, נא להמתין.</p>
           <svg
             className={`animate-spin w-10 h-10 text-indigo-700`}
             xmlns="http://www.w3.org/2000/svg"

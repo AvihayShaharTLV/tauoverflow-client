@@ -41,7 +41,7 @@ const PopupDiscussion = ({
     setSelectedFile(file);
   };
 
-  setTitle("צור דיון חדש");
+  setTitle("יצירת דיון חדש");
 
   const postDiscussion = async (e) => {
     setIsLoading(true);
@@ -93,7 +93,7 @@ const PopupDiscussion = ({
       setContentUpdated(!contentUpdated);
     } else {
       setIsLoading(false);
-      alert("קרתה תקלה. אנא נסה בשנית");
+      alert("קרתה תקלה. נא לנסות שוב");
     }
     setIsLoading(false);
   };
@@ -107,7 +107,7 @@ const PopupDiscussion = ({
       {!isLoading ? (
         <div className="select-none flex flex-col items-center">
           <UploadFile
-            uploadTitle={"צרף תמונה"}
+            uploadTitle={"צירוף תמונה"}
             uploadFileLimit={FILE_LIMIT}
             uploadType={"PNG"}
             handleFileInput={handleFileInput}
@@ -118,7 +118,7 @@ const PopupDiscussion = ({
         </div>
       ) : (
         <div className="select-none flex flex-col items-center justify-center">
-          <p>יוצר דיון. אנא המתן.</p>
+          <p>יצירת דיון בתהליך, נא להמתין.</p>
           <svg
             className={`animate-spin w-10 h-10 text-indigo-700`}
             xmlns="http://www.w3.org/2000/svg"

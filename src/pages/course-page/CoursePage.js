@@ -31,7 +31,7 @@ const CoursePage = ({ setExamDefenition, setIsListUpdated, isListUpdated, conten
 
     return (
         <div dir='rtl' className=" flex shadow rounded-lg p-5 flex-col mx-auto my-10 items-center w-screen dark:text-white dark:bg-gray-900 ">
-            <CourseHeader setIsListUpdated={setIsListUpdated} isListUpdated={isListUpdated} addToFav={true} setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} discussionBTN={'דיון חדש'} filesUploadBTN={'הוסף מבחן'} />
+            <CourseHeader setIsListUpdated={setIsListUpdated} isListUpdated={isListUpdated} addToFav={true} setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} discussionBTN={'דיון חדש'} filesUploadBTN={'הוספת מבחן'} />
             <ExamFilter />
             <div className="w-full flex flex-col">
                 <Discussions type={'course'} contentUpdated={contentUpdated} />

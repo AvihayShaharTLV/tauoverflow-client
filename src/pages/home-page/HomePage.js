@@ -110,7 +110,7 @@ const HomePage = () => {
     return (
         <div dir='rtl' className="my-10 flex flex-col items-center justify-center">
             <div className="flex flex-col max-w-7xl justify-center items-center p-5 shadow rounded-lg dark:bg-gray-900 bg-indigo-50">
-                <H1 text={'חפש את הקורס שלך'}/>
+                <H1 text={'חיפוש קורס'}/>
                 <div className="mx-6 mt-8 flex flex-col md:flex-row">
                     <DropDownList text={'פקולטה'} list={createList(faculties, 'faculty')} object={isDDL1changed} setObject={setIsDDL1changed} />
                     <DropDownList text={'חוג'} list={createList(deparments, 'department')} object={isDDL2changed} setObject={setIsDDL2changed} />
@@ -118,7 +118,7 @@ const HomePage = () => {
                 </div>
                 <Link to={isDDL3changed ? '/course=' + isDDL3changed : '#'}>
                     <div className="mx-6">
-                        <Button text={'חפש'} />
+                        <Button text={'חיפוש'} />
                     </div>
                 </Link>
             </div>

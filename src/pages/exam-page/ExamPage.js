@@ -74,7 +74,7 @@ const ExamPage = ({ examDefenition, setExamDefenition, newExamUploaded, newSolut
         <>
             <div dir='rtl' className="flex shadow rounded-lg p-5 flex-col dark:bg-gray-900 mx-auto my-10 items-center max-w-7xl">
                 <div className="w-full">
-                    <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} examID={examDefenition} discussionBTN={'דיון חדש'} filesUploadBTN={'העלה טופס'} />
+                    <CourseHeader setPopupType={setPopupType} isPopupOpen={isPopupOpen} setIsPopupOpen={setIsPopupOpen} courseName={courseName} examID={examDefenition} discussionBTN={'דיון חדש'} filesUploadBTN={'העלאת טופס'} />
                     <div className="flex justify-around items-center">
                         <div className="flex mr-5 dark:text-white">
                             <div className="my-2 mx-5 ">

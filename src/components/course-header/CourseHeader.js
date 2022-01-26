@@ -144,7 +144,7 @@ const CourseHeader = ({
                   : "text-indigo-600"
               }`}
             >
-              רמת הקושי שבחרת: {parseInt(userRate)}
+              רמת הקושי שנבחרה: {parseInt(userRate)}
             </p>
             <div>
               {changeQuestionRating && (

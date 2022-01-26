@@ -57,17 +57,17 @@ export default function PersonalInfo() {
                                                                     </svg>
                                                                     <div className="flex text-sm text-gray-600">
                                                                         <label htmlFor="file-upload" className="relative cursor-pointer dark:bg-gray-900 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                                            <span>העלה קובץ</span>
+                                                                            <span>העלאת קובץ</span>
                                                                             <input id="file-upload" name="file-upload" type="file" className="sr-only" />
                                                                         </label>
-                                                                        <p className="pr-1">או גרור</p>
+                                                                        <p className="pr-1">או גרירה</p>
                                                                     </div>
                                                                     <p className="text-xs text-gray-500">PNG, JPG, GIF עד 10MB </p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="px-4 py-3 text-right sm:px-6">
-                                                            <Button text={'שמור תמונה'} />
+                                                            <Button text={'שמירת תמונה'} />
                                                         </div>
                                                     </div>
                                                 </div>

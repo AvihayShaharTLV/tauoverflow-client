@@ -46,7 +46,7 @@ const Comments = ({
       return (
         <div className="shadow-md bg-gray-50 dark:bg-gray-700 mx-1 px-3 py-2 rounded-xl my-3">
           <h1 className="h-12 flex flex-col items-center justify-center">
-            אין תגובות עדיין. אולי תשקול להיות הראשון?
+            כרגע אין תגובות על דיון זה
           </h1>
         </div>
       );
