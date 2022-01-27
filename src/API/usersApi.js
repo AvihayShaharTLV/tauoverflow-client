@@ -27,18 +27,6 @@ export const createUser = (object) => {
     });
 }
 
-// export const updateUser = (userData) => {
-//     axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
-//         query: updateUserQuery,
-//         variables: {...userData}
-//       })
-//       .then(function (response) {
-//         console.log(response);
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-// }
 
 // // From here - the updated queries!!! all of the abve - examples !!!!!!!
 
