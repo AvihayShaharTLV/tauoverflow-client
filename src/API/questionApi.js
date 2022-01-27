@@ -118,34 +118,6 @@ export const createQuestionUserRate = (object) => {
 }
 
 
-// export const  getQuestionRateScoreAndRateAmount = () => {
-//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
-//       query: getAllQuestionRateScoreAndRateAmountQuery,
-//       variables: {}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-
-// export const updateQuestionRate = (userData) => {
-//   axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
-//       query: updateQuestionRateQuery,
-//       variables: {...userData}
-//     })
-//     .then(function (response) {
-//       console.log(response);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// }
-
-
-
 export const updateQuestionUserRate = (object) => {
   return axios.post('https://tauoverflow-server-xkrnxu6gaq-uw.a.run.app/graphql', {
       query: updateQuestionUserRateQuery,

@@ -88,29 +88,6 @@ export const createQuestionUserRateQuery = `mutation createQuestionsUserRate($ui
 }
 `
 
-// export const getAllQuestionRateScoreAndRateAmountQuery = `{
-//   allQuestions {
-//     nodes {
-//       tid
-//       position
-//       rateScore
-//       rateAmount
-//     }
-//   }
-// }`
-
-//   export const updateQuestionRateQuery = `mutation updateQuestionByTidAndPosition($tid:Int!, $position: Int!, $rateAmount: Int!, $rateScore: Int!) {
-//     updateQuestionByTidAndPosition(input:{tid : $tid , position: $position, questionPatch:{rateAmount: $rateAmount, rateScore: $rateScore}}
-//     ) {
-//       question {
-//         tid
-//         position
-//         rateAmount
-//         rateScore
-//         }
-//     }
-// }`
-
 
 export const createQuestionDiscussionQuery = `mutation createQuestionDiscussion($uid: String!, $tid: Int!, $title: String!, $body: String!, $attachment: String, $qnum: Int!) {
   createQuestionDiscussion( input: {questionDiscussion: {uid: $uid, tid: $tid, title: $title, body: $body, attachment: $attachment, qnum: $qnum}}
