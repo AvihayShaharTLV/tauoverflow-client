@@ -88,19 +88,20 @@ const PopupFileUploading = ({
     const tests = await getAllTests();
     for (const test of tests.data.data.allTests.nodes) {
       if (
-        test.cid === courseID &&
-        test.year === year &&
-        test.period === due &&
-        test.semester === semester
+        test.cid.toString() === courseID.toString() &&
+        test.year.toString() === year.toString() &&
+        test.period.toString() === due.toString() &&
+        test.semester.toString() === semester.toString()
       ) {
         // alert and navigate to test page
-        alert("המבחן כבר קיים, העברת אוטומטית תבוצע מיד");
+        alert("המבחן כבר קיים במערכת, העברה אוטומטית תבוצע מיד");
         window.location.replace(`/course=${courseID.trim()}/exam=${test.id}`);
         return;
       }
     }
 
     // if isnt a match => continue and create
+    setIsLoading(true);
     const testID = await createTest({
       cid: courseID,
       year: parseInt(year),
@@ -115,12 +116,13 @@ const PopupFileUploading = ({
       });
     }
     if (testID.status === 200) {
+      setIsPopupOpen(false);
       window.location.replace(
         `/course=${courseID.trim()}/exam=${testID.data.data.createTest.test.id}`
       );
 
-      setIsPopupOpen(false);
     } else if (testID.status === 400) {
+      setIsLoading(false);
       alert("הקובץ לא הועלה כשורה, נא לנסות שוב.");
     }
   };

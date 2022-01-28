@@ -1,11 +1,8 @@
 import './App.css';
 import Nav from './components/nav/Nav';
-import Login from './pages/login-page/Login'
 import HomePage from './pages/home-page/HomePage'
 import CoursePage from './pages/course-page/CoursePage';
-import Signup from './pages/signup-page/Signup';
 import ExamPage from './pages/exam-page/ExamPage';
-import PersonalInfo from './modals/personal-info/PersonalInfo'
 import QuestionPage from './pages/question-page/QuestionPage';
 import { Routes, Route } from "react-router-dom"
 import Popup from './modals/popups/Popup'
@@ -92,13 +89,10 @@ const App = () => {
       <div id="mainDiv">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           {isNewUser && <Route path="/selectCourses" element={<SelectCourses />} />}
           {!isNewUser && <Route path="/course=:courseID" element={<CoursePage setExamDefenition={setExamDefenition} isListUpdated={isListUpdated} setIsListUpdated={setIsListUpdated} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />}
           <Route path="/course=:courseID/exam=:examID" element={<ExamPage examDefenition={examDefenition} setExamDefenition={setExamDefenition} newExamUploaded={newExamUploaded} newSolutionUploaded={newSolutionUploaded} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
           <Route path="/course=:courseID/exam=:examID/question=:questionID" element={<QuestionPage examDefenition={examDefenition} contentUpdated={contentUpdated} setPopupType={setPopupType} setIsPopupOpen={setIsPopupOpen} isPopupOpen={isPopupOpen} />} />
-          {/* <Route path="/profile" element={<PersonalInfo />} /> */}
         </Routes>
       </div>
     </div>
