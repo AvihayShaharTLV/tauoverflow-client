@@ -35,11 +35,13 @@ const Comments = ({
 
   const checkUserName = (id) => {
     let a_user;
-    users.forEach((user) => {
-      if (user.id === id) a_user = user;
-    });
-    return `${a_user.firstname}_${a_user.lastname}`;
-  };
+    if (users.length > 0) {
+      users.forEach((user) => {
+        if (user.id === id) a_user = user;
+      });
+      return `${a_user.firstname}_${a_user.lastname}`;
+    }
+  }
 
   const renderReplies = (comments) => {
     if (comments.length === 0)
@@ -57,8 +59,8 @@ const Comments = ({
       >
         <div className="flex justify-between">
           <p className="mb-4 break-words">{comment.body}</p>
-          {console.log(`comment number ${index}'s img`, comment.attachment)}
-          {comment.attachment && (
+          {console.log(`comment number ${index}'s img, attachment=>`, comment.attachment)}
+            {comment.attachment && (
             <img
               ref={onScreenClick}
               className="object-contain rounded-xl  w-24 m-3 shadow cursor-pointer"
