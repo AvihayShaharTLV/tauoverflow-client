@@ -1,5 +1,5 @@
 import H2 from "../../general-components/H2";
-import H4 from "../../general-components/H4";
+import H1 from "../../general-components/H1";
 import Button from "../../general-components/Button";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
@@ -138,11 +138,7 @@ const CourseHeader = ({
             className={`select-none flex relative justify-center items-center pb-1 rounded-md cursor-pointer `}
           >
             <p
-              className={`-mr-2 px-2 text-2xl font-bold rounded-lg dark:text-white ${
-                changeQuestionRating
-                  ? "bg-indigo-600 text-white"
-                  : "text-indigo-600"
-              }`}
+              className={`-mr-2 px-2 text-l font-bold rounded-lg dark:text-white bg-indigo-600 text-white`}
             >
               רמת הקושי שנבחרה: {parseInt(userRate)}
             </p>
@@ -209,7 +205,7 @@ const CourseHeader = ({
           {hasUserVoted && IDs.questionID && (
             <div className="flex flex-col items-center justify-center bg-indigo-600 py-2 rounded-lg px-3">
               {questionNum && avgVote !== NaN && avgVote !== 0 && (
-                <p className="text-white font-semibold">{`רמת קושי ממוצעת: ${avgVote}`}</p>
+                <p className="text-white font-medium">{`רמת קושי ממוצעת: ${avgVote}`}</p>
               )}
             </div>
           )}

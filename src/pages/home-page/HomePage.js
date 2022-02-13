@@ -8,7 +8,7 @@ import { getAllUserCourses } from "../../API/usersApi"
 import { getAllCoursesInDepartments } from '../../API/departmentApi'
 import { useEffect, useState } from "react"
 import { useAuth0 } from '@auth0/auth0-react';
-import H3 from "../../general-components/H3";
+import H2 from "../../general-components/H2";
 import H1 from "../../general-components/H1";
 
 
@@ -123,7 +123,7 @@ const HomePage = () => {
                 </Link>
             </div>
             {user && <div className="my-8 w-screen max-w-7xl flex flex-col text-center">
-                {createList(userCourses, 'userCourse').length > 0 && <H3 text={'אפשר גם לקצר קצת את הדרך...'} />}
+                {createList(userCourses, 'userCourse').length > 0 && <H2 text={'הקורסים שלי'} />}
                 <div className="mx-10 pb-6 rounded-xl flex flex-wrap justify-center items-center md:items-stretch md:flex-nowrap md:justify-start md:overflow-x-auto p-4 scrollbar scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-400 dark:scrollbar-track-gray-800 dark:scrollbar-thumb-gray-600">
                     {renderUserCourses()}
                 </div>
