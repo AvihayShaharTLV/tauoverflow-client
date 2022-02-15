@@ -71,7 +71,13 @@ const PopupFileUploading = ({
 
   const handleFileInput = (file) => {
     if (file.size > FILE_LIMIT) {
-      alert("file uploading is limited up to 5MB");
+      setSelectedFile(null);
+      alert("file uploading is limited up to 5MB, in pdf format");
+      return;
+    }
+    if (file.type != "application/pdf") {
+      setSelectedFile(null);
+      alert("file uploading is limited to pdf format");
       return;
     }
     setSelectedFile(file);
@@ -129,7 +135,7 @@ const PopupFileUploading = ({
 
   const uploadFile = async () => {
     // make sure all fields are filled
-    if (!(year && semester && due && courseID && selectedFile && fileType)) {
+    if (!(year && semester && due && courseID && selectedFile && (fileType == 0 && grade || fileType == 1 && language ))) {
       alert("All fields must be filled");
       return;
     }
